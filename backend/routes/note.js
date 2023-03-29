@@ -1,7 +1,9 @@
 const express = require("express");
 const note = express.Router();
-const { getNotes, postNotes } = require("../controllers/notes");
+const { getNotes, postNotes, getNote } = require("../controllers/notes");
+const { catchAsync } = require("../utils/errorHandling");
 
-note.route("/notes").get(getNotes).post(postNotes);
+note.route("/").get(catchAsync(getNotes)).post(catchAsync(postNotes));
+note.route("/:document_id").get(catchAsync(getNote));
 
 module.exports = note;

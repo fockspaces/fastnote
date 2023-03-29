@@ -17,9 +17,12 @@ mongoose.connect(MONGODB_URI, {
 
 app.use(cors());
 app.use(express.json());
-app.use(errorHandler({ debug: true, log: true }));
-
-app.use("/api", note);
+app.use(
+  errorHandler({
+    accepts: "json",
+  })
+);
+app.use("/api/notes", note);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
