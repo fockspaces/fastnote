@@ -1,4 +1,5 @@
 import Document from "../models/Document.js";
+import Block from "../models/Block.js";
 
 export const getAllDocuments = async (req, res) => {
   const offset = 10;
@@ -8,6 +9,7 @@ export const getAllDocuments = async (req, res) => {
     : {};
 
   const documents = await Document.find(query)
+    .populate("blocks")
     .sort({ created_at: -1 })
     .skip(paging ? parseInt(paging) * offset : 0)
     .limit(offset);
@@ -29,6 +31,14 @@ export const getDocumentDetail = async (req, res) => {
 export const createOrUpdateDocument = async (req, res) => {
   const { document_id, title, blocks, tags, is_favorite } = req.body;
 
+  // save Blocks in schema
+  let Blocks = [];
+  for (const blockData of blocks) {
+    const block = new Block(blockData);
+    block.save();
+    Blocks.push(block._id);
+  }
+
   let document;
   // If document ID is provided, update the existing document
   if (document_id) {
@@ -41,7 +51,7 @@ export const createOrUpdateDocument = async (req, res) => {
     // modify value
     document.title = title || document.title;
     document.is_favorite = is_favorite ?? document.is_favorite;
-    document.blocks = blocks;
+    document.blocks = Blocks || [];
     document.tags = tags ?? document.tags;
 
     await document.save();
@@ -52,7 +62,7 @@ export const createOrUpdateDocument = async (req, res) => {
   document = new Document({
     title,
     is_favorite,
-    blocks,
+    blocks: Blocks || [],
     tags,
   });
   await document.save();

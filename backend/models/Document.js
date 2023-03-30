@@ -1,12 +1,11 @@
-import mongoose from "mongoose";
-import blockSchema from "./Block.js";
+import mongoose, { Schema } from "mongoose";
 
-const documentSchema = new mongoose.Schema(
+const documentSchema = new Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
     is_favorite: { type: Boolean, default: false },
-    blocks: [blockSchema],
+    blocks: [{ type: Schema.Types.ObjectId, ref: "Block" }],
     tags: [{ type: String }],
   },
   { timestamps: true }
