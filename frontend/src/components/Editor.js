@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { BlockNoteEditor, Block } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
+import GoogleOAuth from "./GoogleOAuth";
+
 import "@blocknote/core/style.css";
 
 function Editor() {
