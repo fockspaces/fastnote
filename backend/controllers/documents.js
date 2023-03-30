@@ -4,12 +4,12 @@ import Block from "../models/Block.js";
 export const getAllDocuments = async (req, res) => {
   const offset = 10;
   const { paging, tagging } = req.query;
+  const tagSelects = JSON.parse(tagging);
   const query = tagging
-    ? { tags: { $in: Array.isArray(tagging) ? tagging : [tagging] } }
+    ? { tags: { $all: Array.isArray(tagSelects) ? tagSelects : [tagSelects] } }
     : {};
 
   const documents = await Document.find(query)
-    .populate("blocks")
     .sort({ created_at: -1 })
     .skip(paging ? parseInt(paging) * offset : 0)
     .limit(offset);
@@ -30,7 +30,6 @@ export const getDocumentDetail = async (req, res) => {
 
 export const createOrUpdateDocument = async (req, res) => {
   const { document_id, title, blocks, tags, is_favorite } = req.body;
-
   // save Blocks in schema
   let Blocks = [];
   for (const blockData of blocks) {
