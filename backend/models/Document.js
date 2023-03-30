@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const blockSchema = require("./Block");
+import mongoose from "mongoose";
+import blockSchema from "./Block.js";
+
 const documentSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -12,5 +13,4 @@ const documentSchema = new mongoose.Schema(
 );
 
 const Document = mongoose.model("Document", documentSchema);
-
-module.exports = Document;
+export default Document;

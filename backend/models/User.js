@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   google_id: { type: String, required: true, unique: true },
@@ -10,6 +10,4 @@ const userSchema = new mongoose.Schema({
   modified_at: { type: Date, default: Date.now },
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+export const User = mongoose.model("User", userSchema);

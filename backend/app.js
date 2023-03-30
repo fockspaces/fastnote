@@ -1,13 +1,12 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const errorHandler = require("express-error-handler");
+import * as dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import errorHandler from "express-error-handler";
+import document from "./routes/document.js";
 
+dotenv.config();
 const app = express();
-
-const document = require("./routes/document");
-
 // connect to db
 const { MONGODB_URI } = process.env;
 mongoose.connect(MONGODB_URI, {

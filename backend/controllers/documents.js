@@ -1,6 +1,6 @@
-const Document = require("../models/Document");
+import Document from "../models/Document.js";
 
-const getAllDocuments = async (req, res) => {
+export const getAllDocuments = async (req, res) => {
   const offset = 10;
   const { paging, tagging } = req.query;
   const query = tagging
@@ -14,7 +14,7 @@ const getAllDocuments = async (req, res) => {
   return res.status(200).json({ data: documents });
 };
 
-const getDocumentDetail = async (req, res) => {
+export const getDocumentDetail = async (req, res) => {
   const { document_id } = req.params;
 
   const documents = await Document.findById(document_id).populate("blocks");
@@ -26,7 +26,7 @@ const getDocumentDetail = async (req, res) => {
   return res.json({ data: documents });
 };
 
-const createOrUpdateDocument = async (req, res) => {
+export const createOrUpdateDocument = async (req, res) => {
   const { document_id, title, blocks, tags, is_favorite } = req.body;
 
   let document;
@@ -59,5 +59,3 @@ const createOrUpdateDocument = async (req, res) => {
 
   return res.json({ data: "Document created successfully" });
 };
-
-module.exports = { getAllDocuments, getDocumentDetail, createOrUpdateDocument };

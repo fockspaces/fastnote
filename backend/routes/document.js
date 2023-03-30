@@ -1,16 +1,16 @@
-const express = require("express");
-const note = express.Router();
-const {
+import express from "express";
+import {
   getAllDocuments,
   getDocumentDetail,
   createOrUpdateDocument,
-} = require("../controllers/documents");
-const { catchAsync } = require("../utils/errorHandling");
+} from "../controllers/documents.js";
+import { catchAsync } from "../utils/errorHandling.js";
 
-note
+const document = express.Router();
+document
   .route("/")
   .get(catchAsync(getAllDocuments))
   .post(catchAsync(createOrUpdateDocument));
-note.route("/:document_id").get(catchAsync(getDocumentDetail));
+document.route("/:document_id").get(catchAsync(getDocumentDetail));
 
-module.exports = note;
+export default document;

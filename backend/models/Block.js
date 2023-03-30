@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const blockSchema = new mongoose.Schema({
   id: { type: String, required: true, index: true },
@@ -16,5 +16,4 @@ const blockSchema = new mongoose.Schema({
   children: [{ type: mongoose.Schema.Types.ObjectId, ref: "Block" }],
 });
 
-
-module.exports = blockSchema;
+export default blockSchema;
