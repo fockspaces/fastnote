@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
-const documentSchema = new Schema(
+const documentSchema = new mongoose.Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
     is_favorite: { type: Boolean, default: false },
-    blocks: [{ type: Schema.Types.ObjectId, ref: "Block" }],
+    paragraphs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Paragraph" }],
     tags: [{ type: String }],
   },
   { timestamps: true }

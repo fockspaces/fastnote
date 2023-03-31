@@ -1,5 +1,6 @@
 import Document from "../models/Document.js";
 import Block from "../models/Block.js";
+import createOrUpdateDocument from "../services/documentService.js";
 
 export const getAllDocuments = async (req, res) => {
   const offset = 10;
@@ -33,43 +34,12 @@ export const getDocumentDetail = async (req, res) => {
   return res.json({ data: documents });
 };
 
-export const createOrUpdateDocument = async (req, res) => {
-  const { document_id, title, blocks, tags, is_favorite } = req.body;
-  // save Blocks in schema
-  let Blocks = [];
-  for (const blockData of blocks) {
-    const block = new Block(blockData);
-    block.save();
-    Blocks.push(block._id);
+export const handleDocument = async (req, res) => {
+  const documentData = req.body;
+  try {
+    const document = await createOrUpdateDocument(documentData);
+    res.json({ data: "Document created or updated successfully", document });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-
-  let document;
-  // If document ID is provided, update the existing document
-  if (document_id) {
-    document = await Document.findById(document_id);
-
-    if (!document) {
-      return res.status(400).json({ error: "Invalid document ID" });
-    }
-
-    // modify value
-    document.title = title || document.title;
-    document.is_favorite = is_favorite ?? document.is_favorite;
-    document.blocks = Blocks || [];
-    document.tags = tags ?? document.tags;
-
-    await document.save();
-
-    return res.json({ data: "Document updated successfully" });
-  }
-
-  document = new Document({
-    title,
-    is_favorite,
-    blocks: Blocks || [],
-    tags,
-  });
-  await document.save();
-
-  return res.json({ data: "Document created successfully" });
 };
