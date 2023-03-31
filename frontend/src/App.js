@@ -9,6 +9,7 @@ function App() {
 
   const handleLogin = (access_token) => {
     const decode = jwt_decode(access_token);
+    console.log(decode);
     const { email, name, picture } = decode;
     setUser({ name, email, picture });
     localStorage.setItem("access_token", access_token);

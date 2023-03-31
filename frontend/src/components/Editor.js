@@ -5,13 +5,16 @@ import GoogleOAuth from "./GoogleOAuth";
 
 import "@blocknote/core/style.css";
 
+// fetch data
+const data = JSON.parse(localStorage.getItem("blocks"));
+
 function Editor() {
-  const [blocks, setBlocks] = useState([]);
+  const [blocks, setBlocks] = useState(data);
   const [title, setTitle] = useState("123");
   const [tags, setTags] = useState([1, 2, 3]);
 
   const editor = useBlockNote({
-    initialContent: blocks.length > 0 ? blocks : undefined,
+    initialContent: blocks,
     onEditorContentChange: (editor) => {
       setBlocks(editor.topLevelBlocks);
       localStorage.setItem("blocks", JSON.stringify(editor.topLevelBlocks));
@@ -29,10 +32,12 @@ function Editor() {
   const handleSubmit = async () => {
     try {
       console.log({ title, tags, blocks });
+      const access_token = localStorage.getItem("access_token");
       const response = await fetch("http://127.0.0.1:8000/api/documents", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`, 
         },
         body: JSON.stringify({
           title: title,
