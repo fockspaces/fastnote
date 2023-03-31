@@ -4,10 +4,15 @@ import Block from "../models/Block.js";
 export const getAllDocuments = async (req, res) => {
   const offset = 10;
   const { paging, tagging } = req.query;
-  const tagSelects = JSON.parse(tagging);
-  const query = tagging
-    ? { tags: { $all: Array.isArray(tagSelects) ? tagSelects : [tagSelects] } }
-    : {};
+  let query = {};
+  if (tagging) {
+    const tagSelects = JSON.parse(tagging);
+    query = {
+      tags: {
+        $all: Array.isArray(tagSelects) ? tagSelects : [tagSelects],
+      },
+    };
+  }
 
   const documents = await Document.find(query)
     .sort({ created_at: -1 })

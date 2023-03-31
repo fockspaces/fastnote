@@ -5,9 +5,6 @@ import cors from "cors";
 import errorHandler from "express-error-handler";
 import document from "./routes/document.js";
 
-import passport from "passport";
-import cookieSession from "cookie-session";
-
 dotenv.config();
 const app = express();
 // connect to db
