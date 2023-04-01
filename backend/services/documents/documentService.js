@@ -7,9 +7,9 @@ import {
   createPara,
   insertPara,
   updatePara,
-} from "./utils/documentUtils.js";
-import { queryDocument } from "./utils/documentUtils.js";
-import { DOC_PAGE_OFFSET } from "../configs/Configs.js";
+} from "./documentUtils.js";
+import { queryDocument } from "./documentUtils.js";
+import { DOC_PAGE_OFFSET } from "../../configs/Configs.js";
 
 export const saveDoc = async (data) => {
   const {
