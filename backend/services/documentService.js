@@ -23,6 +23,7 @@ const saveDoc = async (data) => {
     is_favorite = false,
     blocks,
     paragraph_id,
+    paragraph_title,
   } = data;
   const userId = await fetchUser(user);
   // setup document
@@ -36,7 +37,7 @@ const saveDoc = async (data) => {
   }
   // setup paragraphs
   const blockIds = await createBlocks(blocks);
-  const para_id = await createPara(blockIds);
+  const para_id = await createPara(blockIds, paragraph_title);
   const newParagraphs = paragraph_id
     ? updatePara(document, paragraph_id, para_id)
     : insertPara(document, para_id);
