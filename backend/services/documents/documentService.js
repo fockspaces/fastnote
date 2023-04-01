@@ -3,8 +3,6 @@ import {
   fetchUser,
   createDoc,
   findDoc,
-  createBlocks,
-  createPara,
   insertPara,
   updatePara,
 } from "./documentUtils.js";
