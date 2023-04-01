@@ -2,6 +2,8 @@ import Document from "../models/Document.js";
 import Block from "../models/Block.js";
 import createOrUpdateDocument from "../services/documentService.js";
 
+import saveDoc from "../services/documentService.js";
+
 export const getAllDocuments = async (req, res) => {
   const offset = 10;
   const { paging, tagging } = req.query;
@@ -36,8 +38,9 @@ export const getDocumentDetail = async (req, res) => {
 
 export const handleDocument = async (req, res) => {
   const documentData = req.body;
+  const user = req.user;
   try {
-    const document = await createOrUpdateDocument(documentData);
+    const document = await saveDoc({ ...documentData, user });
     res.json({ data: "Document created or updated successfully", document });
   } catch (error) {
     res.status(400).json({ error: error.message });

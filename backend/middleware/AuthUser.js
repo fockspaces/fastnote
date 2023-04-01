@@ -5,15 +5,15 @@ const AuthUser = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization)
     return res.status(400).json({ error: "please provide access_token" });
-  const token = authorization.split(" ")[1]; // Extract the token from the authorization header
-  const clientId = process.env.GOOGLE_CLIENT_ID; // Replace with your actual client ID
+  const token = authorization.split(" ")[1];
+  const clientId = process.env.GOOGLE_CLIENT_ID;
 
   try {
-    const userId = await TokenIsFromGoogle(token, clientId);
-    req.userId = userId; // Add the user ID to the request object
-    next(); // Call the next middleware or route handler
+    const user = await TokenIsFromGoogle(token, clientId);
+    req.user = user;
+    next();
   } catch (error) {
-    res.status(401).json({ error: "Invalid token" }); // Return a 401 Unauthorized response
+    res.status(401).json({ error: "Invalid token" });
   }
 };
 
@@ -28,9 +28,11 @@ const TokenIsFromGoogle = async (token, clientId) => {
     aud: tokenAudience,
     exp: tokenExpiration,
     sub: userId,
+    email,
+    name,
   } = ticket.getPayload();
 
-  //   console.log(ticket.getPayload());
+  // console.log(ticket.getPayload());
 
   // Check that the token was issued by Google
   if (
@@ -52,7 +54,7 @@ const TokenIsFromGoogle = async (token, clientId) => {
   }
 
   // Return the user ID from the token claims
-  return userId;
+  return { userId, email, name };
 };
 
 export default AuthUser;
