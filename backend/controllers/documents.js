@@ -1,39 +1,32 @@
 import Document from "../models/Document.js";
-import Block from "../models/Block.js";
-import createOrUpdateDocument from "../services/documentService.js";
-
-import saveDoc from "../services/documentService.js";
+import { saveDoc, findDocs } from "../services/documentService.js";
+import { findDocById } from "../services/utils/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
-  const offset = 10;
-  const { paging, tagging } = req.query;
-  let query = {};
-  if (tagging) {
-    const tagSelects = JSON.parse(tagging);
-    query = {
-      tags: {
-        $all: Array.isArray(tagSelects) ? tagSelects : [tagSelects],
-      },
-    };
-  }
+  let { paging, tagging } = req.query;
+  // formatted the parameters
+  paging = paging ? parseInt(paging) : 0;
+  tagging = tagging ? JSON.parse(tagging) : [];
 
-  const documents = await Document.find(query)
-    .sort({ created_at: -1 })
-    .skip(paging ? parseInt(paging) * offset : 0)
-    .limit(offset);
+  // validation
+  if (!Number.isInteger(paging) || paging < 0)
+    return res.status(400).json({ error: "please provide a valid paging" });
+
+  // find documents
+  const documents = await findDocs(paging, tagging);
+
   return res.status(200).json({ data: documents });
 };
 
 export const getDocumentDetail = async (req, res) => {
   const { document_id } = req.params;
 
-  const documents = await Document.findById(document_id).populate("blocks");
-
-  if (!documents) {
+  const document = await findDocById(document_id);
+  if (!document) {
     return res.status(404).json({ error: "Document not found" });
   }
 
-  return res.json({ data: documents });
+  return res.status(200).json({ data: document });
 };
 
 export const handleDocument = async (req, res) => {

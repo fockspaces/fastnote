@@ -65,29 +65,52 @@ export const insertPara = (document, paragraph_id) => {
 // @desc replace the old paragraph with new one for the document
 // @params document <Object>, para_target <Object_id>, para_new <Object_id>
 // @return newParagraph <Object>
-export const updatePara = (document, para_target, para_new) => {
+export const updatePara = async (document, para_target, para_new) => {
+  const updatedParagraph = await Paragraph.findByIdAndUpdate(
+    para_target,
+    para_new,
+    { new: true } // returns the updated document
+  );
+  console.log(para_target, para_new);
   const newParagraphs = document.paragraphs.map((paragraph) => {
-    if (paragraph === para_target) pargraph = para_new;
+    if (paragraph._id.equals(para_target)) {
+      return updatedParagraph;
+    }
     return paragraph;
   });
+
   return newParagraphs;
 };
 
 // @desc: update tags and is_favorite in document
-// @params: document <Object>, tags <array of strings>,
-// is_favorite <boolean>, paragraphs <Object (default : empty array)>
+// @params: document <Object>, updateData <Object>
 // @return: newDocument <Object>
-export const updateDoc = (document, tags, is_favorite, paragraphs = []) => {
-  // update paragraphs if any
-  const newParagraphs =
-    paragraphs.length > 0 ? paragraphs : document.paragraphs;
+export const updateDoc = async (document, updateData) => {
   // todo : auto-generate the new tags
-  const updatedDoc = {
-    tags,
-    is_favorite,
-    paragraphs: newParagraphs,
-  };
-  const newDocument = { ...document.toObject(), ...updatedDoc };
-  console.log(newDocument);
+  const newDocument = await Document.findByIdAndUpdate(
+    document._id,
+    updateData,
+    {
+      new: true,
+    }
+  );
   return newDocument;
+};
+
+export const queryDocument = async (
+  query,
+  paging,
+  offset,
+  sorting = { created_at: -1 }
+) => {
+  const documents = await Document.find(query)
+    .sort(sorting)
+    .skip(paging ? parseInt(paging) * offset : 0)
+    .limit(offset);
+  return documents;
+};
+
+export const findDocById = async (document_id) => {
+  const document = await Document.findById(document_id).populate("paragraphs");
+  return document;
 };

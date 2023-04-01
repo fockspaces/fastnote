@@ -1,8 +1,3 @@
-import Document from "../models/Document.js";
-import Block from "../models/Block.js";
-import Paragraph from "../models/Paragraph.js";
-import User from "../models/User.js";
-
 import {
   updateDoc,
   fetchUser,
@@ -13,8 +8,10 @@ import {
   insertPara,
   updatePara,
 } from "./utils/documentUtils.js";
+import { queryDocument } from "./utils/documentUtils.js";
+import { DOC_PAGE_OFFSET } from "../configs/Configs.js";
 
-const saveDoc = async (data) => {
+export const saveDoc = async (data) => {
   const {
     user,
     title,
@@ -33,16 +30,38 @@ const saveDoc = async (data) => {
 
   // update directly
   if (!blocks) {
-    return updateDoc(document, tags, is_favorite);
+    const newDocument = updateDoc(document, {
+      tags,
+      is_favorite,
+      title,
+    });
+    return newDocument;
   }
   // setup paragraphs
   const blockIds = await createBlocks(blocks);
   const para_id = await createPara(blockIds, paragraph_title);
+
   const newParagraphs = paragraph_id
-    ? updatePara(document, paragraph_id, para_id)
+    ? await updatePara(document, paragraph_id, para_id)
     : insertPara(document, para_id);
   // update document
-  return updateDoc(document, tags, is_favorite, newParagraphs);
+  const newDocument = updateDoc(document, {
+    tags,
+    is_favorite,
+    title,
+    paragraphs: newParagraphs,
+  });
+  return newDocument;
 };
 
-export default saveDoc;
+export const findDocs = async (paging, tagging) => {
+  const query = tagging.length
+    ? {
+        tags: {
+          $all: tagging,
+        },
+      }
+    : {};
+  const documents = queryDocument(query, paging, DOC_PAGE_OFFSET);
+  return documents;
+};
