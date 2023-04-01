@@ -38,8 +38,8 @@ export const saveDoc = async (data) => {
     return newDocument;
   }
   // setup paragraphs
-  const blockIds = await createBlocks(blocks);
-  const para_id = await createPara(blockIds, paragraph_title);
+  //   const blockIds = await createBlocks(blocks);
+  const para_id = await createPara(paragraph_title, blocks);
 
   const newParagraphs = paragraph_id
     ? await updatePara(document, paragraph_id, para_id)

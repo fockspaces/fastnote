@@ -29,9 +29,9 @@ export const createBlocks = async (blocks) => {
 };
 
 // @desc: save blocks_id into a new paragraph
-// @params: blockIds <Array of Object_id>
+// @params: title <String>, blocks <Array of Objects>
 // @return: paragraph_id <Object_id>
-export const createPara = async (blocks, title) => {
+export const createPara = async (title, blocks) => {
   const paragraph = new Paragraph({ title, blocks });
   await paragraph.save();
   return paragraph._id;
