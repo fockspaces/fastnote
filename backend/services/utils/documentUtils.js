@@ -55,31 +55,29 @@ export const findDoc = async (document_id) => {
 };
 
 // @desc append new paragraph for the document
-// @params document <Object>, paragraph_id <Object_id>
-// @return newParagraph <Object>
-export const insertPara = (document, paragraph_id) => {
-  const newParagraphs = [...document.paragraphs, paragraph_id];
+// @params document <Object>, title <String>, blocks <Array of Objects>
+// @return newParagraphs <Array of Object>
+export const insertPara = async (document, title, blocks) => {
+  const newParagraph_id = await createPara(title, blocks);
+  const newParagraphs = [...document.paragraphs, newParagraph_id];
+  document.paragraphs.push(newParagraph_id);
+  await document.save();
   return newParagraphs;
 };
 
-// @desc replace the old paragraph with new one for the document
-// @params document <Object>, para_target <Object_id>, para_new <Object_id>
-// @return newParagraph <Object>
-export const updatePara = async (document, para_target, para_new) => {
+// @desc replace the blocks in the paragraph by para_id
+// @params document <Object>, para_id <Object_id>, blocks <Object>
+// @return newParagraphs <Array of Object>
+export const updatePara = async (document, para_id, updateData) => {
   const updatedParagraph = await Paragraph.findByIdAndUpdate(
-    para_target,
-    para_new,
+    para_id,
+    updateData,
     { new: true } // returns the updated document
   );
-  console.log(para_target, para_new);
-  const newParagraphs = document.paragraphs.map((paragraph) => {
-    if (paragraph._id.equals(para_target)) {
-      return updatedParagraph;
-    }
-    return paragraph;
-  });
 
-  return newParagraphs;
+  return document.paragraphs.map((paragraph) => {
+    return paragraph._id.equals(para_id) ? updatedParagraph : paragraph;
+  });
 };
 
 // @desc: update tags and is_favorite in document

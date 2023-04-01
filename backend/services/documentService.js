@@ -28,7 +28,7 @@ export const saveDoc = async (data) => {
     ? await findDoc(document_id)
     : await createDoc(userId, title);
 
-  // update directly
+  // update staightly
   if (!blocks) {
     const newDocument = updateDoc(document, {
       tags,
@@ -37,21 +37,34 @@ export const saveDoc = async (data) => {
     });
     return newDocument;
   }
-  // setup paragraphs
-  //   const blockIds = await createBlocks(blocks);
-  const para_id = await createPara(paragraph_title, blocks);
+  // get the info of new documents
+  let newParagraphs;
+  newParagraphs = paragraph_id
+    ? await updatePara(document, paragraph_id, {
+        blocks,
+        title: paragraph_title,
+      })
+    : await insertPara(document, paragraph_title, blocks);
 
-  const newParagraphs = paragraph_id
-    ? await updatePara(document, paragraph_id, para_id)
-    : insertPara(document, para_id);
   // update document
-  const newDocument = updateDoc(document, {
+  const newDocument = await updateDoc(document, {
     tags,
     is_favorite,
     title,
-    paragraphs: newParagraphs,
   });
-  return newDocument;
+
+  // prepare response data
+  const responseData = {
+    user: newDocument.user,
+    title: newDocument.title,
+    is_favorite: newDocument.is_favorite,
+    tags: newDocument.tags,
+    paragraphs: newParagraphs,
+    createdAt: newDocument.createdAt,
+    updatedAt: newDocument.updatedAt,
+  };
+
+  return responseData;
 };
 
 export const findDocs = async (paging, tagging) => {
