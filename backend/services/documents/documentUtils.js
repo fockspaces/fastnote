@@ -26,8 +26,8 @@ export const createPara = async (title, blocks) => {
 // @desc: create a new document with the user and title
 // @params: user_id <Object_id>, title <String>
 // @return: document <Object>
-export const createDoc = async (user_id, title) => {
-  const document = new Document({ user: user_id, title });
+export const createDoc = async (userId, title) => {
+  const document = new Document({ user: userId, title });
   await document.save();
   return document;
 };
@@ -90,7 +90,8 @@ export const queryDocument = async (
   const documents = await Document.find(query)
     .sort(sorting)
     .skip(paging ? parseInt(paging) * offset : 0)
-    .limit(offset);
+    .limit(offset)
+    .populate("user", "name email picture");
   return documents;
 };
 
