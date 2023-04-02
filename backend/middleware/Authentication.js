@@ -30,6 +30,7 @@ const TokenIsFromGoogle = async (token, clientId) => {
     sub: userId,
     email,
     name,
+    picture,
   } = ticket.getPayload();
 
   // console.log(ticket.getPayload());
@@ -54,5 +55,5 @@ const TokenIsFromGoogle = async (token, clientId) => {
   }
 
   // Return the user ID from the token claims
-  return { userId, email, name };
+  return { userId, email, name, picture };
 };
