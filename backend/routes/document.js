@@ -4,14 +4,21 @@ import {
   getAllDocuments,
   getDocumentDetail,
   handleDocument,
+  deleteDocument,
 } from "../controllers/documents.js";
 import { catchAsync } from "../utils/errorHandling.js";
 
 const document = express.Router();
+
+document.use(verifyUser);
 document
   .route("/")
-  .get(verifyUser, catchAsync(getAllDocuments))
-  .post(verifyUser, catchAsync(handleDocument));
-document.route("/:document_id").get(verifyUser, catchAsync(getDocumentDetail));
+  .get(catchAsync(getAllDocuments))
+  .post(catchAsync(handleDocument));
+
+document
+  .route("/:document_id")
+  .get(catchAsync(getDocumentDetail))
+  .delete(catchAsync(deleteDocument));
 
 export default document;

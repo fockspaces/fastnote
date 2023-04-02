@@ -39,3 +39,7 @@ export const handleDocument = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const deleteDocument = async (req, res) => {
+  
+};

@@ -76,3 +76,11 @@ export const findDocs = async (paging, tagging) => {
   const documents = queryDocument(query, paging, DOC_PAGE_OFFSET);
   return documents;
 };
+
+export const deleteDoc = async (id) => {
+  // find Document by id
+
+  // delete all paragraphs in the document
+
+  
+};
