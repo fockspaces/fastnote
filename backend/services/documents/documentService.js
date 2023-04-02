@@ -10,6 +10,7 @@ import { queryDocument } from "./documentUtils.js";
 import { DOC_PAGE_OFFSET } from "../../configs/Configs.js";
 
 export const saveDoc = async (data) => {
+  console.log('saveDoc', data);
   const {
     user,
     title,

@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyGoogle } from "../middleware/Authentication.js";
+import { verifyUser } from "../middleware/Authentication.js";
 import {
   getAllDocuments,
   getDocumentDetail,
@@ -10,10 +10,8 @@ import { catchAsync } from "../utils/errorHandling.js";
 const document = express.Router();
 document
   .route("/")
-  .get(verifyGoogle, catchAsync(getAllDocuments))
-  .post(verifyGoogle, catchAsync(handleDocument));
-document
-  .route("/:document_id")
-  .get(verifyGoogle, catchAsync(getDocumentDetail));
+  .get(verifyUser, catchAsync(getAllDocuments))
+  .post(verifyUser, catchAsync(handleDocument));
+document.route("/:document_id").get(verifyUser, catchAsync(getDocumentDetail));
 
 export default document;

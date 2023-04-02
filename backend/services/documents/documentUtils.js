@@ -1,4 +1,3 @@
-import Block from "../../models/Block.js";
 import Paragraph from "../../models/Paragraph.js";
 import Document from "../../models/Document.js";
 import User from "../../models/User.js";
@@ -13,19 +12,6 @@ export const fetchUser = async (user) => {
     await getUser.save();
   }
   return getUser._id;
-};
-
-// @desc: save blocks into block schema
-// @params: blocks <Array of objects>
-// @return: blockIds <Array of Object_id>
-export const createBlocks = async (blocks) => {
-  let blockIds = [];
-  for (const blockData of blocks) {
-    const block = new Block(blockData);
-    await block.save();
-    blockIds.push(block._id);
-  }
-  return blockIds;
 };
 
 // @desc: save blocks_id into a new paragraph

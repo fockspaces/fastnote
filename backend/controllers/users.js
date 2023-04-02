@@ -1,4 +1,4 @@
-import { verify, sign } from "../utils/jwt.js";
+import { sign } from "../utils/jwt.js";
 import { JWT_options } from "../configs/Configs.js";
 
 export const getAccessToken = async (req, res) => {

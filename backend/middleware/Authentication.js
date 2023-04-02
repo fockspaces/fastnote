@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 const { OAuth2 } = google.auth;
+import { verify } from "../utils/jwt.js";
 
 export const verifyGoogle = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -56,4 +57,24 @@ const TokenIsFromGoogle = async (token, clientId) => {
 
   // Return the user ID from the token claims
   return { userId, email, name, picture };
+};
+
+export const verifyUser = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization)
+    return res.status(400).json({ error: "please provide access_token" });
+  const token = authorization.split(" ")[1];
+
+  try {
+    // Verify the token
+    const user = verify(token);
+
+    // Attach user object to the request for further use
+    req.user = user;
+
+    // Call the next middleware
+    next();
+  } catch (err) {
+    res.status(401).json({ message: "Authorization denied, invalid token" });
+  }
 };
