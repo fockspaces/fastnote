@@ -5,6 +5,8 @@ import {
   findDoc,
   insertPara,
   updatePara,
+  deleteDocumentById,
+  deleteParagraphs,
 } from "./documentUtils.js";
 import { queryDocument } from "./documentUtils.js";
 import { DOC_PAGE_OFFSET } from "../../configs/Configs.js";
@@ -77,10 +79,20 @@ export const findDocs = async (paging, tagging) => {
   return documents;
 };
 
-export const deleteDoc = async (id) => {
-  // find Document by id
+export const deleteDoc = async (document_id, user) => {
+  // find Document by document_id
+  const document = await findDoc(document_id);
+  if (!document) return { error: "document not found", err_code: 404 };
+
+  // check ownership
+  const getUser = await fetchUser(user);
+  if (!document.user.equals(getUser) && !user.is_admin)
+    return { error: "not authorized", err_code: 403 };
 
   // delete all paragraphs in the document
-
-  
+  await deleteParagraphs(document);
+  // delete document
+  await deleteDocumentById(document_id);
+  // return deleted document
+  return document;
 };

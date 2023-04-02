@@ -81,6 +81,9 @@ export const updateDoc = async (document, updateData) => {
   return newDocument;
 };
 
+// @desc query the documnet
+// @params query <Object>, configs <Object>
+// @return documents <Array of Objects>
 export const queryDocument = async (
   query,
   paging,
@@ -95,7 +98,28 @@ export const queryDocument = async (
   return documents;
 };
 
+// @desc fetch document by its id
+// @params document_id <String>
+// @return document <Object>
 export const findDocById = async (document_id) => {
   const document = await Document.findById(document_id).populate("paragraphs");
+  return document;
+};
+
+// @desc delete all paragraphs in the documnet
+// @params doucment <Object>
+// @return paragraphs <Array of Objects>
+export const deleteParagraphs = async (document) => {
+  for (const paragraph_id of document.paragraphs) {
+    await Paragraph.findByIdAndDelete(paragraph_id);
+  }
+  return document.paragraphs;
+};
+
+// @desc delete document by its id
+// @params document_id <String>
+// @return document <Object>
+export const deleteDocumentById = async (document_id) => {
+  const document = await Document.findByIdAndDelete(document_id);
   return document;
 };

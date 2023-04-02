@@ -1,5 +1,9 @@
 import Document from "../models/Document.js";
-import { saveDoc, findDocs } from "../services/documents/documentService.js";
+import {
+  saveDoc,
+  findDocs,
+  deleteDoc,
+} from "../services/documents/documentService.js";
 import { findDocById } from "../services/documents/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
@@ -41,5 +45,13 @@ export const handleDocument = async (req, res) => {
 };
 
 export const deleteDocument = async (req, res) => {
+  const user = req.user;
+  const { document_id } = req.params;
+  const document = await deleteDoc(document_id, user);
+  if (document.error)
   
+    return res.status(document.err_code).json({ error: document.error });
+  return res
+    .status(200)
+    .json({ message: "successfully delete document", document });
 };
