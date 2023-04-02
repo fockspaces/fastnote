@@ -1,6 +1,6 @@
 import Document from "../models/Document.js";
-import { saveDoc, findDocs } from "../services/documentService.js";
-import { findDocById } from "../services/utils/documentUtils.js";
+import { saveDoc, findDocs } from "../services/documents/documentService.js";
+import { findDocById } from "../services/documents/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
   let { paging, tagging } = req.query;

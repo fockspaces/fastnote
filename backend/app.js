@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import errorHandler from "express-error-handler";
 import document from "./routes/document.js";
+import user from "./routes/user.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/documents", document);
+app.use("/api/users", user);
+
 
 // error hanlding
 app.use(

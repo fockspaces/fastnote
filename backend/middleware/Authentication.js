@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 const { OAuth2 } = google.auth;
 
-const AuthUser = async (req, res, next) => {
+export const verifyGoogle = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization)
     return res.status(400).json({ error: "please provide access_token" });
@@ -56,5 +56,3 @@ const TokenIsFromGoogle = async (token, clientId) => {
   // Return the user ID from the token claims
   return { userId, email, name };
 };
-
-export default AuthUser;

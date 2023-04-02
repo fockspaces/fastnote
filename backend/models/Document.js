@@ -5,6 +5,7 @@ const documentSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
     is_favorite: { type: Boolean, default: false },
+    is_published: { type: Boolean, default: false },
     paragraphs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Paragraph" }],
     tags: [{ type: String }],
   },
