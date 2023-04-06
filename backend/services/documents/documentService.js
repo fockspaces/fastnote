@@ -9,7 +9,7 @@ import {
   deleteParagraphs,
 } from "./documentUtils.js";
 import { queryDocument } from "./documentUtils.js";
-import { DOC_PAGE_OFFSET } from "../../configs/Configs.js";
+import { PAGE_LIMIT } from "../../configs/Configs.js";
 
 export const saveDoc = async (data) => {
   const {
