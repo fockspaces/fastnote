@@ -1,9 +1,12 @@
-import Editor from "./components/Editor";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleOAuth from "./components/GoogleOAuth";
 import { useState, useEffect } from "react";
 import { login } from "./utils/login";
 import jwt_decode from "jwt-decode";
+import Tiptap from "./components/Editor/Tiptap";
+import Editor from "./components/Editor/Editor";
+
+import "./app.css";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,8 +35,8 @@ function App() {
       ) : (
         <GoogleOAuth handleLogin={handleLogin} />
       )}
-      <div className="App">
-        <Editor />
+      <div className="Editor-container">
+        <Tiptap />
       </div>
     </GoogleOAuthProvider>
   );
