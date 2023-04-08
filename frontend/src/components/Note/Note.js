@@ -11,12 +11,14 @@ function Note({ selectedNote }) {
   return (
     <div className="note">
       <h2>{selectedNote.title}</h2>
-      <Tiptap content={content} setContent={setContent} />
       <ul>
         {selectedNote.tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
+      <div className="container">
+        <Tiptap content={content} setContent={setContent} />
+      </div>
     </div>
   );
 }

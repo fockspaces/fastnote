@@ -1,4 +1,8 @@
-.sidebar {
+.list {
+  .text-search {
+    margin-bottom: 30px;
+  }
+
   h2 {
     margin-bottom: 15px;
     font-size: 20px;
@@ -8,23 +12,22 @@
   .note-list {
     margin-bottom: 20px;
 
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
     li {
       cursor: pointer;
       padding: 10px;
       border-radius: 5px;
       margin-bottom: 10px;
       transition: background-color 0.2s ease-in-out;
+      width: 100%; /* make li full-width */
 
       &:hover {
         background-color: #ebebeb;
       }
-    }
-  }
-
-  .note-form {
-    input,
-    button {
-      margin-bottom: 10px;
     }
   }
 }

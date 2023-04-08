@@ -12,6 +12,7 @@ const NoteForm = ({ onSubmit }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
+    <h2>Notes</h2>
       <Form.Group controlId="noteFormTitle">
         <Form.Label>Title</Form.Label>
         <Form.Control

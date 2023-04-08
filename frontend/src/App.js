@@ -1,14 +1,14 @@
-import './styles/app.scss'
+import "./styles/app.scss";
 import React, { useState } from "react";
-import Sidebar from "./components/Sidebar/Sidebar";
 import Note from "./components/Note/Note";
+import List from "./containers/List";
 
 function App() {
   const [selectedNote, setSelectedNote] = useState(null);
 
   return (
     <div className="App">
-      <Sidebar setSelectedNote={setSelectedNote} />
+      <List setSelectedNote={setSelectedNote} />
       <Note selectedNote={selectedNote} />
     </div>
   );
