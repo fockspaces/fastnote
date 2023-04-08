@@ -1,0 +1,15 @@
+.App {
+  display: flex;
+  height: 100vh;
+
+  .sidebar {
+    width: 300px;
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+
+  .note {
+    flex: 1;
+    padding: 20px;
+  }
+}

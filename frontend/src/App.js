@@ -1,44 +1,16 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import GoogleOAuth from "./components/GoogleOAuth";
-import { useState, useEffect } from "react";
-import { login } from "./utils/login";
-import jwt_decode from "jwt-decode";
-import Tiptap from "./components/Editor/Tiptap";
-import Editor from "./components/Editor/Editor";
-
-import "./app.css";
+import './styles/app.scss'
+import React, { useState } from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Note from "./components/Note/Note";
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = async (access_token) => {
-    await login(access_token);
-  };
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    if (access_token) {
-      // decode token and store in user state
-      const { userId, email, name, picture } = jwt_decode(access_token);
-      setUser({ userId, email, name, picture });
-    }
-  }, []);
+  const [selectedNote, setSelectedNote] = useState(null);
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT}>
-      {user ? (
-        <div>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-          <img src={user.picture} alt={user.name} />
-        </div>
-      ) : (
-        <GoogleOAuth handleLogin={handleLogin} />
-      )}
-      <div className="Editor-container">
-        <Tiptap />
-      </div>
-    </GoogleOAuthProvider>
+    <div className="App">
+      <Sidebar setSelectedNote={setSelectedNote} />
+      <Note selectedNote={selectedNote} />
+    </div>
   );
 }
 

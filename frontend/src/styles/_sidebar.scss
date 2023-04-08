@@ -1,0 +1,30 @@
+.sidebar {
+  h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .note-list {
+    margin-bottom: 20px;
+
+    li {
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #ebebeb;
+      }
+    }
+  }
+
+  .note-form {
+    input,
+    button {
+      margin-bottom: 10px;
+    }
+  }
+}
