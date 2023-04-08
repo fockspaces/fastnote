@@ -8,7 +8,9 @@ import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 
 import { Floating, Bubble } from "./Menu";
+import { CustomDocument } from "./extensions/Document";
 import { CustomParagraph } from "./extensions/indent";
+import { CustomPlacehoder } from "./extensions/Placeholder";
 
 const Tiptap = ({ content, setContent }) => {
   const updateHandler = () => {
@@ -18,10 +20,12 @@ const Tiptap = ({ content, setContent }) => {
 
   const editor = useEditor({
     extensions: [
+      StarterKit.configure({ paragraph: false, document: false }),
       Color.configure({ types: [TextStyle.name, ListItem.name] }),
       TextStyle.configure({ types: [ListItem.name] }),
-      StarterKit,
+      CustomDocument,
       CustomParagraph,
+      CustomPlacehoder,
     ],
     onUpdate: updateHandler,
     content,
