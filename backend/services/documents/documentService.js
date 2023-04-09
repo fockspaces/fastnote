@@ -18,7 +18,7 @@ export const saveDoc = async (data) => {
     document_id,
     tags,
     is_favorite = false,
-    blocks,
+    content,
     paragraph_id,
     paragraph_title,
   } = data;
@@ -29,7 +29,7 @@ export const saveDoc = async (data) => {
     : await createDoc(userId, title);
 
   // update staightly
-  if (!blocks) {
+  if (!content) {
     const newDocument = updateDoc(document, {
       tags,
       is_favorite,
@@ -41,10 +41,10 @@ export const saveDoc = async (data) => {
   let newParagraphs;
   newParagraphs = paragraph_id
     ? await updatePara(document, paragraph_id, {
-        blocks,
+        content,
         title: paragraph_title,
       })
-    : await insertPara(document, paragraph_title, blocks);
+    : await insertPara(document, paragraph_title, content);
 
   // update document
   const newDocument = await updateDoc(document, {

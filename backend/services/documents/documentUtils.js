@@ -15,10 +15,10 @@ export const fetchUser = async (user) => {
 };
 
 // @desc: save blocks_id into a new paragraph
-// @params: title <String>, blocks <Array of Objects>
+// @params: title <String>, content <HTML string>
 // @return: paragraph_id <Object_id>
-export const createPara = async (title, blocks) => {
-  const paragraph = new Paragraph({ title, blocks });
+export const createPara = async (title, content) => {
+  const paragraph = new Paragraph({ title, content });
   await paragraph.save();
   return paragraph._id;
 };
@@ -41,10 +41,10 @@ export const findDoc = async (document_id) => {
 };
 
 // @desc append new paragraph for the document
-// @params document <Object>, title <String>, blocks <Array of Objects>
+// @params document <Object>, title <String>, content <HTML>
 // @return newParagraphs <Array of Object>
-export const insertPara = async (document, title, blocks) => {
-  const newParagraph_id = await createPara(title, blocks);
+export const insertPara = async (document, title, content) => {
+  const newParagraph_id = await createPara(title, content);
   const newParagraphs = [...document.paragraphs, newParagraph_id];
   document.paragraphs.push(newParagraph_id);
   await document.save();
@@ -52,7 +52,7 @@ export const insertPara = async (document, title, blocks) => {
 };
 
 // @desc replace the blocks in the paragraph by para_id
-// @params document <Object>, para_id <Object_id>, blocks <Object>
+// @params document <Object>, para_id <Object_id>, content <HTML>
 // @return newParagraphs <Array of Object>
 export const updatePara = async (document, para_id, updateData) => {
   const updatedParagraph = await Paragraph.findByIdAndUpdate(
