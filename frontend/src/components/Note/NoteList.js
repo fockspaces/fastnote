@@ -4,8 +4,8 @@ function NoteList({ setSelectedNote, notes }) {
   return (
     <div className="note-list">
       <ul>
-        {notes.map((note) => (
-          <li key={note._id} onClick={() => setSelectedNote(note)}>
+        {notes.map((note, idx) => (
+          <li key={idx} onClick={() => setSelectedNote(note)}>
             {note.title}
           </li>
         ))}

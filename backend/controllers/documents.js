@@ -38,7 +38,7 @@ export const updateDocument = async (req, res) => {
   const { document } = req.body;
   const user = await fetchUser(req.user);
   // auth the user
-  if (!user._id.equals(document.user._id))
+  if (!user._id.equals(document.user))
     return res.status(403).json({ error: "forbidden (not the owner)" });
 
   try {

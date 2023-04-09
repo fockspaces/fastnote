@@ -8,9 +8,13 @@ const EditPage = ({ document }) => {
   const [currentDoc, setCurrentDoc] = useState(document);
   const [selectedNote, setSelectedNote] = useState({ content: null });
 
+  useEffect(() => {
+    setCurrentDoc(document);
+  }, [document]);
+
   // update document
   const updateSelectedNote = (content) => {
-    if (!content) return;
+    if (!content || !currentDoc.paragraphs.length) return;
     const newNote = updateNote(selectedNote, content);
     const updatedParagraphs = currentDoc.paragraphs.map((paragraph) => {
       return paragraph._id === selectedNote._id ? newNote : paragraph;
@@ -26,7 +30,7 @@ const EditPage = ({ document }) => {
     const saveCurrentDoc = async () => {
       try {
         console.log("document has been saved!", currentDoc);
-        // await saveDocument(currentDoc); // call your API function to save the document
+        await saveDocument(currentDoc);
       } catch (error) {
         console.error(error);
       }
