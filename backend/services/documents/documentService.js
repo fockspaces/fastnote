@@ -28,7 +28,7 @@ export const saveDoc = async (data) => {
     ? await findDoc(document_id)
     : await createDoc(userId, title);
 
-  // update staightly
+  // update straightly
   if (!content) {
     const newDocument = updateDoc(document, {
       tags,
@@ -96,3 +96,4 @@ export const deleteDoc = async (document_id, user) => {
   // return deleted document
   return document;
 };
+

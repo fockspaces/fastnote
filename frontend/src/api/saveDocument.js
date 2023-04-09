@@ -1,6 +1,9 @@
-export const saveDocument = async (title, tags = [], content) => {
+export const saveDocument = async (document, is_new) => {
   try {
-    console.log({ title, tags, content });
+    let { title, tags = [], content } = document;
+    if (!tags.length || is_new) {
+      tags = await generateTags(document);
+    }
     const access_token = localStorage.getItem("access_token");
     const response = await fetch("http://127.0.0.1:8000/api/documents", {
       method: "POST",
@@ -9,9 +12,10 @@ export const saveDocument = async (title, tags = [], content) => {
         Authorization: `Bearer ${access_token}`,
       },
       body: JSON.stringify({
-        title,
-        tags: tags,
-        contnet,
+        document_id: document._id,
+        paragraph_title: title,
+        tags,
+        content,
       }),
     });
 
@@ -27,4 +31,6 @@ export const saveDocument = async (title, tags = [], content) => {
   }
 };
 
-const generateTags = async () => {};
+const generateTags = async () => {
+  return ["default tag"];
+};
