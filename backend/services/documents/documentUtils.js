@@ -11,7 +11,7 @@ export const fetchUser = async (user) => {
     getUser = new User(user);
     await getUser.save();
   }
-  return getUser._id;
+  return getUser;
 };
 
 // @desc: save blocks_id into a new paragraph
@@ -78,6 +78,17 @@ export const updateDoc = async (document, updateData) => {
       new: true,
     }
   );
+  return newDocument;
+};
+
+// @desc: update tags and is_favorite in document
+// @params: document <Object>
+// @return: newDocument <Object>
+export const saveDoc = async (document) => {
+  const newDocument = await Document.findByIdAndUpdate(document._id, document, {
+    new: true,
+  });
+
   return newDocument;
 };
 

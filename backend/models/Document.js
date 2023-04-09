@@ -6,7 +6,7 @@ const documentSchema = new mongoose.Schema(
     title: { type: String, required: true },
     is_favorite: { type: Boolean, default: false },
     is_trash: { type: Boolean, default: false },
-    paragraphs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Paragraph" }],
+    paragraphs: [{ type: mongoose.Schema.Types.Mixed }],
     tags: [{ type: String }],
   },
   { timestamps: true }

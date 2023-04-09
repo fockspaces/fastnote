@@ -1,9 +1,10 @@
 import Document from "../models/Document.js";
 import {
-  saveDoc,
   findDocs,
   deleteDoc,
+  createNewDoc,
 } from "../services/documents/documentService.js";
+import { fetchUser, saveDoc } from "../services/documents/documentUtils.js";
 import { findDocById } from "../services/documents/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
@@ -33,15 +34,27 @@ export const getDocumentDetail = async (req, res) => {
   return res.status(200).json({ data: document });
 };
 
-export const handleDocument = async (req, res) => {
-  const documentData = req.body;
-  const user = req.user;
+export const updateDocument = async (req, res) => {
+  const { document } = req.body;
+  const user = await fetchUser(req.user);
+  // auth the user
+  if (!user._id.equals(document.user._id))
+    return res.status(403).json({ error: "forbidden (not the owner)" });
+
   try {
-    const document = await saveDoc({ ...documentData, user });
-    res.json({ data: "Document created or updated successfully", document });
+    const newDocument = await saveDoc(document);
+    res.json({ data: "Document updated successfully", newDocument });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+};
+
+export const createDocument = async (req, res) => {
+  const { title } = req.body;
+  const user = req.user;
+
+  const document = await createNewDoc({ title, user });
+  res.json({ message: "Document created successfully", document });
 };
 
 export const deleteDocument = async (req, res) => {
@@ -49,7 +62,6 @@ export const deleteDocument = async (req, res) => {
   const { document_id } = req.params;
   const document = await deleteDoc(document_id, user);
   if (document.error)
-  
     return res.status(document.err_code).json({ error: document.error });
   return res
     .status(200)

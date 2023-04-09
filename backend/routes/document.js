@@ -3,8 +3,9 @@ import { verifyUser } from "../middleware/Authentication.js";
 import {
   getAllDocuments,
   getDocumentDetail,
-  handleDocument,
+  createDocument,
   deleteDocument,
+  updateDocument,
 } from "../controllers/documents.js";
 import { catchAsync } from "../utils/errorHandling.js";
 
@@ -14,11 +15,12 @@ document.use(verifyUser);
 document
   .route("/")
   .get(catchAsync(getAllDocuments))
-  .post(catchAsync(handleDocument));
+  .post(catchAsync(createDocument));
 
 document
   .route("/:document_id")
   .get(catchAsync(getDocumentDetail))
+  .post(catchAsync(updateDocument))
   .delete(catchAsync(deleteDocument));
 
 export default document;
