@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "./NotePreview";
 
-function Note({ selectedNote }) {
+function Note({ selectedNote, updateSelectedNote }) {
   const [content, setContent] = useState(selectedNote.content);
+
+  // useEffect to save note
+  useEffect(() => {
+    updateSelectedNote(content);
+  }, [content]);
+
   if (!selectedNote.content) {
     return <NotePreview />;
   }
-
-  // todo : useEffect to save note
-
   return (
     <div className="note">
       <div className="container">
