@@ -1,8 +1,8 @@
 export const saveDocument = async (document, is_new) => {
   try {
-    let { title, tags = [], content } = document;
+    const { tags = [] } = document;
     if (!tags.length || is_new) {
-      tags = await generateTags(document);
+      document.tags = await generateTags(document);
     }
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
