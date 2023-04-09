@@ -12,7 +12,7 @@ import { CustomDocument } from "./extensions/Document";
 import { CustomParagraph } from "./extensions/indent";
 import { CustomPlacehoder } from "./extensions/Placeholder";
 
-const Tiptap = ({ content, setContent }) => {
+const Tiptap = ({ note, setContent }) => {
   const updateHandler = () => {
     const context = editor.getHTML();
     setContent(context);
@@ -28,8 +28,13 @@ const Tiptap = ({ content, setContent }) => {
       CustomPlacehoder,
     ],
     onUpdate: updateHandler,
-    content,
+    content: note.content,
   });
+
+  useEffect(() => {
+    // update the document whenever the paragraph prop changes
+    if (editor) editor.commands.setContent(note.content);
+  }, [note]);
 
   return (
     <>

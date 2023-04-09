@@ -1,21 +1,16 @@
 import { useState } from "react";
-import Tiptap from "../components/Editor/Tiptap";
-import ParagraphList from "../components/Note/ParagraphList";
+import List from "./List";
+import Note from "../components/Note/Note";
 
-const Editor = ({ document }) => {
-  if (!document) {
-    return <div className="note-preview">Select a note to view</div>;
-  }
-
-  const { paragraphs } = document;
-  const [content, setContent] = useState("");
+const EditPage = ({ document }) => {
+  const [selectedNote, setSelectedNote] = useState({ content: null });
 
   return (
     <>
-      <ParagraphList paragraphs={paragraphs} />
-      <Tiptap content={content} setContent={setContent} />
+      <List notes={document.notes} setSelectedNote={setSelectedNote} />
+      <Note selectedNote={selectedNote} />
     </>
   );
 };
 
-export default Editor;
+export default EditPage;

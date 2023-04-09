@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import Tiptap from "../Editor/Tiptap";
-import { data } from "../../utils/content";
 
 function Note({ selectedNote }) {
-  const [content, setContent] = useState(data);
-  if (!selectedNote) {
+  const [content, setContent] = useState(selectedNote.content);
+  if (!selectedNote.content) {
     return <div className="note-preview">Select a note to view</div>;
   }
 
+  // todo : useEffect to save note
+  
   return (
     <div className="note">
-      <ul>
-        {selectedNote.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
       <div className="container">
-        <Tiptap content={content} setContent={setContent} />
+        <Tiptap note={selectedNote} setContent={setContent} />
       </div>
     </div>
   );
