@@ -10,7 +10,6 @@ function Note({ selectedNote }) {
 
   return (
     <div className="note">
-      <h2>{selectedNote.title}</h2>
       <ul>
         {selectedNote.tags.map((tag) => (
           <li key={tag}>{tag}</li>

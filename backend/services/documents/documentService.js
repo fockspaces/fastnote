@@ -75,7 +75,7 @@ export const findDocs = async (paging, tagging) => {
         },
       }
     : {};
-  const documents = queryDocument(query, paging, DOC_PAGE_OFFSET);
+  const documents = queryDocument(query, paging, PAGE_LIMIT);
   return documents;
 };
 

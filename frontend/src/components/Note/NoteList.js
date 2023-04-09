@@ -1,7 +1,6 @@
 import React from "react";
 
 function NoteList({ setSelectedNote, notes }) {
-
   return (
     <div className="note-list">
       <ul>
