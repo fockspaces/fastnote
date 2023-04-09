@@ -94,7 +94,8 @@ export const queryDocument = async (
     .sort(sorting)
     .skip(paging ? parseInt(paging) * offset : 0)
     .limit(offset)
-    .populate("user", "name email picture");
+    .populate("user", "name email picture")
+    .populate("paragraphs", "_id title content");
   return documents;
 };
 
