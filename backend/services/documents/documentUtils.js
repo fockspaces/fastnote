@@ -88,7 +88,20 @@ export const saveDoc = async (document) => {
   const newDocument = await Document.findByIdAndUpdate(document._id, document, {
     new: true,
   });
+  return newDocument;
+};
 
+// @desc: update title for the document
+// @params: document <Object>
+// @return: newDocument <Object>
+export const updateTitle = async (document) => {
+  const newDocument = await Document.findByIdAndUpdate(
+    document._id,
+    { title: document.title },
+    {
+      new: true,
+    }
+  );
   return newDocument;
 };
 

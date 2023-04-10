@@ -21,6 +21,7 @@ export const saveDocument = async (document, is_new) => {
 
     if (response.ok) {
       const data = await response.json();
+      return data;
     } else {
       const errorData = await response.json();
       throw new Error(errorData.error);

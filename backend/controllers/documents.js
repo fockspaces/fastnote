@@ -5,7 +5,7 @@ import {
   deleteDoc,
   createNewDoc,
 } from "../services/documents/documentService.js";
-import { fetchUser, saveDoc } from "../services/documents/documentUtils.js";
+import { fetchUser, saveDoc, updateTitle } from "../services/documents/documentUtils.js";
 import { findDocById } from "../services/documents/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
@@ -47,10 +47,19 @@ export const updateDocument = async (req, res) => {
     return res.status(403).json({ error: "forbidden (not the owner)" });
 
   try {
+    // only update the title
+    if (document.updateTitle) {
+      const newDocument = await updateTitle(document);
+      return res
+        .status(200)
+        .json({ data: "Document updated successfully", newDocument });
+    }
     const newDocument = await saveDoc(document);
-    res.json({ data: "Document updated successfully", newDocument });
+    return res
+      .status(200)
+      .json({ data: "Document updated successfully", newDocument });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
