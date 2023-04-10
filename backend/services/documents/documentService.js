@@ -36,11 +36,11 @@ export const deleteDoc = async (document_id, user) => {
 
   // check ownership
   const getUser = await fetchUser(user);
-  if (!document.user.equals(getUser) && !user.is_admin)
+  console.log("getUser", getUser);
+  console.log("document", document.user);
+  if (!document.user.equals(getUser._id) && !user.is_admin)
     return { error: "not authorized", err_code: 403 };
 
-  // delete all paragraphs in the document
-  await deleteParagraphs(document);
   // delete document
   await deleteDocumentById(document_id);
   // return deleted document

@@ -7,8 +7,10 @@ import { saveDocument } from "../api/saveDocument";
 import { v4 as uuidv4 } from "uuid";
 import { fetchDocument } from "../api/fetchDocument";
 import { NotFound } from "./NotFound";
+import { Loading } from "./Loading";
 
 const EditPage = () => {
+  const [loading, setLoading] = useState(true);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState({ preview: true });
   const { id } = useParams();
@@ -16,6 +18,7 @@ const EditPage = () => {
     const fetchDoc = async () => {
       const fetchedDocument = await fetchDocument(id);
       setCurrentDoc(fetchedDocument);
+      setLoading(false);
     };
     fetchDoc();
   }, [id]);
@@ -23,7 +26,7 @@ const EditPage = () => {
   // auto-save in 5 secs
   useEffect(() => {
     let timeoutId;
-    const saveDelay = 1000; // set the delay time to 1 seconds
+    const saveDelay = 500; // set the delay time to 0.5 seconds
 
     const saveCurrentDoc = async () => {
       try {
@@ -41,7 +44,12 @@ const EditPage = () => {
     return () => clearTimeout(timeoutId);
   }, [currentDoc]);
 
-  if (!currentDoc) return <NotFound />;
+  if (loading) {
+    <Loading />;
+  }
+  if (!currentDoc) {
+    return <NotFound />;
+  }
 
   // create new note
   const createNote = () => {
