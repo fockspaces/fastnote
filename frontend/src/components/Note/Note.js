@@ -1,4 +1,3 @@
-import "../../styles/_Note.scss";
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "./NotePreview";
@@ -6,7 +5,6 @@ import { updateNote } from "../../utils/noteHelper";
 
 function Note({ selectedNote, setCurrentDoc }) {
   const [content, setContent] = useState(selectedNote.content);
-  console.log(selectedNote);
   // update note and save to doc
   useEffect(() => {
     const updateSelectedNote = () => {

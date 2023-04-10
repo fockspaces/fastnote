@@ -1,37 +1,24 @@
 import { useEffect, useState } from "react";
-import List from "./List";
+import { useParams } from "react-router-dom";
+
+import List from "../containers/List";
 import Note from "../components/Note/Note";
-import { updateNote } from "../utils/noteHelper";
 import { saveDocument } from "../api/saveDocument";
 import { v4 as uuidv4 } from "uuid";
+import { fetchDocument } from "../api/fetchDocument";
+import { NotFound } from "./NotFound";
 
-const EditPage = ({ document }) => {
-  const [currentDoc, setCurrentDoc] = useState(document);
+const EditPage = () => {
+  const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState({ preview: true });
-
-  // re-render when document changed
+  const { id } = useParams();
   useEffect(() => {
-    setCurrentDoc(document);
-  }, [document]);
-
-  // create new note
-  const createNote = () => {
-    const newNote = { id: uuidv4(), title: "new note", content: "" };
-    const updatedParagraphs = [...currentDoc.paragraphs, newNote];
-    setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
-    setSelectedNote(newNote);
-  };
-
-  // delete note
-  const deleteNote = (note) => {
-    const updatedParagraphs = currentDoc.paragraphs.filter(
-      (p) => p.id !== note.id
-    );
-    setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
-    setSelectedNote({
-      preview: true,
-    });
-  };
+    const fetchDoc = async () => {
+      const fetchedDocument = await fetchDocument(id);
+      setCurrentDoc(fetchedDocument);
+    };
+    fetchDoc();
+  }, [id]);
 
   // auto-save in 5 secs
   useEffect(() => {
@@ -53,6 +40,27 @@ const EditPage = ({ document }) => {
     handleAutoSave();
     return () => clearTimeout(timeoutId);
   }, [currentDoc]);
+
+  if (!currentDoc) return <NotFound />;
+
+  // create new note
+  const createNote = () => {
+    const newNote = { id: uuidv4(), title: "new note", content: "" };
+    const updatedParagraphs = [...currentDoc.paragraphs, newNote];
+    setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
+    setSelectedNote(newNote);
+  };
+
+  // delete note
+  const deleteNote = (note) => {
+    const updatedParagraphs = currentDoc.paragraphs.filter(
+      (p) => p.id !== note.id
+    );
+    setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
+    setSelectedNote({
+      preview: true,
+    });
+  };
 
   return (
     <>

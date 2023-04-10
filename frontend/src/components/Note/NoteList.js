@@ -1,29 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { ListGroup, Button } from "react-bootstrap";
 
 function NoteList({ setSelectedNote, notes, deleteNote }) {
+  const handleDeleteNote = (note, e) => {
+    deleteNote(note);
+    e.stopPropagation();
+  };
+
   return (
-    <div className="note-list">
-      <ul>
+    <div className="note-list mt-3">
+      <ListGroup>
         {notes.map((note) => (
-          <li
+          <NoteListItem
             key={note.id}
-            onClick={() => {
-              setSelectedNote(note);
-            }}
-          >
-            {note.title}
-            <button
-              onClick={(e) => {
-                deleteNote(note);
-                e.stopPropagation();
-              }}
-            >
-              delete
-            </button>
-          </li>
+            note={note}
+            setSelectedNote={setSelectedNote}
+            handleDeleteNote={handleDeleteNote}
+          />
         ))}
-      </ul>
+      </ListGroup>
     </div>
+  );
+}
+
+function NoteListItem({ note, setSelectedNote, handleDeleteNote }) {
+  return (
+    <ListGroup.Item
+    className="mt-2"
+      action
+      onClick={() => {
+        setSelectedNote(note);
+      }}
+    >
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="title-container">
+          <span>{note.title}</span>
+        </div>
+        <span
+          className="btn btn-outline-danger"
+          onClick={(e) => handleDeleteNote(note, e)}
+        >
+          X
+        </span>
+      </div>
+    </ListGroup.Item>
   );
 }
 

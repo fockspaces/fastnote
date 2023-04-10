@@ -1,27 +1,20 @@
 import "./styles/app.scss";
 import React, { useState, useEffect } from "react";
-import EditPage from "./containers/EditPage";
+import { Routes, Route } from "react-router-dom";
+
+import EditPage from "./pages/EditPage";
+import ListPage from "./pages/ListPage";
 
 import OAuth from "./components/Auth/OAuth";
-import { fetchDocument } from "./api/fetchDocument";
 
 function App() {
-  // todo : fetch the listing document with API
-  const [document, setDocument] = useState({ paragraphs: [] });
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      const documentId = "64329e5fe0b78d6f8cb1b7ae";
-      const fetchedDocument = await fetchDocument(documentId);
-      setDocument(fetchedDocument);
-    };
-    fetchDoc();
-  }, []);
-
   return (
     <div className="App">
-      <EditPage document={document} />
       <OAuth />
+      <Routes>
+        <Route path="/document" element={<ListPage />}></Route>
+        <Route path="/document/:id" element={<EditPage />}></Route>
+      </Routes>
     </div>
   );
 }
