@@ -45,7 +45,7 @@ const EditPage = () => {
   }, [currentDoc]);
 
   if (loading) {
-    <Loading />;
+    return <Loading />;
   }
   if (!currentDoc) {
     return <NotFound />;

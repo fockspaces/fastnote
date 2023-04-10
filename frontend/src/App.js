@@ -6,6 +6,7 @@ import EditPage from "./pages/EditPage";
 import ListPage from "./pages/ListPage";
 
 import OAuth from "./components/Auth/OAuth";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/document" element={<ListPage />}></Route>
         <Route path="/document/:id" element={<EditPage />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>
   );

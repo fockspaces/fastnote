@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Document from "../models/Document.js";
 import {
   findDocs,
@@ -25,6 +26,10 @@ export const getAllDocuments = async (req, res) => {
 
 export const getDocumentDetail = async (req, res) => {
   const { document_id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(document_id)) {
+    return res.status(400).json({ error: "Invalid document ID" });
+  }
 
   const document = await findDocById(document_id);
   if (!document) {

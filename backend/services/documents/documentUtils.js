@@ -101,12 +101,10 @@ export const queryDocument = async (
   offset,
   sorting = { created_at: -1 }
 ) => {
-  const documents = await Document.find(query)
+  const documents = await Document.find(query, { paragraphs: 0 })
     .sort(sorting)
     .skip(paging ? parseInt(paging) * offset : 0)
-    .limit(offset)
-    .populate("user", "name email picture")
-    .populate("paragraphs", "_id title content");
+    .limit(offset);
   return documents;
 };
 
