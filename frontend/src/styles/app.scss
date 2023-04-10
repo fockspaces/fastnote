@@ -16,9 +16,11 @@ body {
   .note {
     flex: 1;
     padding: 20px;
+    width: 90%;
     .container {
       height: 100%;
       overflow-y: auto;
+      overflow-x: auto;
       border: 1px solid #ccc;
     }
   }
