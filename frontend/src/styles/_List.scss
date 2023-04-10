@@ -1,4 +1,8 @@
 .list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   .text-search {
     margin-bottom: 30px;
   }
@@ -30,6 +34,7 @@
       }
     }
   }
+
   .title-container {
     width: 200px;
     overflow: hidden;

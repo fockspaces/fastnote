@@ -2,6 +2,13 @@ body {
   margin: 0;
 }
 
+input {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .App {
   display: flex;
   height: 100vh;
@@ -11,6 +18,12 @@ body {
     background-color: #f8f8f8;
     padding: 20px;
     overflow-y: auto;
+  }
+
+  .list__header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
   }
 
   .note {

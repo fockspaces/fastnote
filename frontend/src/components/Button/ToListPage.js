@@ -1,11 +1,12 @@
-import { Button } from "react-bootstrap";
+import { FiArrowLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const ToListPage = () => {
   return (
     <Link to={`/document`}>
-      <Button variant="outline-primary" size="sm">
-        Back
+      <Button variant="" size="sm">
+        <FiArrowLeft /> Back
       </Button>
     </Link>
   );

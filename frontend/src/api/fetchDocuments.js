@@ -11,6 +11,7 @@ export const fetchDocuments = async () => {
       throw new Error("Could not fetch document");
     }
     const data = await response.json();
+
     return data.data;
   } catch (error) {
     console.error(error);

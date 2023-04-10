@@ -1,5 +1,6 @@
 import React from "react";
 import { ListGroup, Button } from "react-bootstrap";
+import { FaTrash } from "react-icons/fa";
 
 function NoteList({ setSelectedNote, notes, deleteNote }) {
   const handleDeleteNote = (note, e) => {
@@ -26,7 +27,7 @@ function NoteList({ setSelectedNote, notes, deleteNote }) {
 function NoteListItem({ note, setSelectedNote, handleDeleteNote }) {
   return (
     <ListGroup.Item
-    className="mt-2"
+      className="mt-2"
       action
       onClick={() => {
         setSelectedNote(note);
@@ -36,11 +37,8 @@ function NoteListItem({ note, setSelectedNote, handleDeleteNote }) {
         <div className="title-container">
           <span>{note.title}</span>
         </div>
-        <span
-          className="btn btn-outline-danger"
-          onClick={(e) => handleDeleteNote(note, e)}
-        >
-          X
+        <span onClick={(e) => handleDeleteNote(note, e)}>
+          <FaTrash />
         </span>
       </div>
     </ListGroup.Item>

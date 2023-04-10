@@ -26,8 +26,8 @@ export const createPara = async (title, content) => {
 // @desc: create a new document with the user and title
 // @params: user_id <Object_id>, title <String>
 // @return: document <Object>
-export const createDoc = async (userId, title) => {
-  const document = new Document({ user: userId, title });
+export const createDoc = async (userId, title, tags) => {
+  const document = new Document({ user: userId, title, tags });
   await document.save();
   return document;
 };

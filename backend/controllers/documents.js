@@ -5,11 +5,16 @@ import {
   deleteDoc,
   createNewDoc,
 } from "../services/documents/documentService.js";
-import { fetchUser, saveDoc, updateTitle } from "../services/documents/documentUtils.js";
+import {
+  fetchUser,
+  saveDoc,
+  updateTitle,
+} from "../services/documents/documentUtils.js";
 import { findDocById } from "../services/documents/documentUtils.js";
 
 export const getAllDocuments = async (req, res) => {
   let { paging, tagging } = req.query;
+  const user = req.user;
   // formatted the parameters
   paging = paging ? parseInt(paging) : 0;
   tagging = tagging ? JSON.parse(tagging) : [];
@@ -19,7 +24,7 @@ export const getAllDocuments = async (req, res) => {
     return res.status(400).json({ error: "please provide a valid paging" });
 
   // find documents
-  const documents = await findDocs(paging, tagging);
+  const documents = await findDocs(paging, tagging, user);
 
   return res.status(200).json({ data: documents });
 };
@@ -64,10 +69,10 @@ export const updateDocument = async (req, res) => {
 };
 
 export const createDocument = async (req, res) => {
-  const { title } = req.body;
+  const { title, tags } = req.body;
   const user = req.user;
 
-  const document = await createNewDoc({ title, user });
+  const document = await createNewDoc({ title, user, tags });
   res.json({ message: "Document created successfully", document });
 };
 

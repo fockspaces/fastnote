@@ -7,8 +7,10 @@ import { CreateNote } from "../components/Button/CreateNote";
 function List({ notes, setSelectedNote, createNote, deleteNote }) {
   return (
     <div className="list">
-      <ToListPage />
-      <CreateNote createNote={createNote} />
+      <div className="list__header">
+        <ToListPage />
+        <CreateNote createNote={createNote} />
+      </div>
       <NoteList
         setSelectedNote={setSelectedNote}
         notes={notes}

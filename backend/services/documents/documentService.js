@@ -11,20 +11,22 @@ import {
 import { queryDocument } from "./documentUtils.js";
 import { PAGE_LIMIT } from "../../configs/Configs.js";
 
-export const createNewDoc = async ({ title, user }) => {
+export const createNewDoc = async ({ title, user, tags }) => {
   const currentUser = await fetchUser(user);
-  const document = await createDoc(currentUser._id, title);
+  const document = await createDoc(currentUser._id, title, tags);
   return document;
 };
 
-export const findDocs = async (paging, tagging) => {
-  const query = tagging.length
-    ? {
-        tags: {
-          $all: tagging,
-        },
-      }
-    : {};
+export const findDocs = async (paging, tagging, user) => {
+  const getUser = await fetchUser(user);
+  let query = {
+    user: getUser._id,
+  };
+  if (tagging.length) {
+    query.tags = {
+      $all: tagging,
+    };
+  }
   const documents = queryDocument(query, paging, PAGE_LIMIT);
   return documents;
 };
