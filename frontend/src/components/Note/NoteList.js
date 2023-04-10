@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function NoteList({ setSelectedNote, notes, deleteNote }) {
   return (
     <div className="note-list">
       <ul>
-        {notes.map((note, idx) => (
+        {notes.map((note) => (
           <li
             key={note.id}
             onClick={() => {
@@ -13,8 +13,9 @@ function NoteList({ setSelectedNote, notes, deleteNote }) {
           >
             {note.title}
             <button
-              onClick={() => {
+              onClick={(e) => {
                 deleteNote(note);
+                e.stopPropagation();
               }}
             >
               delete

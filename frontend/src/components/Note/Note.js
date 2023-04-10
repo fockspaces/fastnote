@@ -2,25 +2,33 @@ import "../../styles/_Note.scss";
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "./NotePreview";
+import { updateNote } from "../../utils/noteHelper";
 
-function Note({ selectedNote, updateSelectedNote }) {
+function Note({ selectedNote, setCurrentDoc }) {
   const [content, setContent] = useState(selectedNote.content);
-
-  // useEffect to save note
+  console.log(selectedNote);
+  // update note and save to doc
   useEffect(() => {
-    if (selectedNote.content !== content) {
-      updateSelectedNote(content);
-    }
-  }, [content, selectedNote.content, updateSelectedNote]);
+    const updateSelectedNote = () => {
+      if (!content || !selectedNote.id) return;
+      const newNote = updateNote(selectedNote, content);
+      setCurrentDoc((currentDoc) => {
+        const updatedParagraphs = currentDoc.paragraphs.map((paragraph) => {
+          return paragraph.id === selectedNote.id ? newNote : paragraph;
+        });
+        return { ...currentDoc, paragraphs: updatedParagraphs };
+      });
+    };
+
+    updateSelectedNote();
+  }, [content]);
+
+  if (selectedNote.preview) return <NotePreview />;
 
   return (
     <div className="note">
       <div className="container">
-        {selectedNote.title ? (
-          <Tiptap note={selectedNote} setContent={setContent} />
-        ) : (
-          <NotePreview />
-        )}
+        <Tiptap note={selectedNote} setContent={setContent} />
       </div>
     </div>
   );
