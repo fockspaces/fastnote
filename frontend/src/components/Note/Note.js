@@ -1,3 +1,4 @@
+import "../../styles/_Note.scss";
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "./NotePreview";
@@ -7,16 +8,19 @@ function Note({ selectedNote, updateSelectedNote }) {
 
   // useEffect to save note
   useEffect(() => {
-    updateSelectedNote(content);
-  }, [content]);
+    if (selectedNote.content !== content) {
+      updateSelectedNote(content);
+    }
+  }, [content, selectedNote.content, updateSelectedNote]);
 
-  if (!selectedNote.content) {
-    return <NotePreview />;
-  }
   return (
     <div className="note">
       <div className="container">
-        <Tiptap note={selectedNote} setContent={setContent} />
+        {selectedNote.title ? (
+          <Tiptap note={selectedNote} setContent={setContent} />
+        ) : (
+          <NotePreview />
+        )}
       </div>
     </div>
   );

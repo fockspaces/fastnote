@@ -10,14 +10,16 @@ body {
     width: 200px;
     background-color: #f8f8f8;
     padding: 20px;
+    overflow-y: auto;
   }
 
   .note {
     flex: 1;
     padding: 20px;
     .container {
-      height: 80%;
+      height: 100%;
       overflow-y: auto;
+      border: 1px solid #ccc;
     }
   }
 }
