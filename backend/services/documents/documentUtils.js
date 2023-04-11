@@ -70,7 +70,6 @@ export const updatePara = async (document, para_id, updateData) => {
 // @params: document <Object>, updateData <Object>
 // @return: newDocument <Object>
 export const updateDoc = async (document, updateData) => {
-  // todo : auto-generate the new tags
   const newDocument = await Document.findByIdAndUpdate(
     document._id,
     updateData,

@@ -22,13 +22,20 @@ function DocumentsList() {
   }, []);
 
   const handleDelete = async (document) => {
-    await deleteDocument(document._id);
     setDocuments(documents.filter((doc) => doc._id !== document._id));
+    await deleteDocument(document._id);
   };
 
   const handleCreate = async () => {
+    const newDocument = {
+      _id: Math.random(),
+      title: "New Document",
+      tags: ["default tag"],
+    };
+    // improve UX
+    setDocuments((documents) => [...documents, newDocument]);
     const result = await createDocument();
-    setDocuments([...documents, result.document]);
+    setDocuments((documents) => [...documents.slice(0, -1), result.document]);
   };
 
   return (
