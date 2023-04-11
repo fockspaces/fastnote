@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
+import { createDoc } from "../services/documents/createDoc.js";
 import {
   findDocs,
   deleteDoc,
-  createNewDoc,
 } from "../services/documents/documentService.js";
 import { findDocById } from "../services/documents/documentUtils.js";
 import { fetchDoc } from "../services/documents/fetchDoc.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 
+// *sprint 2 (unfin)
 export const getAllDocuments = async (req, res) => {
   let { paging, tagging } = req.query;
   const user = req.user;
@@ -57,12 +58,12 @@ export const updateDocument = async (req, res) => {
   return res.status(200).json({ message: "Updated successfully", data });
 };
 
-// *sprint 2 (unfin)
+// *sprint 2 (fin)
 export const createDocument = async (req, res) => {
   const { title, tags } = req.body;
   const user = req.user;
 
-  const document = await createNewDoc({ title, user, tags });
+  const document = await createDoc(user._id, title, tags);
   res.json({ message: "Document created successfully", document });
 };
 

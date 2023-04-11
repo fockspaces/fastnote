@@ -11,11 +11,6 @@ import { queryDocument } from "./documentUtils.js";
 import { PAGE_LIMIT } from "../../configs/Configs.js";
 import { fetchUser } from "../users/fetchUser.js";
 
-export const createNewDoc = async ({ title, user, tags }) => {
-  const document = await createDoc(user._id, title, tags);
-  return document;
-};
-
 export const findDocs = async (paging, tagging, user) => {
   const getUser = await fetchUser(user);
   let query = {
