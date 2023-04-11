@@ -16,7 +16,7 @@ function DocumentListItem({ document, handleDelete }) {
 
   return (
     <Col>
-      <Card className="h-full" style={{ minWidth: "300px" }}>
+      <Card className="h-full">
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">
             <input
@@ -26,6 +26,7 @@ function DocumentListItem({ document, handleDelete }) {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleTitleUpdate();
+                  e.target.blur(); // remove focus
                 }
               }}
               value={title}
@@ -34,8 +35,7 @@ function DocumentListItem({ document, handleDelete }) {
           <div className="flex gap-2 list__header">
             <Link to={`/document/${document._id}`}>
               <Button variant size="sm">
-                <FaEdit />
-                Edit
+                <FaEdit /> Edit
               </Button>
             </Link>
             <Link>

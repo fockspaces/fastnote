@@ -2,7 +2,7 @@ import React from "react";
 import { ListGroup, Button } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 
-function NoteList({ setSelectedNote, notes, deleteNote }) {
+function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
   const handleDeleteNote = (note, e) => {
     deleteNote(note);
     e.stopPropagation();
@@ -15,6 +15,7 @@ function NoteList({ setSelectedNote, notes, deleteNote }) {
           <NoteListItem
             key={note.id}
             note={note}
+            selectedNote={selectedNote}
             setSelectedNote={setSelectedNote}
             handleDeleteNote={handleDeleteNote}
           />
@@ -24,10 +25,17 @@ function NoteList({ setSelectedNote, notes, deleteNote }) {
   );
 }
 
-function NoteListItem({ note, setSelectedNote, handleDeleteNote }) {
+function NoteListItem({
+  note,
+  setSelectedNote,
+  handleDeleteNote,
+  selectedNote,
+}) {
+  const isSelected = note.id === selectedNote?.id;
+
   return (
     <ListGroup.Item
-      className="mt-2"
+      className={`mt-2 ${isSelected ? "selected" : ""}`}
       action
       onClick={() => {
         setSelectedNote(note);

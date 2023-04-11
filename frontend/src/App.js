@@ -1,5 +1,5 @@
 import "./styles/app.scss";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import EditPage from "./pages/EditPage";

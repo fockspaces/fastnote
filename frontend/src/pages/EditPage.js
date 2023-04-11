@@ -14,6 +14,7 @@ const EditPage = () => {
   const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState({ preview: true });
   const { id } = useParams();
+
   useEffect(() => {
     const fetchDoc = async () => {
       const fetchedDocument = await fetchDocument(id);
@@ -75,8 +76,10 @@ const EditPage = () => {
       <List
         createNote={createNote}
         notes={currentDoc.paragraphs}
+        selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         deleteNote={deleteNote}
+        setCurrentDoc={setCurrentDoc}
       />
       <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />
     </>

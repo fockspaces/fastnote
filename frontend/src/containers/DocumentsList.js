@@ -22,7 +22,7 @@ function DocumentsList() {
   }, []);
 
   const handleDelete = async (document) => {
-    const result = await deleteDocument(document._id);
+    await deleteDocument(document._id);
     setDocuments(documents.filter((doc) => doc._id !== document._id));
   };
 

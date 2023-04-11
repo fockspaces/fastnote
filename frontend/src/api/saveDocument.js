@@ -1,9 +1,6 @@
 export const saveDocument = async (document, is_new) => {
   try {
-    const { tags = [] } = document;
-    if (!tags.length || is_new) {
-      document.tags = await generateTags(document);
-    }
+    console.log('saving notes...');
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
       `http://127.0.0.1:8000/api/documents/${document._id}`,
@@ -29,8 +26,4 @@ export const saveDocument = async (document, is_new) => {
   } catch (error) {
     console.error(error);
   }
-};
-
-const generateTags = async () => {
-  return ["default tag"];
 };
