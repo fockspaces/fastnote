@@ -1,6 +1,5 @@
 import {
   updateDoc,
-  fetchUser,
   createDoc,
   findDoc,
   insertPara,
@@ -10,10 +9,10 @@ import {
 } from "./documentUtils.js";
 import { queryDocument } from "./documentUtils.js";
 import { PAGE_LIMIT } from "../../configs/Configs.js";
+import { fetchUser } from "../users/fetchUser.js";
 
 export const createNewDoc = async ({ title, user, tags }) => {
-  const currentUser = await fetchUser(user);
-  const document = await createDoc(currentUser._id, title, tags);
+  const document = await createDoc(user._id, title, tags);
   return document;
 };
 

@@ -2,17 +2,17 @@ import Paragraph from "../../models/Paragraph.js";
 import Document from "../../models/Document.js";
 import User from "../../models/User.js";
 
-// @desc: fetch user_id from DB if any or create a new one
-// @params: user <Object>
-// @return: user_id <Object_id>
-export const fetchUser = async (user) => {
-  let getUser = await User.findOne({ userId: user.userId }).exec();
-  if (!getUser) {
-    getUser = new User(user);
-    await getUser.save();
-  }
-  return getUser;
-};
+// // @desc: check if user in db
+// // @params: user <Object>
+// // @return: newUser <Object>
+// export const fetchUser = async (user) => {
+//   let getUser = await User.findOne({ email: user.email }).exec();
+//   if (!getUser) {
+//     getUser = new User(user);
+//     await getUser.save();
+//   }
+//   return getUser;
+// };
 
 // @desc: save blocks_id into a new paragraph
 // @params: title <String>, content <HTML string>
@@ -27,7 +27,7 @@ export const createPara = async (title, content) => {
 // @params: user_id <Object_id>, title <String>
 // @return: document <Object>
 export const createDoc = async (userId, title, tags) => {
-  const document = new Document({ user: userId, title, tags });
+  const document = new Document({ userId, title, tags });
   await document.save();
   return document;
 };
@@ -87,20 +87,6 @@ export const saveDoc = async (document) => {
   const newDocument = await Document.findByIdAndUpdate(document._id, document, {
     new: true,
   });
-  return newDocument;
-};
-
-// @desc: update title for the document
-// @params: document <Object>
-// @return: newDocument <Object>
-export const updateTitle = async (document) => {
-  const newDocument = await Document.findByIdAndUpdate(
-    document._id,
-    { title: document.title },
-    {
-      new: true,
-    }
-  );
   return newDocument;
 };
 

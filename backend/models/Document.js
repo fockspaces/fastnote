@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const documentSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
     is_favorite: { type: Boolean, default: false },
     is_trash: { type: Boolean, default: false },
