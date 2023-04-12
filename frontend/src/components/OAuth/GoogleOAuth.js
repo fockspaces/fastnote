@@ -1,4 +1,4 @@
-import { GoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import {  useGoogleOneTapLogin } from "@react-oauth/google";
 
 function GoogleOAuth({ handleLogin }) {
   useGoogleOneTapLogin({

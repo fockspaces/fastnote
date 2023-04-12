@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
-import NotePreview from "./NotePreview";
+import NotePreview from "../Note/NotePreview";
 import { useParams } from "react-router-dom";
 import { updateNote } from "../../../utils/noteHelper";
 import { updateDoc } from "../../../api/documents/updateDocument";

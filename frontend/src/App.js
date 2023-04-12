@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import EditPage from "./pages/EditPage";
 import ListPage from "./pages/ListPage";
 
-import OAuth from "./components/Auth/OAuth";
+import OAuth from "./components/OAuth/OAuth";
 import { NotFound } from "./pages/NotFound";
 import { HomePage } from "./pages/HomePage";
 

@@ -1,7 +1,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleOAuth from "./GoogleOAuth";
 import { useState, useEffect } from "react";
-import { login } from "../../utils/login";
+import { login } from "../../api/login";
 import jwt_decode from "jwt-decode";
 
 function OAuth() {
