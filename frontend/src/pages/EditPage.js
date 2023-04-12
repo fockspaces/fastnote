@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 
 import List from "../containers/List";
 import Note from "../components/Note/Note";
-import { saveDocument } from "../api/saveDocument";
-import { v4 as uuidv4 } from "uuid";
 import { fetchDocument } from "../api/fetchDocument";
 import { NotFound } from "./NotFound";
 import { Loading } from "./Loading";
@@ -25,27 +23,6 @@ const EditPage = () => {
     fetchDoc();
   }, [document_id]);
 
-  // auto-save in 5 secs
-  // useEffect(() => {
-  //   let timeoutId;
-  //   const saveDelay = 500; // set the delay time to 0.5 seconds
-
-  //   const saveCurrentDoc = async () => {
-  //     try {
-  //       await saveDocument(currentDoc);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   const handleAutoSave = () => {
-  //     clearTimeout(timeoutId);
-  //     timeoutId = setTimeout(saveCurrentDoc, saveDelay);
-  //   };
-  //   handleAutoSave();
-  //   return () => clearTimeout(timeoutId);
-  // }, [currentDoc]);
-
   if (loading) {
     return <Loading />;
   }
@@ -58,6 +35,7 @@ const EditPage = () => {
     const note = { document_id, title: "new note", content: "" };
     const result = await updateDoc(note, "insert_paragraph");
     const newNote = result.data;
+
     const updatedParagraphs = [...currentDoc.paragraphs, newNote];
     setCurrentDoc((currentDoc) => {
       return { ...currentDoc, paragraphs: updatedParagraphs };

@@ -6,8 +6,9 @@ import { updateDoc } from "../../api/updateDocument";
 
 function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);
+
   const handleTitleUpdate = async () => {
-    await updateDoc({ title, document });
+    await updateDoc({ title, document_id: document._id });
   };
 
   return (

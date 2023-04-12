@@ -20,7 +20,6 @@ export const updateNote = (selectedNote, content) => {
 export const generateTags = async (notes) => {
   const tags = [];
   const prompts = extractPrompt(notes);
-  console.log(prompts);
   for (let i = 0; i < prompts.length; i++) {
     const result = await fetchGPT(prompts[i]);
     tags.push(...result);

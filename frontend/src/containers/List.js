@@ -1,5 +1,5 @@
 import "../styles/_List.scss";
-import React, { useState } from "react";
+import React from "react";
 import NoteList from "../components/Note/NoteList";
 import ToListPage from "../components/Button/ToListPage";
 import { CreateNote } from "../components/Button/CreateNote";
