@@ -3,6 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 
 function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
+  
   const handleDeleteNote = (note, e) => {
     deleteNote(note);
     e.stopPropagation();

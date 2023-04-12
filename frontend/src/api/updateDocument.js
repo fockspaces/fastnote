@@ -1,10 +1,10 @@
 export const updateDoc = async (updateData, event) => {
   try {
-    const { document } = updateData;
+    const { document_id } = updateData;
     console.log("saving notes...");
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
-      `http://127.0.0.1:8000/api/documents/${document._id}`,
+      `http://127.0.0.1:8000/api/documents/${document_id}`,
       {
         method: "POST",
         headers: {

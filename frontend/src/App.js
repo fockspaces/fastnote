@@ -14,7 +14,7 @@ function App() {
       <OAuth />
       <Routes>
         <Route path="/document" element={<ListPage />}></Route>
-        <Route path="/document/:id" element={<EditPage />}></Route>
+        <Route path="/document/:document_id" element={<EditPage />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>

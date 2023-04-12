@@ -1,10 +1,10 @@
 import "../styles/_List.scss";
-import React from "react";
+import React, { useState } from "react";
 import NoteList from "../components/Note/NoteList";
 import ToListPage from "../components/Button/ToListPage";
 import { CreateNote } from "../components/Button/CreateNote";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AiFillTags } from "react-icons/ai";
 import { generateTags } from "../utils/noteHelper";
 import { updateDoc } from "../api/updateDocument";
@@ -15,18 +15,18 @@ function List({
   createNote,
   deleteNote,
   selectedNote,
-  currentDoc,
   setCurrentDoc,
 }) {
+  const { document_id } = useParams();
   const handleTags = async (notes) => {
     const tags = await generateTags(notes);
     setCurrentDoc((currentDoc) => {
       return { ...currentDoc, tags };
     });
-    await updateDoc({ document: currentDoc,  tags });
+    await updateDoc({ document_id, tags });
     alert("generate tags succeesfully!");
   };
-  
+
   return (
     <div className="list">
       <div className="list__header">

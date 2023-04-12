@@ -18,8 +18,8 @@ export const updateDoc = async (event, updateData, document_id) => {
   }
 
   if (event === "delete_paragraph") {
-    const newDocument = await deleteParagraph(paragraph_id, document_id);
-    return newDocument;
+    const deletedParagrpah = await deleteParagraph(paragraph_id, document_id);
+    return deletedParagrpah;
   }
 
   const newDocument = await updatePartials(updateData, document_id);
@@ -52,20 +52,20 @@ const insertNewParagraph = async (updateData, document_id) => {
   const newParagraph = new Paragraph(updateData);
   await newParagraph.save();
 
-  const newDocument = await Document.findByIdAndUpdate(
+  await Document.findByIdAndUpdate(
     document_id,
     { $addToSet: { paragraphs: newParagraph._id } },
     { new: true }
   );
-  return newDocument;
+  return newParagraph;
 };
 
 const deleteParagraph = async (paragraph_id, document_id) => {
-  await Paragraph.deleteOne({ _id: paragraph_id });
+  const deletedParagrpah = await Paragraph.deleteOne({ _id: paragraph_id });
   const newDocument = await Document.findByIdAndUpdate(
     document_id,
     { $pull: { paragraphs: paragraph_id } },
     { new: true }
   );
-  return newDocument;
+  return deletedParagrpah;
 };

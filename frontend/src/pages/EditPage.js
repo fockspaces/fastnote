@@ -14,16 +14,16 @@ const EditPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState({ preview: true });
-  const { id } = useParams();
+  const { document_id } = useParams();
 
   useEffect(() => {
     const fetchDoc = async () => {
-      const fetchedDocument = await fetchDocument(id);
+      const fetchedDocument = await fetchDocument(document_id);
       setCurrentDoc(fetchedDocument);
       setLoading(false);
     };
     fetchDoc();
-  }, [id]);
+  }, [document_id]);
 
   // auto-save in 5 secs
   // useEffect(() => {
@@ -55,23 +55,29 @@ const EditPage = () => {
 
   // create new note
   const createNote = async () => {
-    const newNote = { id: uuidv4(), title: "new note", content: "" };
+    const note = { document_id, title: "new note", content: "" };
+    const result = await updateDoc(note, "insert_paragraph");
+    const newNote = result.data;
     const updatedParagraphs = [...currentDoc.paragraphs, newNote];
-    setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
+    setCurrentDoc((currentDoc) => {
+      return { ...currentDoc, paragraphs: updatedParagraphs };
+    });
     setSelectedNote(newNote);
-    // save to db
-    await updateDoc({ document: currentDoc, ...newNote }, "insert_paragraph");
   };
 
   // delete note
-  const deleteNote = (note) => {
+  const deleteNote = async (note) => {
     const updatedParagraphs = currentDoc.paragraphs.filter(
-      (p) => p.id !== note.id
+      (p) => p._id !== note._id
     );
     setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
     setSelectedNote({
       preview: true,
     });
+    await updateDoc(
+      { document_id, paragraph_id: note._id },
+      "delete_paragraph"
+    );
   };
 
   return (
@@ -82,7 +88,6 @@ const EditPage = () => {
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         deleteNote={deleteNote}
-        currentDoc={currentDoc}
         setCurrentDoc={setCurrentDoc}
       />
       <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />
