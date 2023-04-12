@@ -5,6 +5,7 @@ import { createDocument } from "../api/documents/createDocument";
 import DocumentList from "../components/ListPage/Document/DocumentList";
 import { Button } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
+import { updateDoc } from "../api/documents/updateDocument";
 
 function ListPage() {
   const [documents, setDocuments] = useState([]);
@@ -12,7 +13,7 @@ function ListPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchDocuments();
+        const result = await fetchDocuments('is_trash=false');
         setDocuments(result);
       } catch (error) {
         console.error(error);
@@ -38,6 +39,11 @@ function ListPage() {
     setDocuments((documents) => [...documents.slice(0, -1), result.document]);
   };
 
+  const handleToTrash = async (document) => {
+    setDocuments(documents.filter((doc) => doc._id !== document._id));
+    await updateDoc({ is_trash: true, document_id: document._id });
+  };
+
   return (
     <div className="list-page p-4 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">FastNote</h1>
@@ -50,7 +56,11 @@ function ListPage() {
         <AiOutlinePlus />
         create
       </Button>
-      <DocumentList documents={documents} handleDelete={handleDelete} />
+      <DocumentList
+        documents={documents}
+        handleDelete={handleDelete}
+        handleToTrash={handleToTrash}
+      />
     </div>
   );
 }

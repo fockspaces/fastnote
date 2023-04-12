@@ -22,8 +22,8 @@ export const getAllDocuments = async (req, res) => {
     const tags = tagging.split(",").map((tag) => tag.trim());
     query.tags = { $all: tags };
   }
-  if (is_favorite) query.is_favorite = true;
-  if (is_trash) query.is_trash = true;
+  if (is_favorite) query.is_favorite = is_favorite;
+  if (is_trash) query.is_trash = is_trash;
 
   // find documents
   const documents = await findDocs(query, paging);
