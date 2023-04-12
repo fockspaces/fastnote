@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import List from "../containers/DocList";
-import Note from "../components/Note/Note";
+import List from "../components/EditPage/Note/ListContainer";
+import Note from "../components/EditPage/Note/Note";
 import { NotFound } from "./NotFound";
 import { Loading } from "./Loading";
 

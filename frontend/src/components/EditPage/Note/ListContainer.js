@@ -1,13 +1,13 @@
-import "../styles/_List.scss";
+import "../../../styles/_List.scss";
 import React from "react";
-import NoteList from "../components/Note/NoteList";
-import ToListPage from "../components/Button/ToListPage";
-import { CreateNote } from "../components/Button/CreateNote";
+import NoteList from "../Note/NoteList";
+import ToListPage from "../../Button/ToListPage";
+import { CreateNote } from "../../Button/CreateNote";
 import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { AiFillTags } from "react-icons/ai";
-import { generateTags } from "../utils/noteHelper";
-import { updateDoc } from "../api/documents/updateDocument";
+import { generateTags } from "../../../utils/noteHelper";
+import { updateDoc } from "../../../api/documents/updateDocument";
 
 function List({
   notes,
