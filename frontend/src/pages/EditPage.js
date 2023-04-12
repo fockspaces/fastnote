@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { fetchDocument } from "../api/fetchDocument";
 import { NotFound } from "./NotFound";
 import { Loading } from "./Loading";
+import { updateDoc } from "../api/updateDocument";
 
 const EditPage = () => {
   const [loading, setLoading] = useState(true);
@@ -25,25 +26,25 @@ const EditPage = () => {
   }, [id]);
 
   // auto-save in 5 secs
-  useEffect(() => {
-    let timeoutId;
-    const saveDelay = 500; // set the delay time to 0.5 seconds
+  // useEffect(() => {
+  //   let timeoutId;
+  //   const saveDelay = 500; // set the delay time to 0.5 seconds
 
-    const saveCurrentDoc = async () => {
-      try {
-        await saveDocument(currentDoc);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //   const saveCurrentDoc = async () => {
+  //     try {
+  //       await saveDocument(currentDoc);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    const handleAutoSave = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(saveCurrentDoc, saveDelay);
-    };
-    handleAutoSave();
-    return () => clearTimeout(timeoutId);
-  }, [currentDoc]);
+  //   const handleAutoSave = () => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(saveCurrentDoc, saveDelay);
+  //   };
+  //   handleAutoSave();
+  //   return () => clearTimeout(timeoutId);
+  // }, [currentDoc]);
 
   if (loading) {
     return <Loading />;
@@ -53,11 +54,13 @@ const EditPage = () => {
   }
 
   // create new note
-  const createNote = () => {
+  const createNote = async () => {
     const newNote = { id: uuidv4(), title: "new note", content: "" };
     const updatedParagraphs = [...currentDoc.paragraphs, newNote];
     setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
     setSelectedNote(newNote);
+    // save to db
+    await updateDoc({ document: currentDoc, ...newNote }, "insert_paragraph");
   };
 
   // delete note
@@ -79,6 +82,7 @@ const EditPage = () => {
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         deleteNote={deleteNote}
+        currentDoc={currentDoc}
         setCurrentDoc={setCurrentDoc}
       />
       <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />

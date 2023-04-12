@@ -1,6 +1,6 @@
 export const updateDoc = async (updateData, event) => {
   try {
-    const { document, paragraph } = updateData;
+    const { document } = updateData;
     console.log("saving notes...");
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(

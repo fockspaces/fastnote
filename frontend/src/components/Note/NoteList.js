@@ -11,9 +11,9 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
   return (
     <div className="note-list mt-3">
       <ListGroup>
-        {notes.map((note) => (
+        {notes.map((note, idx) => (
           <NoteListItem
-            key={note.id}
+            key={idx}
             note={note}
             selectedNote={selectedNote}
             setSelectedNote={setSelectedNote}
