@@ -5,12 +5,8 @@ import Document from "../../models/Document.js";
 // @params: event <String>, updateData <Object>,
 // document_id <Object_id>, paragraph_id <Object_id>
 // @return: newDocument <Object> / newParagraph <Object>
-export const updateDoc = async (
-  event,
-  updateData,
-  document_id,
-  paragraph_id
-) => {
+export const updateDoc = async (event, updateData, document_id) => {
+  const { paragraph_id } = updateData;
   if (event === "update_paragraph") {
     const newParagraph = await updatePargraph(updateData, paragraph_id);
     return newParagraph;
