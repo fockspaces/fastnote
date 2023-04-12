@@ -90,6 +90,7 @@ export const saveDoc = async (document) => {
   return newDocument;
 };
 
+// *to be removed
 // @desc query the documnet
 // @params query <Object>, configs <Object>
 // @return documents <Array of Objects>

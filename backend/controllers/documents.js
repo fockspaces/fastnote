@@ -1,28 +1,37 @@
 import mongoose from "mongoose";
 import { createDoc } from "../services/documents/createDoc.js";
-import {
-  findDocs,
-  deleteDoc,
-} from "../services/documents/documentService.js";
+import { deleteDoc } from "../services/documents/documentService.js";
 import { findDocById } from "../services/documents/documentUtils.js";
-import { fetchDoc } from "../services/documents/fetchDoc.js";
+import { findDoc } from "../services/documents/findDoc.js";
+import { findDocs } from "../services/documents/findDocs.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 
 // *sprint 2 (unfin)
 export const getAllDocuments = async (req, res) => {
-  let { paging, tagging } = req.query;
-  const user = req.user;
-  // formatted the parameters
-  paging = paging ? parseInt(paging) : 0;
-  tagging = tagging ? JSON.parse(tagging) : [];
+  // extract par
+  const {
+    paging = 0,
+    tagging = [],
+    is_trash = false,
+    is_favorite = false,
+  } = req.query;
+  const userId = req.user._id;
 
-  // validation
-  if (!Number.isInteger(paging) || paging < 0)
-    return res.status(400).json({ error: "please provide a valid paging" });
+  // preparing query parameters
+  const query = { userId, is_trash, is_favorite };
+  if (tagging.length) {
+    const tags = tagging.split(",").map((tag) => tag.trim());
+    query.tags = { $all: tags };
+  }
+
+  // const tags = tagging.length ? { $all: tagging } : {};
+  // // validation paging
+  // if (!Number.isInteger(paging) || paging < 0)
+  //   return res.status(400).json({ error: "please provide a valid paging" });
 
   // find documents
-  const documents = await findDocs(paging, tagging, user);
+  const documents = await findDocs(query, paging);
 
   return res.status(200).json({ data: documents });
 };
@@ -49,7 +58,7 @@ export const updateDocument = async (req, res) => {
 
   // auth the user
   const user = await fetchUser(req.user);
-  const document = await fetchDoc(document_id);
+  const document = await findDoc(document_id);
   if (!user._id.equals(document.userId))
     return res.status(403).json({ error: "forbidden (not the owner)" });
 

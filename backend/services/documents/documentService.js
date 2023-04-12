@@ -11,20 +11,6 @@ import { queryDocument } from "./documentUtils.js";
 import { PAGE_LIMIT } from "../../configs/Configs.js";
 import { fetchUser } from "../users/fetchUser.js";
 
-export const findDocs = async (paging, tagging, user) => {
-  const getUser = await fetchUser(user);
-  let query = {
-    user: getUser._id,
-  };
-  if (tagging.length) {
-    query.tags = {
-      $all: tagging,
-    };
-  }
-  const documents = queryDocument(query, paging, PAGE_LIMIT);
-  return documents;
-};
-
 export const deleteDoc = async (document_id, user) => {
   // find Document by document_id
   const document = await findDoc(document_id);
