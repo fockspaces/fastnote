@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
 import { updateDoc } from "../../../api/documents/updateDocument";
 
 function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);
+  const [currentDocument, setCurrentDocument] = useState(document);
 
   const handleTitleUpdate = async () => {
     await updateDoc({ title, document_id: document._id });
+  };
+
+  const handleFavoriteUpdate = async () => {
+    const result = await updateDoc({
+      is_favorite: !currentDocument.is_favorite,
+      document_id: currentDocument._id,
+    });
+    setCurrentDocument(result.data);
   };
 
   return (
@@ -17,9 +26,7 @@ function DocumentListItem({ document, handleDelete }) {
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">
             <input
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
+              onChange={(e) => setTitle(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleTitleUpdate();
@@ -30,7 +37,7 @@ function DocumentListItem({ document, handleDelete }) {
             />
           </Card.Title>
           <div className="flex gap-2 list__header">
-            <Link to={`/document/${document._id}`}>
+            <Link to={`/document/${currentDocument._id}`}>
               <Button variant size="sm">
                 <FaEdit /> Edit
               </Button>
@@ -39,16 +46,33 @@ function DocumentListItem({ document, handleDelete }) {
               <Button
                 variant
                 size="sm"
-                onClick={() => {
-                  handleDelete(document);
-                }}
+                onClick={() => handleDelete(currentDocument)}
               >
                 <FaTrash /> Delete
               </Button>
             </Link>
+            <label htmlFor={`favorite-${currentDocument._id}`}>
+              <input
+                type="checkbox"
+                id={`favorite-${currentDocument._id}`}
+                checked={currentDocument.is_favorite}
+                onChange={handleFavoriteUpdate}
+                style={{ display: "none" }}
+              />
+              {currentDocument.is_favorite ? (
+                <span className="text-warning me-2">
+                  <FaStar />
+                </span>
+              ) : (
+                <span className="text-secondary me-2">
+                  <FaRegStar />
+                </span>
+              )}
+              favorite
+            </label>
           </div>
           <div className="mt-2">
-            {document.tags.map((tag, index) => (
+            {currentDocument.tags.map((tag, index) => (
               <span key={index} className="badge bg-secondary me-1">
                 {tag}
               </span>

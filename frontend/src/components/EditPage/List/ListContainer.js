@@ -1,4 +1,3 @@
-import "../../../styles/_List.scss";
 import React from "react";
 import NoteList from "../Note/NoteList";
 import ToListPage from "../../Button/ToListPage";
