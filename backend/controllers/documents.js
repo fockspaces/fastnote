@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { createDoc } from "../services/documents/createDoc.js";
-import { deleteDoc } from "../services/documents/documentService.js";
+import { deleteDoc } from "../services/documents/deleteDoc.js";
 import { findDoc } from "../services/documents/findDoc.js";
 import { findDocs } from "../services/documents/findDocs.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
@@ -35,6 +35,7 @@ export const getAllDocuments = async (req, res) => {
   return res.status(200).json({ data: documents });
 };
 
+// *sprint 2 (fin)
 export const getDocumentDetail = async (req, res) => {
   const { document_id } = req.params;
 
@@ -75,6 +76,7 @@ export const createDocument = async (req, res) => {
   res.json({ message: "Document created successfully", document });
 };
 
+// *sprint 2 (unfin)
 export const deleteDocument = async (req, res) => {
   const user = req.user;
   const { document_id } = req.params;
