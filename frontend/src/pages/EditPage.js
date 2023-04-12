@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 
 import List from "../containers/List";
 import Note from "../components/Note/Note";
-import { fetchDocument } from "../api/fetchDocument";
 import { NotFound } from "./NotFound";
 import { Loading } from "./Loading";
-import { updateDoc } from "../api/updateDocument";
+
+import { updateDoc } from "../api/documents/updateDocument";
+import { fetchDocument } from "../api/documents/fetchDocument";
 
 const EditPage = () => {
   const [loading, setLoading] = useState(true);

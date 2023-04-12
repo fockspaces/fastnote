@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { updateDoc } from "../../api/updateDocument";
+import { updateDoc } from "../../api/documents/updateDocument";
 
 function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);

@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { AiFillTags } from "react-icons/ai";
 import { generateTags } from "../utils/noteHelper";
-import { updateDoc } from "../api/updateDocument";
+import { updateDoc } from "../api/documents/updateDocument";
 
 function List({
   notes,

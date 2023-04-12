@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "./NotePreview";
-import { updateNote } from "../../utils/noteHelper";
 import { useParams } from "react-router-dom";
-import { updateDoc } from "../../api/updateDocument";
+import { updateNote } from "../../utils/noteHelper";
+import { updateDoc } from "../../api/documents/updateDocument";
 
 function Note({ selectedNote, setCurrentDoc }) {
   const [content, setContent] = useState(selectedNote.content);

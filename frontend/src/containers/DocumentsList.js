@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchDocuments } from "../api/fetchDocuments";
-import { deleteDocument } from "../api/deleteDocument";
-import { createDocument } from "../api/createDocument";
+import { fetchDocuments } from "../api/documents/fetchDocuments";
+import { deleteDocument } from "../api/documents/deleteDocument";
+import { createDocument } from "../api/documents/createDocument";
 import DocumentList from "../components/Document/DocumentList";
 import { Button } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
