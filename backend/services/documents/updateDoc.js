@@ -62,7 +62,7 @@ const insertNewParagraph = async (updateData, document_id) => {
 
 const deleteParagraph = async (paragraph_id, document_id) => {
   const deletedParagrpah = await Paragraph.deleteOne({ _id: paragraph_id });
-  const newDocument = await Document.findByIdAndUpdate(
+  await Document.findByIdAndUpdate(
     document_id,
     { $pull: { paragraphs: paragraph_id } },
     { new: true }
