@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 import { createDoc } from "../services/documents/createDoc.js";
 import { deleteDoc } from "../services/documents/documentService.js";
-import { findDocById } from "../services/documents/documentUtils.js";
 import { findDoc } from "../services/documents/findDoc.js";
 import { findDocs } from "../services/documents/findDocs.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 
-// *sprint 2 (unfin)
+// *sprint 2 (fin)
 export const getAllDocuments = async (req, res) => {
   // extract par
   const {
@@ -43,7 +42,7 @@ export const getDocumentDetail = async (req, res) => {
     return res.status(400).json({ error: "Invalid document ID" });
   }
 
-  const document = await findDocById(document_id);
+  const document = await findDoc(document_id);
   if (!document) {
     return res.status(404).json({ error: "Document not found" });
   }
