@@ -1,0 +1,89 @@
+.menu-wrapper {
+  position: fixed; // Make the menu fixed
+  top: 0; // Align the menu to the top
+  left: 0; // Align the menu to the left
+  height: 100%; // Make the menu fill the whole height of the screen
+  z-index: 9999; // Put the menu on top of other elements
+}
+
+.menu {
+  width: 200px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+
+  &.collapsed {
+    width: 60px;
+  }
+
+  .collapse-btn {
+    display: flex;
+    justify-content: flex-end; // Align the button to the right
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding-right: 20px; // Add right padding for the button
+    cursor: pointer;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex; // Add display flex
+    flex-direction: column; // Make the list items display in a column
+    justify-content: center; // Center the list items vertically
+    height: 60%; // Set the height to 100% to fill the menu container
+
+    li {
+      padding: 0;
+      margin: 0;
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 10px 20px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #000000;
+        transition: all 0.3s;
+
+        svg {
+          margin-right: 15px;
+        }
+
+        span {
+          display: inline; // Show the text by default
+        }
+      }
+
+      &:hover .nav-link {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.menu.collapsed {
+  .collapse-btn {
+    justify-content: center; // Align the button to the center when collapsed
+    padding-right: 0; // Remove right padding when collapsed
+  }
+  ul {
+    li {
+      .nav-link {
+        width: 120%;
+
+        svg {
+          font-size: 24px; // Increase the font-size of the icons
+        }
+
+        span {
+          display: none; // Hide the text when the menu is collapsed
+        }
+      }
+    }
+  }
+}

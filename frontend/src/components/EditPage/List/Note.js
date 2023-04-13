@@ -39,10 +39,8 @@ function Note({ selectedNote, setCurrentDoc }) {
   if (selectedNote.preview) return <NotePreview />;
 
   return (
-    <div className="note">
-      <div className="container">
-        <Tiptap note={selectedNote} setContent={setContent} />
-      </div>
+    <div className="container">
+      <Tiptap note={selectedNote} setContent={setContent} />
     </div>
   );
 }

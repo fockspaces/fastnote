@@ -22,7 +22,7 @@ function DocumentListItem({ document, handleDelete, handleToTrash }) {
 
   if (currentDocument.is_trash) return;
   return (
-    <Col>
+    <Col style={{ minWidth: "350px", maxWidth:'500px' }}>
       <Card className="h-full">
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">

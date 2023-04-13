@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 
 import List from "../components/EditPage/List/ListContainer";
 import Note from "../components/EditPage/List/Note";
-import { NotFound } from "./NotFound";
-import { Loading } from "./Loading";
+import { NotFound } from "./functionPage/NotFound";
+import { Loading } from "./functionPage/Loading";
 
 import { updateDoc } from "../api/documents/updateDocument";
 import { fetchDocument } from "../api/documents/fetchDocument";
@@ -60,7 +60,7 @@ const EditPage = () => {
   };
 
   return (
-    <>
+    <div className="EditPage">
       <List
         createNote={createNote}
         notes={currentDoc.paragraphs}
@@ -69,8 +69,10 @@ const EditPage = () => {
         deleteNote={deleteNote}
         setCurrentDoc={setCurrentDoc}
       />
-      <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />
-    </>
+      <div className="note">
+        <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />
+      </div>
+    </div>
   );
 };
 

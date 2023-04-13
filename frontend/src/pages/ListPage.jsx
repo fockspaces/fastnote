@@ -33,10 +33,8 @@ function ListPage() {
       title: "New Document",
       tags: ["default tag"],
     };
-    // improve UX
-    setDocuments((documents) => [...documents, newDocument]);
     const result = await createDocument();
-    setDocuments((documents) => [...documents.slice(0, -1), result.document]);
+    setDocuments((documents) => [...documents, result.document]);
   };
 
   const handleToTrash = async (document) => {
