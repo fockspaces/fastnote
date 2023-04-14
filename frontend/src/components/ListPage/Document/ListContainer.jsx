@@ -18,7 +18,7 @@ function ListContainer({ query }) {
       }
     };
     fetchData();
-  }, []);
+  }, [query]);
 
   const handleDelete = async (document) => {
     setDocuments(documents.filter((doc) => doc._id !== document._id));
