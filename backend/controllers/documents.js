@@ -9,25 +9,24 @@ import { fetchUser } from "../services/users/fetchUser.js";
 // *sprint 2 (fin)
 export const getAllDocuments = async (req, res) => {
   // extract par
-  const { paging = 0, tagging = [], is_favorite, is_trash } = req.query;
+  const { paging, tagging = [], is_favorite, is_trash, keyword } = req.query;
   const userId = req.user._id;
 
   // validation paging
-  if (!Number.isInteger(parseInt(paging)) || paging < 0)
+  if ((paging && !Number.isInteger(parseInt(paging))) || paging < 0)
     return res.status(400).json({ error: "please provide a valid paging" });
 
   // preparing query parameters
   const query = { userId };
-  if (tagging.length) {
-    const tags = tagging.split(",").map((tag) => tag.trim());
-    query.tags = { $all: tags };
-  }
+  if (tagging.length)
+    query.tags = {
+      $in: tagging.split(",").map((tag) => new RegExp(`^${tag.trim()}$`, "i")),
+    };
   if (is_favorite) query.is_favorite = is_favorite;
   if (is_trash) query.is_trash = is_trash;
 
   // find documents
-  const documents = await findDocs(query, paging);
-
+  const documents = await findDocs(query, keyword, paging);
   return res.status(200).json({ data: documents });
 };
 

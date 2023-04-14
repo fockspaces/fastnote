@@ -1,5 +1,6 @@
+import "../../styles/menu.scss";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaTrash,
@@ -10,9 +11,12 @@ import {
   FaChevronRight,
   FaListUl,
 } from "react-icons/fa";
-import "../../styles/menu.scss";
+import { IoCreate } from "react-icons/io5";
+import { createDocument } from "../../api/documents/createDocument";
 
 function Menu({ menuOpen, setMenuOpen }) {
+  const navigate = useNavigate();
+
   const handleCollapse = (toggle) => {
     if (toggle) return setMenuOpen((prevState) => !prevState);
     setMenuOpen(false);
@@ -22,6 +26,13 @@ function Menu({ menuOpen, setMenuOpen }) {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
     window.location.href = "/";
+  };
+
+  const handleCreateNote = async () => {
+    const result = await createDocument();
+    console.log(result.document);
+    handleCollapse();
+    navigate(`/document/${result.document._id}`); // Use history.push to navigate to the new page
   };
 
   return (
@@ -36,6 +47,12 @@ function Menu({ menuOpen, setMenuOpen }) {
           {menuOpen ? <FaChevronLeft /> : <FaChevronRight />}
         </div>
         <ul>
+          <li onClick={handleCreateNote}>
+            <Link to="/documents" className="nav-link">
+              <IoCreate />
+              <span>New</span>
+            </Link>
+          </li>
           <li
             onClick={() => {
               handleCollapse();
