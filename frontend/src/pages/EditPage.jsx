@@ -1,9 +1,10 @@
+import "../styles/editPage.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import List from "../components/EditPage/List/ListContainer";
 import Note from "../components/EditPage/List/Note";
-import { NotFound } from "./functionPage/NotFound";
+import NotFound from "./functionPage/NotFound";
 import { Loading } from "./functionPage/Loading";
 
 import { updateDoc } from "../api/documents/updateDocument";

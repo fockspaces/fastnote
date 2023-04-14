@@ -13,11 +13,10 @@ export const login = async (access_token) => {
       throw new Error(errorData.error);
     }
     const responseData = await response.json();
-
     // Store the access token in localStorage
     localStorage.setItem("access_token", responseData.access_token);
-    // redirect to the home page
-    window.location.href = "/";
+    localStorage.setItem("user", JSON.stringify(responseData.user));
+    window.location.href = "/profile";
   } catch (error) {
     console.error(error);
   }

@@ -1,4 +1,3 @@
-import '../styles/listPage.scss'
 import React, { useEffect, useState } from "react";
 import { fetchDocuments } from "../api/documents/fetchDocuments";
 import { deleteDocument } from "../api/documents/deleteDocument";
@@ -8,13 +7,13 @@ import { Button } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
 import { updateDoc } from "../api/documents/updateDocument";
 
-function ListPage() {
+function FavoritePage() {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchDocuments("is_trash=false");
+        const result = await fetchDocuments("is_favorite=true");
         setDocuments(result);
       } catch (error) {
         console.error(error);
@@ -36,19 +35,10 @@ function ListPage() {
 
   return (
     <div className="list-page p-4 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">ListPage</h1>
-      <Button
-        className="mb-3"
-        variant="outline-dark"
-        size="sm"
-        onClick={handleCreate}
-      >
-        <AiOutlinePlus />
-        create
-      </Button>
+      <h1 className="mb-4 text-2xl font-bold">FavoritePage</h1>
       <DocumentList documents={documents} handleDelete={handleDelete} />
     </div>
   );
 }
 
-export default ListPage;
+export default FavoritePage;

@@ -10,7 +10,6 @@ function DocumentList({ documents, handleDelete, handleToTrash }) {
           key={doc._id}
           document={doc}
           handleDelete={handleDelete}
-          handleToTrash={handleToTrash}
         />
       ))}
     </Row>

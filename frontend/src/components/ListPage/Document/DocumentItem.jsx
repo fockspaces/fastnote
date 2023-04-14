@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
 import { updateDoc } from "../../../api/documents/updateDocument";
 
-function DocumentListItem({ document, handleDelete, handleToTrash }) {
+function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
 
@@ -20,9 +20,9 @@ function DocumentListItem({ document, handleDelete, handleToTrash }) {
     setCurrentDocument(result.data);
   };
 
-  if (currentDocument.is_trash) return;
+  // if (currentDocument.is_trash) return;
   return (
-    <Col style={{ minWidth: "350px", maxWidth:'500px' }}>
+    <Col style={{ minWidth: "350px", maxWidth: "500px" }}>
       <Card className="h-full">
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">
@@ -47,7 +47,7 @@ function DocumentListItem({ document, handleDelete, handleToTrash }) {
               <Button
                 variant
                 size="sm"
-                onClick={() => handleToTrash(currentDocument)}
+                onClick={() => handleDelete(currentDocument)}
               >
                 <FaTrash /> Delete
               </Button>

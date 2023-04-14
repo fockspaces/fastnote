@@ -9,32 +9,45 @@
 .menu {
   width: 200px;
   height: 100%;
-  background-color: #ffffff;
+
+  background-color: #141313;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
 
   &.collapsed {
-    width: 60px;
+    width: 80px; // Increase the width when collapsed
   }
 
   .collapse-btn {
+    position: absolute; // Add absolute positioning
+    top: 0;
+    right: 0;
+    color: #ffffff;
+    background-color: #141313;
     display: flex;
-    justify-content: flex-end; // Align the button to the right
+    flex-direction: column; // Change flex direction to column
+    justify-content: center; // Center the button vertically
     align-items: center;
-    width: 100%;
-    height: 50px;
-    padding-right: 20px; // Add right padding for the button
+    width: 20px; // Set the width of the button
+    height: 100%; // Stretch the button vertically
     cursor: pointer;
+    &:hover {
+      background-color: rgba(
+        255,
+        255,
+        255,
+        0.1
+      ); // Add a hover effect to the collapse-btn
+    }
   }
 
   ul {
     padding: 0;
-    margin: 0;
     list-style: none;
     display: flex; // Add display flex
     flex-direction: column; // Make the list items display in a column
     justify-content: center; // Center the list items vertically
-    height: 60%; // Set the height to 100% to fill the menu container
+    height: 90%; // Set the height to 100% to fill the menu container
 
     li {
       padding: 0;
@@ -42,12 +55,12 @@
 
       .nav-link {
         display: flex;
-        align-items: center;
+        align-items: left;
         width: 100%;
         padding: 10px 20px;
         margin-top: 20px;
         text-decoration: none;
-        color: #000000;
+        color: #ffffff;
         transition: all 0.3s;
 
         svg {
@@ -60,7 +73,12 @@
       }
 
       &:hover .nav-link {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); // Adjust the hover background color
       }
     }
   }
@@ -70,6 +88,15 @@
   .collapse-btn {
     justify-content: center; // Align the button to the center when collapsed
     padding-right: 0; // Remove right padding when collapsed
+    background-color: #141313;
+    &:hover {
+      background-color: rgba(
+        255,
+        255,
+        255,
+        0.1
+      ); // Add a hover effect to the collapse-btn
+    }
   }
   ul {
     li {
