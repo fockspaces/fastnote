@@ -1,6 +1,7 @@
 import { PAGE_LIMIT } from "../../configs/Configs.js";
 import Document from "../../models/Document.js";
 import Paragraph from "../../models/Paragraph.js";
+import { escapeRegExp } from "../../utils/regexEscape.js";
 
 export const findDocs = async (query, keyword, paging) => {
   const limit = paging ? PAGE_LIMIT : 500;
@@ -19,7 +20,8 @@ export const findDocs = async (query, keyword, paging) => {
 
 // convert keword into query format
 const addKeywordQuery = async (keyword) => {
-  const keywordRegex = new RegExp(keyword, "i");
+  const escapedKeyword = escapeRegExp(keyword);
+  const keywordRegex = new RegExp(escapedKeyword, "i");
 
   // Find paragraph IDs with matching content
   const matchingParagraphs = await Paragraph.find({

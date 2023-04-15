@@ -5,6 +5,7 @@ import { findDoc } from "../services/documents/findDoc.js";
 import { findDocs } from "../services/documents/findDocs.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
+import { escapeRegExp } from "../utils/regexEscape.js";
 
 // *sprint 2 (fin)
 export const getAllDocuments = async (req, res) => {
@@ -20,7 +21,9 @@ export const getAllDocuments = async (req, res) => {
   const query = { userId };
   if (tagging.length)
     query.tags = {
-      $all: tagging.split(",").map((tag) => new RegExp(`^${tag.trim()}$`, "i")),
+      $all: tagging
+        .split(",")
+        .map((tag) => new RegExp(`^${escapeRegExp(tag.trim())}$`, "i")),
     };
   if (is_favorite) query.is_favorite = is_favorite;
   if (is_trash) query.is_trash = is_trash;

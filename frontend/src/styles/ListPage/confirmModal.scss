@@ -1,4 +1,7 @@
 .confirm-modal {
+  .modal-dialog {
+    margin-top: 10vh;
+  }
   .modal-header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #dee2e6;
@@ -42,8 +45,4 @@
     background-color: #23272b;
     border-color: #23272b;
   }
-}
-
-.confirm-modal .modal-dialog {
-  margin-top: 10vh;
 }
