@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import NoteList from "../Note/NoteList";
 import ToListPage from "./ToListPage";
 import { CreateNote } from "./CreateNote";
 import { Button } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
-import { AiFillTags } from "react-icons/ai";
-import { generateTags } from "../../../utils/noteHelper";
-import { updateDoc } from "../../../api/documents/updateDocument";
+import { Link } from "react-router-dom";
+import { IoBarcodeOutline } from "react-icons/io5";
+import SummarizeModal from "./utils/SummarizeModal";
 
 function List({
   notes,
@@ -16,15 +15,7 @@ function List({
   selectedNote,
   setCurrentDoc,
 }) {
-  const { document_id } = useParams();
-  const handleTags = async (notes) => {
-    const tags = await generateTags(notes);
-    setCurrentDoc((currentDoc) => {
-      return { ...currentDoc, tags };
-    });
-    await updateDoc({ document_id, tags });
-    alert("generate tags succeesfully!");
-  };
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="list">
@@ -45,13 +36,18 @@ function List({
           <Button
             variant="outline-dark"
             onClick={() => {
-              handleTags(notes);
+              setShowModal(true);
             }}
           >
-            <AiFillTags /> Genterate Tags
+            <IoBarcodeOutline /> Summarize
           </Button>
         </Link>
       </div>
+      <SummarizeModal
+        notes={notes}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </div>
   );
 }

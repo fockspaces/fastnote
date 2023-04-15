@@ -16,7 +16,13 @@ const ConfirmModal = ({ showModal, setShowModal, handleConfirmDelete }) => {
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={handleConfirmDelete}>
+        <Button
+          variant="danger"
+          onClick={(e) => {
+            console.log(e);
+            handleConfirmDelete(e);
+          }}
+        >
           Delete
         </Button>
       </Modal.Footer>

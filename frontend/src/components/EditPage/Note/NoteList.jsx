@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
+import ConfirmModal from "../../ListPage/utils/ConfirmModal";
 
 function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
-  const handleDeleteNote = (note, e) => {
-    deleteNote(note);
-    e.stopPropagation();
-  };
   return (
     <div className="note-list mt-3">
       <ListGroup>
@@ -16,7 +13,7 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
             note={note}
             selectedNote={selectedNote}
             setSelectedNote={setSelectedNote}
-            handleDeleteNote={handleDeleteNote}
+            deleteNote={deleteNote}
           />
         ))}
       </ListGroup>
@@ -24,13 +21,15 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
   );
 }
 
-function NoteListItem({
-  note,
-  setSelectedNote,
-  handleDeleteNote,
-  selectedNote,
-}) {
+function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
   const isSelected = note._id === selectedNote._id;
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDeleteNote = (e) => {
+    deleteNote(note);
+    e.stopPropagation();
+    setShowModal(false);
+  };
 
   return (
     <ListGroup.Item
@@ -44,10 +43,19 @@ function NoteListItem({
         <div className="title-container">
           <span>{note.title}</span>
         </div>
-        <span onClick={(e) => handleDeleteNote(note, e)}>
+        <span
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
           <FaTrash />
         </span>
       </div>
+      <ConfirmModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        handleConfirmDelete={handleDeleteNote}
+      />
     </ListGroup.Item>
   );
 }

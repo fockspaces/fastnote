@@ -1,0 +1,44 @@
+// modalStyles.scss
+
+.modal {
+  margin-top: 20vh;
+  .modal-header {
+    color: #343a40;
+    border-bottom: 1px solid #dee2e6;
+
+    .modal-title {
+      font-weight: bold;
+    }
+  }
+
+  .modal-body {
+    color: #343a40;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #dee2e6;
+  }
+
+  .btn {
+    &.btn-outline-secondary {
+      color: #6c757d;
+      border-color: #6c757d;
+
+      &:hover {
+        background-color: #6c757d;
+        color: #fff;
+      }
+    }
+
+    &.btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: #fff;
+
+      &:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+      }
+    }
+  }
+}
