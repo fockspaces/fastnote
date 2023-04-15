@@ -4,7 +4,7 @@ import DocumentListItem from "./DocumentItem";
 
 function DocumentList({ documents, handleDelete }) {
   return (
-    <Row sm={2} md={2} lg={3} className="g-4 justify-content-left">
+    <Row sm={2} md={2} lg={3} className="justify-content-left">
       {documents.map((doc) => (
         <DocumentListItem
           key={doc._id}

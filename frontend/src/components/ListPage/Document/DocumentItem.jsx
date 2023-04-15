@@ -4,12 +4,19 @@ import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
 import { updateDoc } from "../../../api/documents/updateDocument";
-import Tagger from "./Tagger";
+import Tagger from "../utils/Tagger";
+import ConfirmModal from "../utils/ConfirmModal";
 
 function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleConfirmDelete = () => {
+    handleDelete(currentDocument);
+    setShowModal(false);
+  };
 
   const handleTitleUpdate = async () => {
     await updateDoc({ title, document_id: document._id });
@@ -68,25 +75,33 @@ function DocumentListItem({ document, handleDelete }) {
               })}
             </div>
           </Card.Title>
-          <div className="flex gap-2 list__header">
+          {document.description && (
+            <Card.Text>
+              {document.description.length > 100
+                ? document.description.slice(0, 100) + "..."
+                : document.description}
+            </Card.Text>
+          )}
+          <div className="list__header">
             <Link to={`/document/${currentDocument._id}`}>
               <Button variant size="sm">
                 <FaEdit />
               </Button>
             </Link>
             <Link>
-              <Button
-                variant
-                size="sm"
-                onClick={() => handleDelete(currentDocument)}
-              >
+              <Button variant size="sm" onClick={() => setShowModal(true)}>
                 <FaTrash />
               </Button>
             </Link>
           </div>
-          <Tagger tags={currentDocument.tags} />
+          {document.tags && <Tagger tags={currentDocument.tags} />}
         </Card.Body>
       </Card>
+      <ConfirmModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        handleConfirmDelete={handleConfirmDelete}
+      />
     </Col>
   );
 }

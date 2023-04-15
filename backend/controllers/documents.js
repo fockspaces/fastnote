@@ -65,10 +65,10 @@ export const updateDocument = async (req, res) => {
 
 // *sprint 2 (fin)
 export const createDocument = async (req, res) => {
-  const { title, tags } = req.body;
-  const user = req.user;
+  const { title, description, tags } = req.body;
+  const userId = req.user._id;
 
-  const document = await createDoc(user._id, title, tags);
+  const document = await createDoc({ userId, title, tags, description });
   res.json({ message: "Document created successfully", document });
 };
 

@@ -1,6 +1,6 @@
 .document-item {
   min-width: 400px;
-  max-width: 700px;
+  margin-bottom: 1rem;
 
   .card {
     .card-body {
@@ -9,17 +9,30 @@
       height: 100%;
 
       .card-title {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.5rem;
         input {
-          width: 100%;
-          font-size: 1.125rem;
-          font-weight: bold;
+          width: 80%;
+          font-size: 1.25rem;
           margin-bottom: 0.5rem;
           border: none;
           outline: none;
+          color: #333;
         }
+
         .document-date {
-          font-size: 0.875rem; /* adjust font size as needed */
-          color: #6c757d; /* adjust color as needed */
+          font-size: 0.7em;
+          color: #6c757d;
+        }
+
+        .document-description {
+          font-size: 1rem;
+          color: #333;
+          font-style: italic;
+          margin-bottom: 1rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 

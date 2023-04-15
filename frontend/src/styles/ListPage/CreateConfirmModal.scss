@@ -1,0 +1,66 @@
+.confirm-modal {
+    .modal-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+  
+    .modal-title {
+      font-weight: 500;
+      font-size: 1.5rem;
+      color: #495057;
+    }
+  
+    .modal-body {
+      font-size: 1rem;
+      color: #6c757d;
+  
+      form {
+        .form-group {
+          margin-bottom: 1.5rem;
+  
+          label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+            display: block;
+          }
+  
+          input,
+          textarea {
+            font-size: 0.875rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            background-color: #fff;
+            color: #495057;
+            padding: 0.5rem 1rem;
+          }
+  
+          textarea {
+            resize: none;
+          }
+        }
+      }
+    }
+  
+    .modal-footer {
+      background-color: #f8f9fa;
+      border-top: 1px solid #e9ecef;
+    }
+  
+    .btn-primary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: #ffffff;
+      font-weight: 500;
+      border-radius: 0.25rem;
+      padding: 0.5rem 1rem;
+    }
+  
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #5a6268;
+      border-color: #5a6268;
+    }
+  }
+  

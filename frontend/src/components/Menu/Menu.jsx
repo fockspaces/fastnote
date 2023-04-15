@@ -1,6 +1,7 @@
 import "../../styles/menu.scss";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   FaHeart,
   FaTrash,
@@ -12,10 +13,11 @@ import {
   FaListUl,
 } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
-import { createDocument } from "../../api/documents/createDocument";
+import CreateConfirmModal from "./utils/CreateConfirmModal";
+
 
 function Menu({ menuOpen, setMenuOpen }) {
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   const handleCollapse = (toggle) => {
     if (toggle) return setMenuOpen((prevState) => !prevState);
@@ -26,13 +28,6 @@ function Menu({ menuOpen, setMenuOpen }) {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
     window.location.href = "/";
-  };
-
-  const handleCreateNote = async () => {
-    const result = await createDocument();
-    console.log(result.document);
-    handleCollapse();
-    navigate(`/document/${result.document._id}`); // Use history.push to navigate to the new page
   };
 
   return (
@@ -47,7 +42,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           {menuOpen ? <FaChevronLeft /> : <FaChevronRight />}
         </div>
         <ul>
-          <li onClick={handleCreateNote}>
+          <li onClick={() => setShowModal(true)}>
             <Link to="/documents" className="nav-link">
               <IoCreate />
               <span>New</span>
@@ -111,6 +106,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           </li>
         </ul>
       </nav>
+      <CreateConfirmModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }

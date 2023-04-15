@@ -1,4 +1,4 @@
-export const createDocument = async () => {
+export const createDocument = async (document) => {
   const access_token = localStorage.getItem("access_token");
   const response = await fetch("http://127.0.0.1:8000/api/documents", {
     method: "POST",
@@ -6,7 +6,7 @@ export const createDocument = async () => {
       Authorization: `Bearer ${access_token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title: "New Document", tags: ["default tag"] }),
+    body: JSON.stringify(document),
   });
 
   if (!response.ok) {

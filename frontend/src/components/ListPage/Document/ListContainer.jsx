@@ -4,9 +4,10 @@ import { fetchDocuments } from "../../../api/documents/fetchDocuments";
 import { deleteDocument } from "../../../api/documents/deleteDocument";
 import DocumentList from "./DocumentList";
 import { updateDoc } from "../../../api/documents/updateDocument";
-import SearchBar from "../Searchbar/SearchBar";
-import TagsBar from "../Searchbar/TagsBar";
+import SearchBar from "../utils/SearchBar";
+import TagsBar from "../utils/TagsBar";
 import { getAllTags, tagsHelper } from "../../../utils/tagsHelper";
+import NoDocumentsHint from "../utils/NoDocuments";
 
 function ListContainer({ query }) {
   const [documents, setDocuments] = useState([]);
@@ -37,7 +38,11 @@ function ListContainer({ query }) {
         setTagging={setTagging}
         whitelist={getAllTags(documents)}
       />
-      <DocumentList documents={documents} handleDelete={handleDelete} />
+      {documents.length === 0 ? (
+        <NoDocumentsHint />
+      ) : (
+        <DocumentList documents={documents} handleDelete={handleDelete} />
+      )}
     </div>
   );
 }
