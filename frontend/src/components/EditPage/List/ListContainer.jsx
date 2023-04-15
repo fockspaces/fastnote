@@ -1,7 +1,7 @@
 import React from "react";
 import NoteList from "../Note/NoteList";
-import ToListPage from "../../Button/ToListPage";
-import { CreateNote } from "../../Button/CreateNote";
+import ToListPage from "./ToListPage";
+import { CreateNote } from "./CreateNote";
 import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { AiFillTags } from "react-icons/ai";

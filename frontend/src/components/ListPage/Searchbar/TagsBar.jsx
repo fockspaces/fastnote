@@ -1,9 +1,9 @@
-import "../../../styles/tagsbar.scss";
-// import "@yaireo/tagify/dist/tagify.css";
+import "../../../styles/tags-bar.scss";
 
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import Tagify from "@yaireo/tagify";
+import { AiOutlineTags } from "react-icons/ai";
 
 function TagsBar({ tagging, setTagging, whitelist }) {
   const inputRef = useRef();

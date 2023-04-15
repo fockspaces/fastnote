@@ -1,53 +1,42 @@
-.tags-container {
-  padding: 10px;
-  .input-group {
-    .form-control {
-      border-radius: 1rem;
-      border: 2px solid #adb5bd;
-      &:focus {
-        box-shadow: none;
-        border-color: #495057;
-      }
-    }
-  }
+@import "~@yaireo/tagify/src/tagify.scss";
 
-  .tags-list {
+.tags-container {
+  margin-bottom: 2rem;
+
+  .tagify {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  .tag {
-    display: flex;
     align-items: center;
-    background-color: #495057;
-    border-radius: 1.5rem;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: #ffffff;
-    position: relative;
+    gap: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.1rem;
+    font-size: 1rem;
+    width: auto;
+    transition: border-color 0.3s;
 
-    .btn {
-      background-color: transparent;
-      border: none;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.8);
-      padding: 0;
-      margin-left: 0.25rem;
-      border-radius: 50%;
-      cursor: pointer;
-      outline: none;
-      position: absolute;
-      right: -0.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 1);
-      }
+    &:focus-within {
+      border-color: #007bff;
     }
+
+    input {
+      flex-grow: 1;
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+.tags-look {
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+
+  .tagify__dropdown__item {
+    padding: 0.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+
   }
 }
