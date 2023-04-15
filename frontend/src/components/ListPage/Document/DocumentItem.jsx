@@ -7,7 +7,7 @@ import { updateDoc } from "../../../api/documents/updateDocument";
 import Tagger from "../utils/Tagger";
 import ConfirmModal from "../utils/ConfirmModal";
 
-function DocumentListItem({ document, handleDelete }) {
+function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
@@ -94,7 +94,13 @@ function DocumentListItem({ document, handleDelete }) {
               </Button>
             </Link>
           </div>
-          {document.tags && <Tagger tags={currentDocument.tags} />}
+          {document.tags && (
+            <Tagger
+              tags={currentDocument.tags}
+              tagging={tagging}
+              setTagging={setTagging}
+            />
+          )}
         </Card.Body>
       </Card>
       <ConfirmModal

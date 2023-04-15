@@ -1,0 +1,17 @@
+// taggerStyles.scss
+
+.matching-tag {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.badge {
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .badge:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  

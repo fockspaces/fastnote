@@ -41,7 +41,12 @@ function ListContainer({ query }) {
       {documents.length === 0 ? (
         <NoDocumentsHint />
       ) : (
-        <DocumentList documents={documents} handleDelete={handleDelete} />
+        <DocumentList
+          tagging={tagging}
+          setTagging={setTagging}
+          documents={documents}
+          handleDelete={handleDelete}
+        />
       )}
     </div>
   );

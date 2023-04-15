@@ -1,23 +1,48 @@
 import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import "../../../styles/ListPage/taggerStyles.scss";
 
-const Tagger = ({ tags }) => {
+const maximun_tag = 10;
+
+const Tagger = ({ tags, tagging, setTagging }) => {
   const [collapsed, setCollapsed] = useState(true);
-  const visibleTags = collapsed ? tags.slice(0, 5) : tags;
+  const visibleTags = collapsed ? tags.slice(0, maximun_tag) : tags;
 
   const handleToggleCollapse = () => {
     setCollapsed(!collapsed);
   };
 
+  const isTagSelected = (tag) => {
+    return tagging.includes(tag);
+  };
+
+  const toggleTagging = (tag) => {
+    setTagging((currentTagging) => {
+      if (isTagSelected(tag)) {
+        return currentTagging.filter((t) => t !== tag);
+      } else {
+        return [...currentTagging, tag];
+      }
+    });
+  };
+
   return (
     <div className="mt-2">
       {visibleTags.map((tag, index) => (
-        <span key={index} className="badge bg-secondary me-1">
+        <span
+          key={index}
+          className={`badge ${
+            isTagSelected(tag) ? "bg-dark" : "bg-secondary"
+          } me-1`}
+          onClick={() => {
+            toggleTagging(tag);
+          }}
+        >
           {tag}
         </span>
       ))}
-      {tags.length > 5 && (
-        <button className="btn  p-0" onClick={handleToggleCollapse}>
+      {tags.length > maximun_tag && (
+        <button className="btn p-0" onClick={handleToggleCollapse}>
           {collapsed ? (
             <>
               ...
