@@ -1,0 +1,35 @@
+@import "~@yaireo/tagify/src/tagify.scss";
+
+.tags-container {
+  margin-bottom: 1rem;
+
+  .tagify {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+    }
+  }
+}
+
+.tags-look {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+
+  .tagify__dropdown__item {
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+  }
+}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Form, FormControl } from "react-bootstrap";
 
-function SearchBar({ handleSearch }) {
+function SearchBar({ setKeyword, setTagging }) {
   const [search, setSearch] = useState("");
 
   const searchText = () => {
-    handleSearch(search);
+    setKeyword(`&keyword=${search}`);
+    setTagging([]);
   };
 
   useEffect(() => {
