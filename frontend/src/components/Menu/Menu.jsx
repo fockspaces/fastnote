@@ -15,7 +15,6 @@ import {
 import { IoCreate } from "react-icons/io5";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 
-
 function Menu({ menuOpen, setMenuOpen }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -30,6 +29,11 @@ function Menu({ menuOpen, setMenuOpen }) {
     window.location.href = "/";
   };
 
+  const handleCreate = () => {
+    setShowModal(true);
+    handleCollapse();
+  };
+
   return (
     <div className="menu-wrapper">
       <nav className={`menu ${menuOpen ? "" : "collapsed"}`}>
@@ -42,7 +46,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           {menuOpen ? <FaChevronLeft /> : <FaChevronRight />}
         </div>
         <ul>
-          <li onClick={() => setShowModal(true)}>
+          <li onClick={handleCreate}>
             <Link to="/documents" className="nav-link">
               <IoCreate />
               <span>New</span>
