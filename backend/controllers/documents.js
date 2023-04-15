@@ -20,7 +20,7 @@ export const getAllDocuments = async (req, res) => {
   const query = { userId };
   if (tagging.length)
     query.tags = {
-      $in: tagging.split(",").map((tag) => new RegExp(`^${tag.trim()}$`, "i")),
+      $all: tagging.split(",").map((tag) => new RegExp(`^${tag.trim()}$`, "i")),
     };
   if (is_favorite) query.is_favorite = is_favorite;
   if (is_trash) query.is_trash = is_trash;
