@@ -30,7 +30,7 @@ function ListContainer({ query }) {
   };
 
   return (
-    <div className="list-container">
+    <div className="list-container mt-4">
       <SearchBar setKeyword={setKeyword} setTagging={setTagging} />
       <TagsBar
         tagging={tagging}

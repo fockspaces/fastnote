@@ -1,3 +1,4 @@
+import "../../../styles/ListPage/documentsItem.scss";
 import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -20,10 +21,29 @@ function DocumentListItem({ document, handleDelete }) {
     setCurrentDocument(result.data);
   };
 
-  // if (currentDocument.is_trash) return;
   return (
-    <Col style={{ minWidth: "350px", maxWidth: "500px" }}>
-      <Card className="h-full">
+    <Col className="document-item">
+      <Card className="h-full position-relative">
+        <div className="favorite-icon position-absolute top-0 end-0">
+          <label htmlFor={`favorite-${currentDocument._id}`}>
+            <input
+              type="checkbox"
+              id={`favorite-${currentDocument._id}`}
+              checked={currentDocument.is_favorite}
+              onChange={handleFavoriteUpdate}
+              style={{ display: "none" }}
+            />
+            {currentDocument.is_favorite ? (
+              <span className="text-warning me-2">
+                <FaStar />
+              </span>
+            ) : (
+              <span className="text-secondary me-2">
+                <FaRegStar />
+              </span>
+            )}
+          </label>
+        </div>
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">
             <input
@@ -40,7 +60,7 @@ function DocumentListItem({ document, handleDelete }) {
           <div className="flex gap-2 list__header">
             <Link to={`/document/${currentDocument._id}`}>
               <Button variant size="sm">
-                <FaEdit /> Edit
+                <FaEdit />
               </Button>
             </Link>
             <Link>
@@ -49,28 +69,9 @@ function DocumentListItem({ document, handleDelete }) {
                 size="sm"
                 onClick={() => handleDelete(currentDocument)}
               >
-                <FaTrash /> Delete
+                <FaTrash />
               </Button>
             </Link>
-            <label htmlFor={`favorite-${currentDocument._id}`}>
-              <input
-                type="checkbox"
-                id={`favorite-${currentDocument._id}`}
-                checked={currentDocument.is_favorite}
-                onChange={handleFavoriteUpdate}
-                style={{ display: "none" }}
-              />
-              {currentDocument.is_favorite ? (
-                <span className="text-warning me-2">
-                  <FaStar />
-                </span>
-              ) : (
-                <span className="text-secondary me-2">
-                  <FaRegStar />
-                </span>
-              )}
-              favorite
-            </label>
           </div>
           <div className="mt-2">
             {currentDocument.tags.map((tag, index) => (

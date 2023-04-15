@@ -1,4 +1,4 @@
-import "../styles/editPage.scss";
+import "../styles/EditPage/editPage.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
