@@ -1,7 +1,7 @@
 import "../../../styles/search-bar.scss";
 import React, { useState, useEffect } from "react";
 import { Form, FormControl } from "react-bootstrap";
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch } from "react-icons/fa";
 
 function SearchBar({ setKeyword, setTagging }) {
   const [search, setSearch] = useState("");

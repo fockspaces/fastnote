@@ -40,11 +40,12 @@ function TagsBar({ tagging, setTagging, whitelist }) {
     <div className="tags-container">
       <Row>
         <Col>
+          <AiOutlineTags className="me-2" />
+          <span style={{ color: "grey" }}>Add tags and press Enter...</span>
           <input
             ref={inputRef}
             className="tagify"
             name="tags"
-            placeholder="Add tags and press Enter"
             value={tagging}
             onChange={(e) => {}}
           />

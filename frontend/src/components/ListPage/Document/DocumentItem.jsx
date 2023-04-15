@@ -4,10 +4,12 @@ import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
 import { updateDoc } from "../../../api/documents/updateDocument";
+import Tagger from "./Tagger";
 
 function DocumentListItem({ document, handleDelete }) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
+  const [isComposing, setIsComposing] = useState(false);
 
   const handleTitleUpdate = async () => {
     await updateDoc({ title, document_id: document._id });
@@ -49,13 +51,22 @@ function DocumentListItem({ document, handleDelete }) {
             <input
               onChange={(e) => setTitle(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleTitleUpdate();
+                if (e.key === "Enter" && !isComposing) {
                   e.target.blur(); // remove focus
                 }
               }}
+              onBlur={handleTitleUpdate}
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
               value={title}
             />
+            <div className="document-date">
+              {new Date(document.createdAt).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </div>
           </Card.Title>
           <div className="flex gap-2 list__header">
             <Link to={`/document/${currentDocument._id}`}>
@@ -73,13 +84,7 @@ function DocumentListItem({ document, handleDelete }) {
               </Button>
             </Link>
           </div>
-          <div className="mt-2">
-            {currentDocument.tags.map((tag, index) => (
-              <span key={index} className="badge bg-secondary me-1">
-                {tag}
-              </span>
-            ))}
-          </div>
+          <Tagger tags={currentDocument.tags} />
         </Card.Body>
       </Card>
     </Col>

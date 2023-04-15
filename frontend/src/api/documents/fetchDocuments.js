@@ -17,5 +17,6 @@ export const fetchDocuments = async (queryString) => {
     return data.data;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };

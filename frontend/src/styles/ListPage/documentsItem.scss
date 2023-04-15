@@ -1,5 +1,6 @@
 .document-item {
-  max-width: 500px;
+  min-width: 400px;
+  max-width: 700px;
 
   .card {
     .card-body {
@@ -15,6 +16,10 @@
           margin-bottom: 0.5rem;
           border: none;
           outline: none;
+        }
+        .document-date {
+          font-size: 0.875rem; /* adjust font size as needed */
+          color: #6c757d; /* adjust color as needed */
         }
       }
 
@@ -52,6 +57,17 @@
     }
   }
 }
+
 .favorite-icon {
   padding: 0.5rem;
+  :hover {
+    .text-secondary {
+      color: #333 !important;
+      cursor: pointer;
+    }
+    .text-warning {
+      color: #e68d44 !important;
+      cursor: pointer;
+    }
+  }
 }
