@@ -75,7 +75,7 @@ export const createDocument = async (req, res) => {
   res.json({ message: "Document created successfully", document });
 };
 
-// *sprint 2 (unfin)
+// *sprint 2 (fin)
 export const deleteDocument = async (req, res) => {
   const user = req.user;
   const { document_id } = req.params;
@@ -85,4 +85,9 @@ export const deleteDocument = async (req, res) => {
   return res
     .status(200)
     .json({ message: "successfully delete document", document });
+};
+
+export const summarizeDocument = async (req, res) => {
+  const { document_id } = req.params;
+  return res.status(200).json({ message: "sending request successfully" });
 };

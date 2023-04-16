@@ -6,6 +6,7 @@ import {
   createDocument,
   deleteDocument,
   updateDocument,
+  summarizeDocument,
 } from "../controllers/documents.js";
 import { catchAsync } from "../utils/errorHandling.js";
 
@@ -22,5 +23,7 @@ document
   .get(catchAsync(getDocumentDetail))
   .post(catchAsync(updateDocument))
   .delete(catchAsync(deleteDocument));
+
+document.route("/:document_id/summary").post(catchAsync(summarizeDocument));
 
 export default document;
