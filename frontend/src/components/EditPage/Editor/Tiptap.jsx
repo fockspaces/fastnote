@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
+import Image from "@tiptap/extension-image";
 
 import { Floating, Bubble } from "./Menu";
 import { CustomDocument } from "./extensions/Document";
@@ -26,6 +27,7 @@ const Tiptap = ({ note, setContent }) => {
       CustomDocument,
       CustomParagraph,
       CustomPlacehoder,
+      Image,
     ],
     onUpdate: updateHandler,
     content: note.content,
@@ -39,6 +41,13 @@ const Tiptap = ({ note, setContent }) => {
   return (
     <>
       <Bubble editor={editor} tippyOptions={{ duration: 100 }} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{ display: "none" }}
+        ref={(input) => (imageInput = input)}
+      />
       <EditorContent editor={editor} />
     </>
   );

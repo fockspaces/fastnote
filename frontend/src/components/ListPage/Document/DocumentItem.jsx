@@ -67,12 +67,26 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
               onCompositionEnd={() => setIsComposing(false)}
               value={title}
             />
-            <div className="document-date">
-              {new Date(document.createdAt).toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
+            <div className="document-meta d-flex align-items-center justify-content-between">
+              <div className="document-date">
+                {new Date(document.createdAt).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </div>
+              <div className="list__header">
+                <Link to={`/document/${currentDocument._id}`}>
+                  <Button variant size="sm">
+                    <FaEdit className="action-icon" />
+                  </Button>
+                </Link>
+                <Link>
+                  <Button variant size="sm" onClick={() => setShowModal(true)}>
+                    <FaTrash className="action-icon" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </Card.Title>
           {document.description && (
@@ -82,18 +96,7 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
                 : document.description}
             </Card.Text>
           )}
-          <div className="list__header">
-            <Link to={`/document/${currentDocument._id}`}>
-              <Button variant size="sm">
-                <FaEdit />
-              </Button>
-            </Link>
-            <Link>
-              <Button variant size="sm" onClick={() => setShowModal(true)}>
-                <FaTrash />
-              </Button>
-            </Link>
-          </div>
+
           {document.tags && (
             <Tagger
               tags={currentDocument.tags}

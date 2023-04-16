@@ -27,7 +27,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
   };
 
   return (
-    <div className="mt-2">
+    <div className="tags-container">
       {visibleTags.map((tag, index) => (
         <span
           key={index}
@@ -42,7 +42,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
         </span>
       ))}
       {tags.length > maximun_tag && (
-        <button className="btn p-0" onClick={handleToggleCollapse}>
+        <button className="btn p-0 tag-toggler-button" onClick={handleToggleCollapse}>
           {collapsed ? (
             <>
               ...
