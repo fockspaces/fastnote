@@ -5,6 +5,7 @@ import cors from "cors";
 import errorHandler from "express-error-handler";
 import document from "./routes/document.js";
 import user from "./routes/user.js";
+import image from "./routes/image.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/documents", document);
 app.use("/api/users", user);
+app.use("/api/images", image);
 
 // error hanlding
 app.use(
