@@ -38,11 +38,14 @@ const Tagger = ({ tags, tagging, setTagging }) => {
             toggleTagging(tag);
           }}
         >
-          {tag}
+          {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
         </span>
       ))}
       {tags.length > maximun_tag && (
-        <button className="btn p-0 tag-toggler-button" onClick={handleToggleCollapse}>
+        <button
+          className="btn p-0 tag-toggler-button"
+          onClick={handleToggleCollapse}
+        >
           {collapsed ? (
             <>
               ...

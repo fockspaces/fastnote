@@ -2,7 +2,7 @@ export const fetchDocuments = async (queryString) => {
   try {
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
-      `http://127.0.0.1:8000/api/documents?${queryString}`,
+      `${process.env.REACT_APP_HOST}/api/documents?${queryString}`,
       {
         headers: {
           authorization: `Bearer ${access_token}`,

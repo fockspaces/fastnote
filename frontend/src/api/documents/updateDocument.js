@@ -4,7 +4,7 @@ export const updateDoc = async (updateData, event) => {
     console.log("saving notes...");
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
-      `http://127.0.0.1:8000/api/documents/${document_id}`,
+      `${process.env.REACT_APP_HOST}/api/documents/${document_id}`,
       {
         method: "POST",
         headers: {

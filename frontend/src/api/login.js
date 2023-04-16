@@ -1,12 +1,15 @@
 export const login = async (access_token) => {
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/users/signin", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_HOST}/api/users/signin`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -16,7 +19,7 @@ export const login = async (access_token) => {
     // Store the access token in localStorage
     localStorage.setItem("access_token", responseData.access_token);
     localStorage.setItem("user", JSON.stringify(responseData.user));
-    window.location.href = "/profile";
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }

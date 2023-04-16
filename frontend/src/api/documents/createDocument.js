@@ -1,6 +1,6 @@
 export const createDocument = async (document) => {
   const access_token = localStorage.getItem("access_token");
-  const response = await fetch("http://127.0.0.1:8000/api/documents", {
+  const response = await fetch(`${process.env.REACT_APP_HOST}/api/documents`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${access_token}`,
