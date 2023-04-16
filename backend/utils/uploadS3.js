@@ -4,6 +4,7 @@ import {
   GetObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
+
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import * as dotenv from "dotenv";
 
@@ -35,6 +36,7 @@ export const uploadToS3 = async (file) => {
     Body: file.buffer,
     Key: fileName,
     ContentType: file.mimetype,
+    ACL: "public-read", // Allow public read access to the uploaded file
   };
 
   await s3Client.send(new PutObjectCommand(uploadParams));
