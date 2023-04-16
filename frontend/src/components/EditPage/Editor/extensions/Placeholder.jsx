@@ -6,6 +6,6 @@ export const CustomPlacehoder = Placeholder.configure({
       return "Title...";
     }
 
-    return "new context...";
+    return "press 'ctrl' + '/' to upload images";
   },
 });

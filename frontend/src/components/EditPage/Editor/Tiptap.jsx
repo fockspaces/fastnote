@@ -1,7 +1,7 @@
 import "./Tiptap.scss";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
@@ -12,6 +12,7 @@ import { Floating, Bubble } from "./Menu";
 import { CustomDocument } from "./extensions/Document";
 import { CustomParagraph } from "./extensions/indent";
 import { CustomPlacehoder } from "./extensions/Placeholder";
+import { uploadImage } from "../../../api/images/uploadImage";
 
 const Tiptap = ({ note, setContent }) => {
   const updateHandler = () => {
@@ -27,16 +28,60 @@ const Tiptap = ({ note, setContent }) => {
       CustomDocument,
       CustomParagraph,
       CustomPlacehoder,
-      Image,
+      Image.configure({
+        inline: false,
+      }),
     ],
     onUpdate: updateHandler,
     content: note.content,
   });
 
+  const imageInputRef = useRef(null);
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const imageUrl = await uploadImage(file);
+
+      if (imageUrl) {
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: process.env.REACT_APP_S3_BASE_URL + imageUrl })
+          .run();
+      }
+    }
+
+    // Reset the input value to allow uploading the same image again
+    event.target.value = null;
+  };
+
   useEffect(() => {
     // update the document whenever the paragraph prop changes
     if (editor) editor.commands.setContent(note.content);
   }, [note]);
+
+  useEffect(() => {
+    if (editor) {
+      const handleKeydown = (event) => {
+        const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+        const cmdKey = isMac ? event.metaKey : event.ctrlKey;
+        const slashKey = event.key === "/";
+
+        if (cmdKey && slashKey) {
+          event.preventDefault();
+          imageInputRef.current.click();
+        }
+      };
+
+      editor.view.dom.addEventListener("keydown", handleKeydown);
+
+      return () => {
+        editor.view.dom.removeEventListener("keydown", handleKeydown);
+      };
+    }
+  }, [editor]);
 
   return (
     <>
@@ -46,7 +91,7 @@ const Tiptap = ({ note, setContent }) => {
         accept="image/*"
         onChange={handleImageUpload}
         style={{ display: "none" }}
-        ref={(input) => (imageInput = input)}
+        ref={imageInputRef}
       />
       <EditorContent editor={editor} />
     </>

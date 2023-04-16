@@ -19,7 +19,6 @@ const ConfirmModal = ({ showModal, setShowModal, handleConfirmDelete }) => {
         <Button
           variant="danger"
           onClick={(e) => {
-            console.log(e);
             handleConfirmDelete(e);
           }}
         >
