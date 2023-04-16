@@ -13,6 +13,7 @@ import { CustomDocument } from "./extensions/Document";
 import { CustomParagraph } from "./extensions/indent";
 import { CustomPlacehoder } from "./extensions/Placeholder";
 import { uploadImage } from "../../../api/images/uploadImage";
+import Link from "@tiptap/extension-link";
 
 const Tiptap = ({ note, setContent }) => {
   const updateHandler = () => {
@@ -30,6 +31,14 @@ const Tiptap = ({ note, setContent }) => {
       CustomPlacehoder,
       Image.configure({
         inline: false,
+      }),
+      Link.configure({
+        openOnClick: true,
+        defaultProtocol: "http",
+        HTMLAttributes: {
+          target: "_blank",
+          rel: "noopener noreferrer",
+        },
       }),
     ],
     onUpdate: updateHandler,
