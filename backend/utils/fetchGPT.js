@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 
 export const fetchGPT = async (prompt, token) => {
-  const max_tokens = token ? token : 60;
+  const max_tokens = token ? token : 150;
 
   const configuration = new Configuration({
     apiKey: process.env.GPT_ACCESS_KEY,

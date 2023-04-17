@@ -4,6 +4,7 @@ export const summarizeDocument = async (document_id) => {
     const response = await fetch(
       `${process.env.REACT_APP_HOST}/api/documents/${document_id}/summary`,
       {
+        method: "POST",
         headers: {
           authorization: `Bearer ${access_token}`,
         },

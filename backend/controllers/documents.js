@@ -90,6 +90,6 @@ export const deleteDocument = async (req, res) => {
 
 export const summarizeDocument = async (req, res) => {
   const { document_id } = req.params;
-  await summarizeDoc(document_id);
-  return res.status(200).json({ message: "summary process finishded" });
+  const result = await summarizeDoc(document_id);
+  return res.status(200).json({ message: "summary process finished", result });
 };
