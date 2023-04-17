@@ -2,8 +2,7 @@ import "../../../../styles/EditPage/summarizeModal.scss";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { updateDoc } from "../../../../api/documents/updateDocument";
-import { summarizeDocument } from "../../../../api/documents/summarizeDocument";
+import { summarizeDocument } from "../../../../api/documents/summarizeDocument.js";
 
 const confirmMessage =
   "Are you sure you want to generate a summary for this document?";
