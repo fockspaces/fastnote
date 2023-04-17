@@ -91,8 +91,8 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
           </Card.Title>
           {document.description && (
             <Card.Text>
-              {document.description.length > 100
-                ? document.description.slice(0, 100) + "..."
+              {document.description.length > 210
+                ? document.description.slice(0, 210) + "..."
                 : document.description}
             </Card.Text>
           )}

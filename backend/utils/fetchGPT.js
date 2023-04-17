@@ -13,7 +13,7 @@ export const fetchGPT = async (prompt) => {
       max_tokens: 60,
       n: 1,
       stop: null,
-      temperature: 0.7, // Adjust the temperature as needed (e.g., 0.5 for more focused, 0.8 for more creative).
+      temperature: 1, // Adjust the temperature as needed (e.g., 0.5 for more focused, 0.8 for more creative).
     });
 
     return response.data;

@@ -42,7 +42,6 @@ export const summarizeDoc = async (document_id) => {
     .join(" ");
 
   const chunks = chunkText(plainText, 2048);
-  console.log({ chunks });
   let combinedSummary = "";
 
   for (const chunk of chunks) {
@@ -52,19 +51,16 @@ export const summarizeDoc = async (document_id) => {
 
     combinedSummary += summary + " ";
   }
-  console.log({ combinedSummary });
 
-  const tagsPrompt = `Please provide topic tags for the following summary:\n\n${combinedSummary}\n\nTags: `;
+  const tagsPrompt = `Please provide topic tags for the following summary:\n\n${combinedSummary}\n\nExample format: Tag1, Tag2, Tag3\n\nTags: `;
   const tagsResponse = await fetchGPT(tagsPrompt);
 
   const finalTags = parseGPTResponse(tagsResponse.choices, "tags");
-  console.log({ finalTags });
 
   const finalPrompt = `Please provide a summary for the following text:\n\n${combinedSummary}\n\nSummary: `;
   const finalResponse = await fetchGPT(finalPrompt);
 
   const finalSummary = parseGPTResponse(finalResponse.choices, "summary");
-  console.log({ finalSummary });
 
   // You can update the document's description and tags with the overallSummary and overallTags here.
   await updateDoc(
