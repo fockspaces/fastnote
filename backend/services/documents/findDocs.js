@@ -32,6 +32,7 @@ const addKeywordQuery = async (keyword) => {
   return {
     $or: [
       { title: { $regex: keywordRegex } },
+      { description: { $regex: keywordRegex } }, 
       { paragraphs: { $in: matchingParagraphIds } },
     ],
   };
