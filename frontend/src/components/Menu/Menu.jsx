@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
+const user = localStorage.getItem("user");
 
 function Menu({ menuOpen, setMenuOpen }) {
   const [showModal, setShowModal] = useState(false);
@@ -46,8 +47,8 @@ function Menu({ menuOpen, setMenuOpen }) {
           {menuOpen ? <FaChevronLeft /> : <FaChevronRight />}
         </div>
         <ul>
-          <li onClick={handleCreate}>
-            <Link to="/documents" className="nav-link">
+          <li onClick={user ? handleCreate : null}>
+            <Link  className={`nav-link ${!user ? "disabled" : ""}`}>
               <IoCreate />
               <span>New</span>
             </Link>
@@ -57,7 +58,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/documents" className="nav-link">
+            <Link to="/documents" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaListUl />
               <span>Notes</span>
             </Link>
@@ -67,7 +68,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/favorites" className="nav-link">
+            <Link to="/favorites" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaHeart />
               <span>Favorites</span>
             </Link>
@@ -77,7 +78,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/trash" className="nav-link">
+            <Link to="/trash" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaTrash />
               <span>Trash</span>
             </Link>
@@ -87,7 +88,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/profile" className="nav-link">
+            <Link to="/profile" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaUser />
               <span>Profile</span>
             </Link>
@@ -97,13 +98,13 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/" className="nav-link">
+            <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaHome />
               <span>Home</span>
             </Link>
           </li>
           <li onClick={handleLogout}>
-            <Link to="/logout" className="nav-link">
+            <Link to="/logout" className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaSignOutAlt />
               <span>Logout</span>
             </Link>
