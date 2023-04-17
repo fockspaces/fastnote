@@ -1,4 +1,5 @@
 import { JSDOM } from "jsdom";
+import { franc } from "franc";
 import { fetchGPT } from "../../utils/fetchGPT.js";
 import { findDoc } from "./findDoc.js";
 import { updateDoc } from "./updateDoc.js";
@@ -41,6 +42,10 @@ export const summarizeDoc = async (document_id) => {
     .map((paragraph) => stripHTMLTags(paragraph.content))
     .join(" ");
 
+  // Detect the original language
+  let lang = franc(plainText);
+  if (lang === "cmn") lang = "Traditional Chinese";
+
   const chunks = chunkText(plainText, 2048);
   let combinedSummary = "";
 
@@ -58,11 +63,19 @@ export const summarizeDoc = async (document_id) => {
   const finalTags = parseGPTResponse(tagsResponse.choices, "tags");
 
   const finalPrompt = `Please provide a summary for the following text:\n\n${combinedSummary}\n\nSummary: `;
-  const finalResponse = await fetchGPT(finalPrompt);
+  const finalResponse = await fetchGPT(finalPrompt, 100);
 
-  const finalSummary = parseGPTResponse(finalResponse.choices, "summary");
+  let finalSummary = parseGPTResponse(finalResponse.choices, "summary");
+  console.log({ finalSummary });
+  // Translate the finalSummary back to the original language if it's not English
+  if (lang !== "eng") {
+    const translationPrompt = `Translate the following text from English to ${lang}:\n\n${finalSummary}\n\nTranslation: `;
+    const translationResponse = await fetchGPT(translationPrompt, 100);
+    finalSummary = parseGPTResponse(translationResponse.choices, "summary");
+  }
+  console.log({ finalSummary });
 
-  // You can update the document's description and tags with the overallSummary and overallTags here.
+  // You can update the document's description and tags with the finalSummary and finalTags here.
   await updateDoc(
     "update_tagsAndDescription",
     {
