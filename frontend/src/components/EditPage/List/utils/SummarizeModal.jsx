@@ -1,9 +1,9 @@
-import '../../../../styles/EditPage/summarizeModal.scss'
+import "../../../../styles/EditPage/summarizeModal.scss";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { generateTags } from "../../../../utils/noteHelper";
 import { updateDoc } from "../../../../api/documents/updateDocument";
+import { summarizeDocument } from "../../../../api/documents/summarizeDocument";
 
 const confirmMessage =
   "Are you sure you want to generate a summary for this document?";
@@ -19,18 +19,12 @@ const SummarizeModal = ({ setShowModal, showModal, notes }) => {
   const handleModalConfirm = async () => {
     setShowModal(false);
     setProcessingMessageVisible(true);
-    await handleTags(notes);
-  };
-
-  const handleTags = async (notes) => {
-    const tags = await generateTags(notes);
-    await updateDoc({ document_id, tags });
+    await summarizeDocument(document_id);
   };
 
   const handleProcessingMessageClose = () => {
     setProcessingMessageVisible(false);
   };
-
   return (
     <>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -39,7 +33,10 @@ const SummarizeModal = ({ setShowModal, showModal, notes }) => {
         </Modal.Header>
         <Modal.Body>{confirmMessage}</Modal.Body>
         <Modal.Footer>
-          <Button variant="outline-secondary" onClick={() => setShowModal(false)}>
+          <Button
+            variant="outline-secondary"
+            onClick={() => setShowModal(false)}
+          >
             Cancel
           </Button>
           <Button variant="secondary" onClick={handleModalConfirm}>
