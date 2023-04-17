@@ -1,22 +1,24 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const configuration = new Configuration({
-  apiKey: process.env.GPT_ACCESS_KEY,
-});
-const openai = new OpenAIApi(configuration);
-
 export const fetchGPT = async (prompt) => {
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: `In the same language as the input text, generate topic tags separated by commas for the following text: "${prompt}"`,
-    max_tokens: 60,
-    n: 1,
-    stop: null,
-    temperature: 0.7,
+  const configuration = new Configuration({
+    apiKey: process.env.GPT_ACCESS_KEY,
   });
+  const openai = new OpenAIApi(configuration);
 
-  const tagsText = response.data.choices[0].text.trim();
-  const tagsArray = tagsText.split(",").map((tag) => tag.trim());
+  try {
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt,
+      max_tokens: 60,
+      n: 1,
+      stop: null,
+      temperature: 0.7, // Adjust the temperature as needed (e.g., 0.5 for more focused, 0.8 for more creative).
+    });
 
-  return tagsArray;
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching GPT response:", error);
+    throw error;
+  }
 };

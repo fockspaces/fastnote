@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "express-error-handler": "^1.1.0",
     "googleapis": "^114.0.0",
+    "jsdom": "^21.1.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "multer": "^1.4.5-lts.1",

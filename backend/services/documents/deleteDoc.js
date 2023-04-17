@@ -14,3 +14,4 @@ export const deleteDoc = async (document_id, user) => {
   const deletedDocument = await Document.findByIdAndDelete(document_id);
   return deletedDocument; // return deleted document
 };
+

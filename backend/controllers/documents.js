@@ -3,6 +3,7 @@ import { createDoc } from "../services/documents/createDoc.js";
 import { deleteDoc } from "../services/documents/deleteDoc.js";
 import { findDoc } from "../services/documents/findDoc.js";
 import { findDocs } from "../services/documents/findDocs.js";
+import { summarizeDoc } from "../services/documents/summarizeDoc.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 import { escapeRegExp } from "../utils/regexEscape.js";
@@ -89,5 +90,6 @@ export const deleteDocument = async (req, res) => {
 
 export const summarizeDocument = async (req, res) => {
   const { document_id } = req.params;
-  return res.status(200).json({ message: "sending request successfully" });
+  await summarizeDoc(document_id);
+  return res.status(200).json({ message: "summary process finishded" });
 };
