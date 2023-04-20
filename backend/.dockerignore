@@ -1,0 +1,22 @@
+# .dockerignore
+
+# Ignore Git repository and logs
+.git
+.gitignore
+.gitmodules
+*.log
+
+# Ignore Node.js dependency directories
+node_modules
+
+# Ignore environment variables file
+.env
+
+# Ignore development configuration files
+.vscode
+
+# Ignore build and cache files
+dist
+.cache
+infrastructure/
+
