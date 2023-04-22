@@ -41,17 +41,12 @@ function DocumentListItem({
     });
     setCurrentDocument(result.data);
   };
-
-  const dragPreview = {
-    zIndex: 10, // Set the zIndex value lower than the TrashBin's zIndex
-  };
-
+  
   return (
     <Col
       className="document-item"
       ref={drag}
       style={{
-        ...(isDragging ? dragPreview : {}),
         opacity: isDragging ? 0.5 : 1,
       }}
     >

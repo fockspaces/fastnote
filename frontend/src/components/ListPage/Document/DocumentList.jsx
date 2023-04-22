@@ -6,8 +6,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import DarkBackground from "../utils/DarkBackground";
 import DragLayer from "../utils/DragLayer";
 import TrashBin from "../utils/TrashBin";
+import RestoreTrash from "../utils/RestoreTrash";
 
-function DocumentList({ documents, handleDelete, tagging, setTagging }) {
+function DocumentList({
+  documents,
+  handleDelete,
+  tagging,
+  setTagging,
+  is_trash,
+}) {
   const [isDraggingDocument, setIsDraggingDocument] = useState(false);
 
   return (
@@ -26,6 +33,12 @@ function DocumentList({ documents, handleDelete, tagging, setTagging }) {
       <TrashBin
         handleDelete={handleDelete}
         isDraggingDocument={isDraggingDocument}
+        is_trash={is_trash}
+      />
+      <RestoreTrash
+        is_trash={is_trash}
+        isDraggingDocument={isDraggingDocument}
+        handleDelete={handleDelete}
       />
       <DarkBackground
         isDraggingDocument={isDraggingDocument}

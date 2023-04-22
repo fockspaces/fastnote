@@ -9,7 +9,7 @@ import TagsBar from "../utils/TagsBar";
 import { getAllTags, tagsHelper } from "../../../utils/tagsHelper";
 import NoDocumentsHint from "../utils/NoDocuments";
 
-function ListContainer({ query }) {
+function ListContainer({ query, is_trash }) {
   const [documents, setDocuments] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [tagging, setTagging] = useState([]);
@@ -24,8 +24,10 @@ function ListContainer({ query }) {
     fetchData();
   }, [query, keyword, tagging]);
 
-  const handleDelete = async (document) => {
+  const handleDelete = async (document, notToDelete) => {
     setDocuments(documents.filter((doc) => doc._id !== document._id));
+    if (notToDelete)
+      return await updateDoc({ is_trash: false, document_id: document._id });
     if (document.is_trash) return await deleteDocument(document._id);
     await updateDoc({ is_trash: true, document_id: document._id });
   };
@@ -46,6 +48,7 @@ function ListContainer({ query }) {
           setTagging={setTagging}
           documents={documents}
           handleDelete={handleDelete}
+          is_trash={is_trash}
         />
       )}
     </div>
