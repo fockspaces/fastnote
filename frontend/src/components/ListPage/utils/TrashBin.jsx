@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaTrashRestore } from "react-icons/fa";
 import ConfirmModal from "./ConfirmModal";
 
-function TrashBin({ handleDelete }) {
+function TrashBin({ isDraggingDocument, handleDelete }) {
   const [showModal, setShowModal] = useState(false);
   const [currentDocument, setCurrentDocument] = useState(document);
 
@@ -24,11 +24,22 @@ function TrashBin({ handleDelete }) {
     }),
   }));
 
+  if (showModal)
+    return (
+      <ConfirmModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        handleConfirmDelete={handleConfirmDelete}
+      />
+    );
+
+  if (!isDraggingDocument) return null;
+
   return (
     <div
       ref={drop}
       style={{
-        backgroundColor: isOver ? "red" : "transparent",
+        backgroundColor: isOver ? "white" : "white",
         minHeight: "100px",
         minWidth: "100px",
         position: "fixed",
@@ -38,14 +49,10 @@ function TrashBin({ handleDelete }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        borderRadius: "30px",
       }}
     >
-      <FaTrash size={48} />
-      <ConfirmModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        handleConfirmDelete={handleConfirmDelete}
-      />
+      {isOver ? <FaTrashRestore size={58} /> : <FaTrash size={48} />}
     </div>
   );
 }

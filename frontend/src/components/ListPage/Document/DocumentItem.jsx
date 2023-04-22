@@ -1,13 +1,18 @@
 import "../../../styles/ListPage/documentsItem.scss";
-import React, { useState } from "react";
-import { Col, Card, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IoIosBookmark } from "react-icons/io";
 import { updateDoc } from "../../../api/documents/updateDocument";
 import Tagger from "../utils/Tagger";
 import { useDrag } from "react-dnd";
 
-function DocumentListItem({ document, tagging, setTagging }) {
+function DocumentListItem({
+  document,
+  tagging,
+  setTagging,
+  setIsDraggingDocument,
+}) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
@@ -19,6 +24,10 @@ function DocumentListItem({ document, tagging, setTagging }) {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+
+  useEffect(() => {
+    setIsDraggingDocument(isDragging);
+  }, [isDragging, setIsDraggingDocument]);
 
   const handleTitleUpdate = async () => {
     await updateDoc({ title, document_id: document._id });
@@ -33,11 +42,18 @@ function DocumentListItem({ document, tagging, setTagging }) {
     setCurrentDocument(result.data);
   };
 
+  const dragPreview = {
+    zIndex: 10, // Set the zIndex value lower than the TrashBin's zIndex
+  };
+
   return (
     <Col
       className="document-item"
       ref={drag}
-      style={{ opacity: isDragging ? 0.5 : 1 }}
+      style={{
+        ...(isDragging ? dragPreview : {}),
+        opacity: isDragging ? 0.5 : 1,
+      }}
     >
       <Card className="h-full position-relative hover-effect">
         <div className="favorite-icon position-absolute top-0 end-0">
