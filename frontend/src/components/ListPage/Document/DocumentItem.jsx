@@ -2,22 +2,23 @@ import "../../../styles/ListPage/documentsItem.scss";
 import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa";
 import { IoIosBookmark } from "react-icons/io";
 import { updateDoc } from "../../../api/documents/updateDocument";
 import Tagger from "../utils/Tagger";
-import ConfirmModal from "../utils/ConfirmModal";
+import { useDrag } from "react-dnd";
 
-function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
+function DocumentListItem({ document, tagging, setTagging }) {
   const [title, setTitle] = useState(document.title);
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
-  const handleConfirmDelete = () => {
-    handleDelete(currentDocument);
-    setShowModal(false);
-  };
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "document",
+    item: { ...document },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   const handleTitleUpdate = async () => {
     await updateDoc({ title, document_id: document._id });
@@ -33,7 +34,11 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
   };
 
   return (
-    <Col className="document-item">
+    <Col
+      className="document-item"
+      ref={drag}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
       <Card className="h-full position-relative hover-effect">
         <div className="favorite-icon position-absolute top-0 end-0">
           <label htmlFor={`favorite-${currentDocument._id}`}>
@@ -80,13 +85,6 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
                   year: "numeric",
                 })}
               </div>
-              <div className="list__header">
-                <Link>
-                  <Button variant size="sm" onClick={() => setShowModal(true)}>
-                    <FaTrash className="action-icon" />
-                  </Button>
-                </Link>
-              </div>
             </div>
           </Card.Title>
           <Link to={`/document/${currentDocument._id}`} className="card-link">
@@ -107,11 +105,6 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
           )}
         </Card.Body>
       </Card>
-      <ConfirmModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        handleConfirmDelete={handleConfirmDelete}
-      />
     </Col>
   );
 }
