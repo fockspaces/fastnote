@@ -2,7 +2,8 @@ import "../../../styles/ListPage/documentsItem.scss";
 import React, { useState } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash, FaStar, FaRegStar } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { IoIosBookmark } from "react-icons/io";
 import { updateDoc } from "../../../api/documents/updateDocument";
 import Tagger from "../utils/Tagger";
 import ConfirmModal from "../utils/ConfirmModal";
@@ -22,7 +23,8 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
     await updateDoc({ title, document_id: document._id });
   };
 
-  const handleFavoriteUpdate = async () => {
+  const handleFavoriteUpdate = async (e) => {
+    e.stopPropagation();
     const result = await updateDoc({
       is_favorite: !currentDocument.is_favorite,
       document_id: currentDocument._id,
@@ -32,27 +34,30 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
 
   return (
     <Col className="document-item">
-      <Card className="h-full position-relative">
+      <Card className="h-full position-relative hover-effect">
         <div className="favorite-icon position-absolute top-0 end-0">
           <label htmlFor={`favorite-${currentDocument._id}`}>
             <input
               type="checkbox"
               id={`favorite-${currentDocument._id}`}
               checked={currentDocument.is_favorite}
-              onChange={handleFavoriteUpdate}
+              onChange={(e) => {
+                handleFavoriteUpdate(e);
+              }}
               style={{ display: "none" }}
             />
             {currentDocument.is_favorite ? (
-              <span className="text-warning me-2">
-                <FaStar />
+              <span className="bookmark-icon text-saturated-orange me-2">
+                <IoIosBookmark />
               </span>
             ) : (
-              <span className="text-secondary me-2">
-                <FaRegStar />
+              <span className="bookmark-icon text-secondary me-2">
+                <IoIosBookmark />
               </span>
             )}
           </label>
         </div>
+
         <Card.Body className="h-full flex flex-col">
           <Card.Title className="text-lg font-bold mb-2">
             <input
@@ -76,11 +81,6 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
                 })}
               </div>
               <div className="list__header">
-                <Link to={`/document/${currentDocument._id}`}>
-                  <Button variant size="sm">
-                    <FaEdit className="action-icon" />
-                  </Button>
-                </Link>
                 <Link>
                   <Button variant size="sm" onClick={() => setShowModal(true)}>
                     <FaTrash className="action-icon" />
@@ -89,14 +89,15 @@ function DocumentListItem({ document, handleDelete, tagging, setTagging }) {
               </div>
             </div>
           </Card.Title>
-          {document.description && (
-            <Card.Text>
-              {document.description.length > 210
-                ? document.description.slice(0, 210) + "..."
-                : document.description}
-            </Card.Text>
-          )}
-
+          <Link to={`/document/${currentDocument._id}`} className="card-link">
+            {document.description && (
+              <Card.Text>
+                {document.description.length > 210
+                  ? document.description.slice(0, 210) + "..."
+                  : document.description}
+              </Card.Text>
+            )}
+          </Link>
           {document.tags && (
             <Tagger
               tags={currentDocument.tags}

@@ -2,6 +2,17 @@
   min-width: 400px;
   margin-bottom: 1rem;
 
+  .hover-effect:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    border-color: #333;
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .card {
     min-height: 300px;
     .card-body {
@@ -62,16 +73,22 @@
 .favorite-icon {
   padding: 0.25rem;
   margin-right: 0.45rem;
-  font-size: 1.5rem; /* Change the value to your desired size */
+  font-size: 1.5rem; // Change the value to your desired size
 
-  :hover {
-    .text-secondary {
-      color: #333 !important;
-      cursor: pointer;
-    }
-    .text-warning {
-      color: #e68d44 !important;
-      cursor: pointer;
+  .bookmark-icon {
+    position: absolute;
+    top: -5px; // Adjust to your preference
+    right: -28px; // Adjust to your preference
+    cursor: pointer;
+    
+
+    svg {
+      height: 50px;
+      width: 50px;
     }
   }
+}
+
+.text-saturated-orange {
+  color: #FFA500 !important; // Saturated orange color
 }
