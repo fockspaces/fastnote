@@ -15,7 +15,6 @@ const IntroductionPage = () => {
       localStorage.setItem("content", content);
     };
   }, []);
-
   return (
     <div className="introduction-page">
       <header className="header">
