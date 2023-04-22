@@ -4,7 +4,6 @@ import DocumentListItem from "./DocumentItem";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import DarkBackground from "../utils/DarkBackground";
-import DragLayer from "../utils/DragLayer";
 import TrashBin from "../utils/TrashBin";
 import RestoreTrash from "../utils/RestoreTrash";
 
@@ -43,8 +42,8 @@ function DocumentList({
       <DarkBackground
         isDraggingDocument={isDraggingDocument}
         handleDelete={handleDelete}
+        is_trash={is_trash}
       />
-      <DragLayer />
     </DndProvider>
   );
 }

@@ -6,6 +6,11 @@ import ConfirmModal from "./ConfirmModal";
 function TrashBin({ isDraggingDocument, handleDelete }) {
   const [showModal, setShowModal] = useState(false);
   const [currentDocument, setCurrentDocument] = useState(document);
+  const message = {
+    title: "Confirm Delete",
+    body: "Are you sure you want to delete this document?",
+    confirm: "Delete",
+  };
 
   const handleConfirmDelete = () => {
     handleDelete(currentDocument);
@@ -30,6 +35,7 @@ function TrashBin({ isDraggingDocument, handleDelete }) {
         showModal={showModal}
         setShowModal={setShowModal}
         handleConfirmDelete={handleConfirmDelete}
+        message={message}
       />
     );
 
@@ -44,7 +50,7 @@ function TrashBin({ isDraggingDocument, handleDelete }) {
         minWidth: "100px",
         position: "fixed",
         bottom: "20px",
-        right: "20px",
+        right: "70px",
         zIndex: 1000,
         display: "flex",
         justifyContent: "center",

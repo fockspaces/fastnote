@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
-import { FaTrash, FaTrashRestore } from "react-icons/fa";
 import { MdOutlineRestorePage, MdRestorePage } from "react-icons/md";
 import ConfirmModal from "./ConfirmModal";
+
 
 function RestoreTrash({ isDraggingDocument, handleDelete, is_trash }) {
   const [showModal, setShowModal] = useState(false);
   const [currentDocument, setCurrentDocument] = useState(document);
-
+  const message = {
+    title: "Confirm Restore",
+    body: "Are you sure you want to restore this document?",
+    confirm: "Restore",
+  };
   const handleConfirmRestore = () => {
     handleDelete(currentDocument, true);
     setShowModal(false);
@@ -33,6 +37,7 @@ function RestoreTrash({ isDraggingDocument, handleDelete, is_trash }) {
         showModal={showModal}
         setShowModal={setShowModal}
         handleConfirmDelete={handleConfirmRestore}
+        message={message}
       />
     );
 
@@ -47,7 +52,7 @@ function RestoreTrash({ isDraggingDocument, handleDelete, is_trash }) {
         minWidth: "100px",
         position: "fixed",
         bottom: "20px",
-        left: "100px",
+        left: "150px",
         zIndex: 1000,
         display: "flex",
         justifyContent: "center",

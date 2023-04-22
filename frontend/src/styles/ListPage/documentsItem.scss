@@ -32,6 +32,10 @@
           border: none;
           outline: none;
           color: #333;
+          &:focus,
+          &.editing {
+            border: 1px solid #333;
+          }
         }
 
         .document-date {
@@ -80,7 +84,6 @@
     top: -5px; // Adjust to your preference
     right: -28px; // Adjust to your preference
     cursor: pointer;
-    
 
     svg {
       height: 50px;
@@ -90,5 +93,5 @@
 }
 
 .text-saturated-orange {
-  color: #FFA500 !important; // Saturated orange color
+  color: #ffa500 !important; // Saturated orange color
 }
