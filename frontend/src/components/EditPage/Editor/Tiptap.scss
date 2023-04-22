@@ -42,11 +42,15 @@
   }
 }
 
-
 .ProseMirror .is-empty::before {
   color: #adb5bd;
   content: attr(data-placeholder);
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.ProseMirror {
+  min-height: 95vh;
+  overflow-y: auto;
 }

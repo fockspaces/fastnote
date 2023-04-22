@@ -16,7 +16,7 @@ const HomePage = () => {
         <div className="hero-content">
           <h2>Knowledge Management System</h2>
           <p>Save time on taking notes and centralize your note management</p>
-          <button className="btn btn-outline-dark"> Started</button>
+          <button className="btn btn-outline-dark">Get Started</button>
         </div>
       </section>
       <section className="features" id="features">

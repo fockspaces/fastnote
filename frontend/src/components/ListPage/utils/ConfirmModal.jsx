@@ -7,6 +7,7 @@ const ConfirmModal = ({
   handleConfirmDelete,
   message,
 }) => {
+  if (!message) return null;
   return (
     <Modal
       show={showModal}

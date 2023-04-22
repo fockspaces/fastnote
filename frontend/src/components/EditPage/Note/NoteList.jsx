@@ -24,6 +24,11 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
 function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
   const isSelected = note._id === selectedNote._id;
   const [showModal, setShowModal] = useState(false);
+  const message = {
+    title: "Confirm Delete Note",
+    body: "Are you sure to delete this note?",
+    confirm: "Delete",
+  };
 
   const handleDeleteNote = (e) => {
     deleteNote(note);
@@ -55,6 +60,7 @@ function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
         showModal={showModal}
         setShowModal={setShowModal}
         handleConfirmDelete={handleDeleteNote}
+        message={message}
       />
     </ListGroup.Item>
   );

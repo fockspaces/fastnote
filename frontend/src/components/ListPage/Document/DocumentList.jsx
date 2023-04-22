@@ -29,15 +29,15 @@ function DocumentList({
           />
         ))}
       </Row>
-      <TrashBin
-        handleDelete={handleDelete}
-        isDraggingDocument={isDraggingDocument}
-        is_trash={is_trash}
-      />
       <RestoreTrash
         is_trash={is_trash}
         isDraggingDocument={isDraggingDocument}
         handleDelete={handleDelete}
+      />
+      <TrashBin
+        handleDelete={handleDelete}
+        isDraggingDocument={isDraggingDocument}
+        is_trash={is_trash}
       />
       <DarkBackground
         isDraggingDocument={isDraggingDocument}

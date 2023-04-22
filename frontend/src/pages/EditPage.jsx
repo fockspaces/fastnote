@@ -47,6 +47,7 @@ const EditPage = () => {
 
   // delete note
   const deleteNote = async (note) => {
+    console.log(note);
     const updatedParagraphs = currentDoc.paragraphs.filter(
       (p) => p._id !== note._id
     );

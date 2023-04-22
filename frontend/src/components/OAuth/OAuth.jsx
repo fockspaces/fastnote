@@ -5,7 +5,6 @@ import { login } from "../../api/login";
 import jwt_decode from "jwt-decode";
 
 function OAuth() {
-
   const [user, setUser] = useState(null);
 
   const handleLogin = async (access_token) => {

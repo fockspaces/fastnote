@@ -12,6 +12,7 @@ import FavoritePage from "./pages/FavoritePage";
 import TrashPage from "./pages/TrashPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
+import IntroductionPage from "./pages/IntroductionPage";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ function App() {
       <Menu setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       <div className={`content ${menuOpen ? "menu-expanded" : ""}`}>
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/" element={<IntroductionPage />}></Route>
           <Route path="/documents" element={<ListPage />}></Route>
           <Route path="/favorites" element={<FavoritePage />}></Route>
           <Route path="/trash" element={<TrashPage />}></Route>
