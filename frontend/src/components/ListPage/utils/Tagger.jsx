@@ -6,6 +6,8 @@ const maximun_tag = 10;
 
 const Tagger = ({ tags, tagging, setTagging }) => {
   const [collapsed, setCollapsed] = useState(true);
+  const [hoveredTag, setHoveredTag] = useState(null);
+
   const visibleTags = collapsed ? tags.slice(0, maximun_tag) : tags;
 
   const handleToggleCollapse = () => {
@@ -37,8 +39,12 @@ const Tagger = ({ tags, tagging, setTagging }) => {
           onClick={() => {
             toggleTagging(tag);
           }}
+          onMouseEnter={() => setHoveredTag(tag)} // Add this
+          onMouseLeave={() => setHoveredTag(null)} // Add this
         >
-          {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
+          {hoveredTag === tag || tag.length <= 10
+            ? tag
+            : `${tag.slice(0, 10)}...`}
         </span>
       ))}
       {tags.length > maximun_tag && (
