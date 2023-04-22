@@ -46,10 +46,10 @@ function TrashBin({ isDraggingDocument, handleDelete }) {
       ref={drop}
       style={{
         backgroundColor: isOver ? "white" : "white",
-        minHeight: "100px",
-        minWidth: "100px",
+        minHeight: "50px",
+        minWidth: "50px",
         position: "fixed",
-        bottom: "20px",
+        bottom: "50%",
         right: "70px",
         zIndex: 1000,
         display: "flex",
@@ -58,7 +58,7 @@ function TrashBin({ isDraggingDocument, handleDelete }) {
         borderRadius: "30px",
       }}
     >
-      {isOver ? <FaTrashRestore size={58} /> : <FaTrash size={48} />}
+      {isOver ? <FaTrashRestore size={38} /> : <FaTrash size={28} />}
     </div>
   );
 }
