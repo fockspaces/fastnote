@@ -42,9 +42,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
           onMouseEnter={() => setHoveredTag(tag)} // Add this
           onMouseLeave={() => setHoveredTag(null)} // Add this
         >
-          {hoveredTag === tag || tag.length <= 10
-            ? tag
-            : `${tag.slice(0, 10)}...`}
+          {tag.length <= 10 ? tag : `${tag.slice(0, 10)}...`}
         </span>
       ))}
       {tags.length > maximun_tag && (

@@ -2,7 +2,7 @@
   display: flex;
   margin-left: 10px;
   width: 100%;
-  height: 80vh;
+  height: 85vh;
   overflow: hidden;
 }
 .left-sidebar {
@@ -17,7 +17,7 @@
 .right-side-list {
   width: 60%;
   flex-grow: 1;
-  height: 95vh;
+  height: 90vh;
   overflow-y: auto; // Enable vertical scrolling when the content exceeds the height
   padding: 10px;
 }

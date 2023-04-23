@@ -13,11 +13,12 @@
   position: relative; /* Add this */
 }
 
-// .badge:hover {
-//   transform: scale(1.1);
-//   opacity: 0.8;
-//   z-index: 100; /* Add this */
-// }
+.badge:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+  z-index: 100; /* Add this */
+  position: relative; /* Add this */
+}
 
 .tag-toggler-button {
   height: 1px;
