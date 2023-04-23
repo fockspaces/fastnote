@@ -3,6 +3,7 @@ import { franc } from "franc";
 import { fetchGPT } from "../../utils/fetchGPT.js";
 import { findDoc } from "./findDoc.js";
 import { updateDoc } from "./updateDoc.js";
+import Paragraph from "../../models/Paragraph.js";
 
 const stripHTMLTags = (html) => {
   const dom = new JSDOM(html);
@@ -36,17 +37,25 @@ const parseGPTResponse = (choices, type) => {
 };
 
 export const summarizeDoc = async (document_id) => {
+  console.time("summary");
   const document = await findDoc(document_id);
 
-  const plainText = document.paragraphs
+  // find updated paragraphs
+  const updatedParagraphs = document.paragraphs.filter(
+    (paragraph) => paragraph.isUpdated
+  );
+  const plainText = updatedParagraphs
     .map((paragraph) => stripHTMLTags(paragraph.content))
     .join(" ");
+  if (plainText.length < 100) return;
 
   // Detect the original language
   let lang = franc(plainText);
+  console.log({ lang, plainText });
   if (lang === "cmn") lang = "Traditional Chinese";
 
   const chunks = chunkText(plainText, 2048);
+  console.log({ length: chunks.length });
   let combinedSummary = "";
 
   for (const chunk of chunks) {
@@ -85,5 +94,19 @@ export const summarizeDoc = async (document_id) => {
     document_id
   );
 
+  // Update the isUpdated field of the updatedParagraphs to false
+  const updatedParagraphIds = updatedParagraphs.map(
+    (paragraph) => paragraph._id
+  );
+  await updateParagraphsIsUpdated(updatedParagraphIds, false);
+  console.timeEnd("summary");
+
   return true;
+};
+
+const updateParagraphsIsUpdated = async (paragraphIds, isUpdated) => {
+  await Paragraph.updateMany(
+    { _id: { $in: paragraphIds } },
+    { $set: { isUpdated: isUpdated } }
+  );
 };

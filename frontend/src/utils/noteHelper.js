@@ -1,4 +1,3 @@
-
 const extractTitle = (content) => {
   // Extract the title from the content
   const parser = new DOMParser();
@@ -13,5 +12,6 @@ export const updateNote = (selectedNote, content) => {
     ...selectedNote,
     content,
     title,
+    isUpdated: true,
   };
 };

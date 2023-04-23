@@ -34,7 +34,7 @@ const IntroductionPage = () => {
             Try it now
           </a>
         </div>
-        <img src="hero-image.png" alt="Note-taking app" />
+        <img src="img/Taking notes-rafiki.png" alt="Note-taking app" />
       </section>
 
       <section className="features" id="features">
