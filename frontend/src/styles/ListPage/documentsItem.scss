@@ -1,11 +1,14 @@
 .document-item {
-  min-width: 400px;
+  min-width: 200px;
   margin-bottom: 1rem;
 
   .hover-effect:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s;
     border-color: #333;
+  }
+  .card-text {
+    font-size: 0.8rem; // Adjust the font size for the card description
   }
 
   .card-link {
@@ -27,7 +30,7 @@
         padding-bottom: 0.5rem;
         input {
           width: 80%;
-          font-size: 1.25rem;
+          font-size: 1.2rem;
           margin-bottom: 0.5rem;
           border: none;
           outline: none;

@@ -1,4 +1,5 @@
-import "../../../styles/listPage.scss";
+import "../../../styles/ListPage/listPage.scss";
+
 import React, { useEffect, useState } from "react";
 import { fetchDocuments } from "../../../api/documents/fetchDocuments";
 import { deleteDocument } from "../../../api/documents/deleteDocument";
@@ -34,23 +35,27 @@ function ListContainer({ query, is_trash }) {
 
   return (
     <div className="list-container mt-4">
-      <SearchBar setKeyword={setKeyword} setTagging={setTagging} />
-      <TagsBar
-        tagging={tagging}
-        setTagging={setTagging}
-        whitelist={getAllTags(documents)}
-      />
-      {documents.length === 0 ? (
-        <NoDocumentsHint />
-      ) : (
-        <DocumentList
+      <div className="left-sidebar">
+        <SearchBar setKeyword={setKeyword} setTagging={setTagging} />
+        <TagsBar
           tagging={tagging}
           setTagging={setTagging}
-          documents={documents}
-          handleDelete={handleDelete}
-          is_trash={is_trash}
+          whitelist={getAllTags(documents)}
         />
-      )}
+      </div>
+      <div className="right-side-list">
+        {documents.length === 0 ? (
+          <NoDocumentsHint />
+        ) : (
+          <DocumentList
+            tagging={tagging}
+            setTagging={setTagging}
+            documents={documents}
+            handleDelete={handleDelete}
+            is_trash={is_trash}
+          />
+        )}
+      </div>
     </div>
   );
 }

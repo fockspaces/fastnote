@@ -10,7 +10,7 @@ function TagsBar({ tagging, setTagging, whitelist }) {
   useEffect(() => {
     const tagify = new Tagify(inputRef.current, {
       delimiters: ",",
-      maxTags: 10,
+      maxTags: 5,
       whitelist,
       enforceWhitelist: true,
       dropdown: {
@@ -38,19 +38,14 @@ function TagsBar({ tagging, setTagging, whitelist }) {
 
   return (
     <div className="tags-container">
-      <Row>
-        <Col>
-          <AiOutlineTags className="me-2" />
-          <span style={{ color: "grey" }}>Add tags and press Enter...</span>
-          <input
-            ref={inputRef}
-            className="tagify"
-            name="tags"
-            value={tagging}
-            onChange={(e) => {}}
-          />
-        </Col>
-      </Row>
+      <span style={{ color: "grey" }}>Add tags and press Enter...</span>
+      <input
+        ref={inputRef}
+        className="tagify"
+        name="tags"
+        value={tagging}
+        onChange={(e) => {}}
+      />
     </div>
   );
 }

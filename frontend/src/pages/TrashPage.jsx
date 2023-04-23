@@ -1,4 +1,4 @@
-import "../styles/listPage.scss";
+import "../styles/ListPage/listPage.scss";
 import React from "react";
 import ListContainer from "../components/ListPage/Document/ListContainer";
 

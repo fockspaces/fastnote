@@ -79,7 +79,7 @@ function DocumentListItem({
           </div>
 
           <Card.Body className="h-full flex flex-col">
-            <Card.Title className="text-lg font-bold mb-2">
+            <Card.Title className="text-md font-bold mb-2">
               <div
                 onClick={(e) => {
                   e.preventDefault();

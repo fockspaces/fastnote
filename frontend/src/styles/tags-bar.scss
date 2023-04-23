@@ -2,6 +2,7 @@
 
 .tags-container {
   margin-bottom: 2rem;
+  width: 100%;
 
   .tagify {
     display: flex;
@@ -11,12 +12,20 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 0.1rem;
-    font-size: 1rem;
-    width: 30rem;
+    font-size: 0.9rem;
+    width: 100%;
     transition: border-color 0.3s;
 
     &:focus-within {
       border-color: #007bff;
+    }
+
+    .tagify__tag-text {
+      width: 100%; // Add this line
+      max-width: 100px;
+      overflow: hidden; // Add this line
+      text-overflow: ellipsis; // Add this line
+      white-space: nowrap; // Add this line
     }
 
     input {

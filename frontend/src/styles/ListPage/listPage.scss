@@ -1,0 +1,27 @@
+.list-container {
+  display: flex;
+  margin-left: 30px;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+.left-sidebar {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  height: 100%;
+  width: 20%; // Set a fixed width in pixels
+}
+
+.right-side-list {
+  width: 60%;
+  flex-grow: 1;
+  height: 95vh;
+  overflow-y: auto; // Enable vertical scrolling when the content exceeds the height
+  padding: 10px;
+}
+
+.search-bar {
+  width: 100%;
+}

@@ -10,6 +10,8 @@ export const verifyGoogle = async (req, res, next) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
 
   try {
+    console.log(token);
+
     const user = await TokenIsFromGoogle(token, clientId);
     req.user = user;
     next();
@@ -58,6 +60,7 @@ const TokenIsFromGoogle = async (token, clientId) => {
   // Return the user ID from the token claims
   return { userId, email, name, picture };
 };
+
 
 export const verifyUser = async (req, res, next) => {
   const { authorization } = req.headers;

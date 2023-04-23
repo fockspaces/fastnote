@@ -35,7 +35,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
           key={index}
           className={`badge ${
             isTagSelected(tag) ? "bg-dark" : "bg-secondary"
-          } me-1`}
+          } `}
           onClick={() => {
             toggleTagging(tag);
           }}
