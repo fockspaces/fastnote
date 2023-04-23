@@ -1,6 +1,6 @@
 .list-container {
   display: flex;
-  margin-left: 30px;
+  margin-left: 10px;
   width: 100%;
   height: 80vh;
   overflow: hidden;
@@ -11,7 +11,7 @@
   flex-direction: column;
   position: sticky;
   height: 100%;
-  width: 20%; // Set a fixed width in pixels
+  width: 30%; // Set a fixed width in pixels
 }
 
 .right-side-list {
