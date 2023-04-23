@@ -30,10 +30,22 @@
     }
 
     nav {
-      a {
+      a,
+      .nav-button {
         margin-left: 1rem;
         text-decoration: none;
         color: #333;
+        background: none;
+        border: none;
+        font: inherit;
+        padding: 0;
+        cursor: pointer;
+        outline: none;
+      }
+
+      a:hover,
+      .nav-button:hover {
+        text-decoration: underline;
       }
     }
   }

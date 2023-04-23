@@ -5,6 +5,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { Button } from "react-bootstrap";
 import { login } from "../api/login";
 import axios from "axios";
+import { authGoogle } from "../api/authGoogle";
 
 const IntroductionPage = () => {
   const initContent = localStorage.getItem("content") || "";
@@ -23,12 +24,7 @@ const IntroductionPage = () => {
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
-      const tokens = await axios.post("http://localhost:3001/auth/google", {
-        code: codeResponse.code,
-      });
-
-      console.log(tokens);
+      await authGoogle(codeResponse.code);
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
@@ -40,8 +36,9 @@ const IntroductionPage = () => {
         <nav>
           <a href="#features">Features</a>
           <a href="#try-it">Try It Now</a>
-          <Button onClick={() => googleLogin()}>Sign in with Google 🚀 </Button>
-          ;
+          <button className="nav-button" onClick={() => googleLogin()}>
+            Sign in
+          </button>
         </nav>
       </header>
 
