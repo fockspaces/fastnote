@@ -43,6 +43,7 @@ function DocumentListItem({
 
   return (
     <Col
+      id={`document-${currentDocument._id}`}
       className="document-item"
       ref={drag}
       style={{
@@ -93,7 +94,6 @@ function DocumentListItem({
                     }
                   }}
                   className={isComposing ? "editing" : ""}
-
                   onBlur={handleTitleUpdate}
                   onCompositionStart={() => setIsComposing(true)}
                   onCompositionEnd={() => setIsComposing(false)}

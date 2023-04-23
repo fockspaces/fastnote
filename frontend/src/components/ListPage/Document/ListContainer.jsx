@@ -9,6 +9,7 @@ import SearchBar from "../utils/SearchBar";
 import TagsBar from "../utils/TagsBar";
 import { getAllTags, tagsHelper } from "../../../utils/tagsHelper";
 import NoDocumentsHint from "../utils/NoDocuments";
+import TitleList from "../utils/TitleList";
 
 function ListContainer({ query, is_trash }) {
   const [documents, setDocuments] = useState([]);
@@ -42,6 +43,7 @@ function ListContainer({ query, is_trash }) {
           setTagging={setTagging}
           whitelist={getAllTags(documents)}
         />
+        <TitleList documents={documents} />
       </div>
       <div className="right-side-list">
         {documents.length === 0 ? (

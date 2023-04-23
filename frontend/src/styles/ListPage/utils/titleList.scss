@@ -1,0 +1,25 @@
+.title-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title-link {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  &:hover {
+    color: #333;
+    background-color: #e8e8e8;
+    text-decoration: none;
+  }
+}
