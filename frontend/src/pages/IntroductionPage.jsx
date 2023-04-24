@@ -30,7 +30,9 @@ const IntroductionPage = () => {
   return (
     <div className="introduction-page">
       <header className="header">
-        <h1>Note App</h1>
+        <a href="/">
+          <img src={"/img/fastnoteLogo.png"} alt="Note App" className="logo" />
+        </a>
         <nav>
           <a href="#features">Features</a>
           <a href="#try-it">Try It Now</a>

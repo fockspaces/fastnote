@@ -23,6 +23,12 @@
     align-items: center;
     padding: 1rem;
 
+    .logo {
+      margin: 5px;
+      height: 40px; // Adjust this value according to your preferred size
+      width: auto;
+    }
+
     h1 {
       font-weight: 700;
       font-size: 1.5rem;

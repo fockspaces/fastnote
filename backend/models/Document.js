@@ -13,18 +13,6 @@ const documentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// // Middleware to delete related paragraphs when a document is removed
-// documentSchema.pre("remove", async function (next) {
-//   try {
-//     console.log('delete paragraph');
-//     await mongoose
-//       .model("Paragraph")
-//       .deleteMany({ _id: { $in: this.paragraphs } });
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 const Document = mongoose.model("Document", documentSchema);
 export default Document;
