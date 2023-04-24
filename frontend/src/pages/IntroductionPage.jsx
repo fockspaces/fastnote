@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import Tiptap from "../components/EditPage/Editor/Tiptap";
 import "../styles/introduction-page.scss";
 import { useGoogleLogin } from "@react-oauth/google";
-import { Button } from "react-bootstrap";
-import { login } from "../api/login";
-import axios from "axios";
 import { authGoogle } from "../api/authGoogle";
 
 const IntroductionPage = () => {
   const initContent = localStorage.getItem("content") || "";
+  const user = localStorage.getItem("user");
   const [content, setContent] = useState(initContent);
 
   useEffect(() => {
@@ -36,9 +34,11 @@ const IntroductionPage = () => {
         <nav>
           <a href="#features">Features</a>
           <a href="#try-it">Try It Now</a>
-          <button className="nav-button" onClick={() => googleLogin()}>
-            Sign in
-          </button>
+          {!user && (
+            <button className="nav-button" onClick={() => googleLogin()}>
+              Sign in
+            </button>
+          )}
         </nav>
       </header>
 

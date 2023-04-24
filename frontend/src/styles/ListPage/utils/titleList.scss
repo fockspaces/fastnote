@@ -11,15 +11,20 @@
 .title-link {
   display: block;
   padding: 0.25rem 0.5rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #333;
   text-decoration: none;
   transition: all 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 5px;
 
   &:hover {
     color: #333;
     background-color: #e8e8e8;
     text-decoration: none;
+    cursor: pointer;
   }
 }
