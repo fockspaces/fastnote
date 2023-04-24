@@ -8,6 +8,9 @@ export const Bubble = ({ editor, imageInputRef }) => {
   const bulletListButtonRef = useRef(null);
   const codeBlockButtonRef = useRef(null);
 
+  const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+  const commandKey = isMac ? "⌘" : "ctrl";
+
   if (!editor) {
     return null;
   }
@@ -19,7 +22,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
     >
       <button>
         <div className="button-content">
-          Heading <span className="hint-shortcut">⌘ + ⌥ + Number</span>
+          Heading <span className="hint-shortcut">{commandKey} + ⌥ + Number</span>
         </div>
       </button>
       <button
@@ -28,7 +31,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("bold") ? "is-active" : ""}
       >
         <div className="button-content">
-          bold <span className="hint-shortcut">⌘ + B</span>
+          bold <span className="hint-shortcut">{commandKey} + B</span>
         </div>
       </button>
       <button
@@ -37,7 +40,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("italic") ? "is-active" : ""}
       >
         <div className="button-content">
-          italic <span className="hint-shortcut">⌘ + I</span>
+          italic <span className="hint-shortcut">{commandKey} + I</span>
         </div>
       </button>
       <button
@@ -46,7 +49,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("bulletList") ? "is-active" : ""}
       >
         <div className="button-content">
-          BulletList <span className="hint-shortcut">⌘ + shift + 8</span>
+          BulletList <span className="hint-shortcut">{commandKey} + shift + 8</span>
         </div>
       </button>
       <button
@@ -55,7 +58,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("codeBlock") ? "is-active" : ""}
       >
         <div className="button-content">
-          CodeBlock <span className="hint-shortcut">⌘ + ⌥ + C</span>
+          CodeBlock <span className="hint-shortcut">{commandKey} + ⌥ + C</span>
         </div>
       </button>
       <button
@@ -64,7 +67,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
         }}
       >
         <div className="button-content">
-          Image Upload <span className="hint-shortcut">⌘ + '</span>
+          Image Upload <span className="hint-shortcut">{commandKey} + '</span>
         </div>
       </button>
     </BubbleMenu>

@@ -9,14 +9,17 @@ input {
   text-overflow: ellipsis;
 }
 
+
 .App {
   display: flex;
   height: 100vh;
 
   .content {
-    transition: margin-left 0.6s, margin-top 0.6s; /* Add margin-top to the transition */
+    transition: margin-left 0.6s, margin-top 0.6s;
     margin-left: 80px;
     width: 100%;
+    overflow-x: hidden; /* Add this line */
+    
     .homepage {
       height: 100vh;
     }
