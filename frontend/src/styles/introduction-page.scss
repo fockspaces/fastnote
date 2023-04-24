@@ -16,6 +16,7 @@
 .introduction-page {
   font-family: "Poppins", sans-serif;
   color: #333;
+  scroll-behavior: smooth;
 
   .header {
     display: flex;
@@ -29,12 +30,6 @@
       width: auto;
     }
 
-    h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin: 0;
-    }
-
     nav {
       a,
       .nav-button {
@@ -43,15 +38,12 @@
         color: #333;
         background: none;
         border: none;
-        font: inherit;
-        padding: 0;
         cursor: pointer;
-        outline: none;
       }
 
       a:hover,
       .nav-button:hover {
-        text-decoration: underline;
+        color: #007bff;
       }
     }
   }
@@ -63,8 +55,6 @@
     padding: 2rem;
 
     .hero-content {
-      max-width: 50%;
-
       h2 {
         font-size: 2rem;
         font-weight: 700;
@@ -109,22 +99,20 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: 2rem;
-
-      img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        margin-bottom: 1rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #ebe0e0;
+      &:last-child {
+        border-bottom: none;
       }
 
-      h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+      .feature-gif {
+        width: 100%; /* Adjust the width as needed */
+        max-width: 60vw; /* Adjust the max-width as needed */
+        height: auto; /* Maintain the aspect ratio */
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 300;
         line-height: 1.5;
         text-align: center;
@@ -141,6 +129,20 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 2rem;
+    }
+
+    .ProseMirror {
+      min-height: 25vh;
+      max-height: 25vh;
+      overflow-y: auto;
+    }
+    .tiptap-editor {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
   }
 

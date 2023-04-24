@@ -10,6 +10,7 @@ import TagsBar from "../utils/TagsBar";
 import { getAllTags, tagsHelper } from "../../../utils/tagsHelper";
 import NoDocumentsHint from "../utils/NoDocuments";
 import TitleList from "../utils/TitleList";
+import Logo from "../../Logo";
 
 function ListContainer({ query, is_trash }) {
   const [documents, setDocuments] = useState([]);

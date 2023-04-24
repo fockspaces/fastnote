@@ -18,7 +18,7 @@ function DocumentList({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Row sm={1} md={2} lg={2} className="justify-content-left">
+      <Row sm={1} md={1} lg={1} className="justify-content-left">
         {documents.map((doc) => (
           <DocumentListItem
             key={doc._id}

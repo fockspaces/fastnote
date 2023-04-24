@@ -51,6 +51,11 @@
 }
 
 .ProseMirror {
-  min-height: 95vh;
+  min-height: 100vh;
   overflow-y: auto;
+  padding: 30px 20px;
+}
+
+.ProseMirror:focus {
+  outline: none;
 }

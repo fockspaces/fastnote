@@ -3,7 +3,13 @@ import { ListGroup } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import ConfirmModal from "../../ListPage/utils/ConfirmModal";
 
-function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
+function NoteList({
+  setSelectedNote,
+  notes,
+  deleteNote,
+  selectedNote,
+  toggleModal,
+}) {
   return (
     <div className="note-list mt-3">
       <ListGroup>
@@ -14,6 +20,7 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
             selectedNote={selectedNote}
             setSelectedNote={setSelectedNote}
             deleteNote={deleteNote}
+            toggleModal={toggleModal}
           />
         ))}
       </ListGroup>
@@ -21,7 +28,13 @@ function NoteList({ setSelectedNote, notes, deleteNote, selectedNote }) {
   );
 }
 
-function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
+function NoteListItem({
+  note,
+  setSelectedNote,
+  selectedNote,
+  deleteNote,
+  toggleModal,
+}) {
   const isSelected = note._id === selectedNote._id;
   const [showModal, setShowModal] = useState(false);
   const message = {
@@ -41,6 +54,7 @@ function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
       className={`mt-2 ${isSelected ? "selected" : ""}`}
       action
       onClick={() => {
+        toggleModal();
         setSelectedNote(note);
       }}
     >
@@ -60,7 +74,8 @@ function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
         </div>
         <div
           className="delete-icon"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setShowModal(true);
           }}
         >

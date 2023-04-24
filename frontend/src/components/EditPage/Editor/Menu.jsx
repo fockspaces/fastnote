@@ -9,7 +9,7 @@ export const Bubble = ({ editor, imageInputRef }) => {
   const codeBlockButtonRef = useRef(null);
 
   const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
-  const commandKey = isMac ? "⌘" : "ctrl";
+  const commandKey = isMac ? "⌘" : "Ctrl";
 
   if (!editor) {
     return null;

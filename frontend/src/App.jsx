@@ -10,10 +10,8 @@ import NotFound from "./pages/functionPage/NotFound";
 import Menu from "./components/Menu/Menu";
 import FavoritePage from "./pages/FavoritePage";
 import TrashPage from "./pages/TrashPage";
-import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import IntroductionPage from "./pages/IntroductionPage";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);

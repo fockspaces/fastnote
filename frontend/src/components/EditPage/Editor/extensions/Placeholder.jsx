@@ -5,7 +5,8 @@ export const CustomPlacehoder = Placeholder.configure({
     if (node.type.name === "heading") {
       return "Title...";
     }
-
-    return "press 'ctrl' + '/' to show menu";
+    const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+    const commandKey = isMac ? "⌘" : "Ctrl";
+    return `press ${commandKey} + /  to show menu`;
   },
 });

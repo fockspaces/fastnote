@@ -9,13 +9,25 @@ import { Loading } from "./functionPage/Loading";
 
 import { updateDoc } from "../api/documents/updateDocument";
 import { fetchDocument } from "../api/documents/fetchDocument";
+import { Modal } from "react-bootstrap";
+import ListModal from "../components/EditPage/List/ListModal";
 
 const EditPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState({ preview: true });
-  const { document_id } = useParams();
+  const [showModal, setShowModal] = useState(false);
 
+  const { document_id } = useParams();
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
+
+  // control fetch document
   useEffect(() => {
     const fetchDoc = async () => {
       const fetchedDocument = await fetchDocument(document_id);
@@ -24,6 +36,24 @@ const EditPage = () => {
     };
     fetchDoc();
   }, [document_id]);
+
+  // shortcut popup
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // Check if the 'Cmd' key is pressed (metaKey) and the 'M' key (keyCode 77)
+      if (event.metaKey && event.keyCode === 77) {
+        event.preventDefault();
+        toggleModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   if (loading) {
     return <Loading />;
@@ -63,7 +93,9 @@ const EditPage = () => {
 
   return (
     <div className="EditPage">
-      <List
+      <ListModal
+        showModal={showModal}
+        toggleModal={toggleModal}
         createNote={createNote}
         notes={currentDoc.paragraphs}
         selectedNote={selectedNote}
