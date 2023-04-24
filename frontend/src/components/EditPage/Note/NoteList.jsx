@@ -46,15 +46,26 @@ function NoteListItem({ note, setSelectedNote, selectedNote, deleteNote }) {
     >
       <div className="d-flex justify-content-between align-items-center">
         <div className="title-container">
-          <span>{note.title}</span>
+          <div className="note-title">{note.title}</div>
+          <div className="updated-at">
+            {note.updatedAt &&
+              new Intl.DateTimeFormat(undefined, {
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              }).format(new Date(note.updatedAt))}
+          </div>
         </div>
-        <span
+        <div
+          className="delete-icon"
           onClick={() => {
             setShowModal(true);
           }}
         >
-          <FaTrash />
-        </span>
+          <FaTrash size={20} />
+        </div>
       </div>
       <ConfirmModal
         showModal={showModal}

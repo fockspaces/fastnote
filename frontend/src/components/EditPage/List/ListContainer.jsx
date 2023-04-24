@@ -1,3 +1,4 @@
+import '../../../styles/EditPage/listContainer.scss'
 import React, { useState } from "react";
 import NoteList from "../Note/NoteList";
 import ToListPage from "./ToListPage";
