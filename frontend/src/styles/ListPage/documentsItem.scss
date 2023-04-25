@@ -7,9 +7,6 @@
     transition: box-shadow 0.3s;
     border-color: #333;
   }
-  .card-text {
-    font-size: 0.8rem; // Adjust the font size for the card description
-  }
 
   .card-link {
     text-decoration: none;
@@ -32,7 +29,7 @@
         padding-bottom: 0.5rem;
         input {
           width: 80%;
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           margin-bottom: 0.5rem;
           border: none;
           outline: none;
@@ -41,6 +38,10 @@
           &.editing {
             border: 1px solid #333;
           }
+        }
+
+        .card-text {
+          font-size: 1rem; // Adjust the font size for the card description
         }
 
         .document-date {

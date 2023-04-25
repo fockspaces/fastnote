@@ -98,16 +98,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
       border-bottom: 1px solid #ebe0e0;
       &:last-child {
         border-bottom: none;
       }
 
       .feature-gif {
-        width: 100%; /* Adjust the width as needed */
-        max-width: 60vw; /* Adjust the max-width as needed */
+        width: 60vw; /* Adjust the width as needed */
+        max-width: 600px; /* Adjust the max-width as needed */
         height: auto; /* Maintain the aspect ratio */
       }
 

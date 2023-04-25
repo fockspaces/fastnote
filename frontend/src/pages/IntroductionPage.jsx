@@ -5,6 +5,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { authGoogle } from "../api/authGoogle";
 import Logo from "../components/Logo";
 import { Button } from "react-bootstrap";
+import { src } from "../utils/srcLink";
 
 const IntroductionPage = () => {
   const initContent = localStorage.getItem("content") || "";
@@ -52,29 +53,21 @@ const IntroductionPage = () => {
             Try it now
           </Button>
         </div>
-        <img src="img/Taking notes-rafiki.png" alt="Note-taking app" />
+        <img src={src.cover} alt="Note-taking app" />
       </section>
 
       <section className="features" id="features">
         <h2>Features</h2>
         <div className="feature">
-          <img className="feature-gif" src="/img/Search.gif" alt="Feature 1" />
+          <img className="feature-gif" src={src.Search} alt="Feature 1" />
           <p>Organize your notes with tags and categories.</p>
         </div>
         <div className="feature">
-          <img
-            className="feature-gif"
-            src="/img/SlashMenu.gif"
-            alt="Feature 2"
-          />
+          <img className="feature-gif" src={src.slashMenu} alt="Feature 2" />
           <p>Take notes easily with our powerful editor.</p>
         </div>
         <div className="feature">
-          <img
-            className="feature-gif"
-            src="/img/DeleteDoc.gif"
-            alt="Feature 3"
-          />
+          <img className="feature-gif" src={src.delete} alt="Feature 3" />
           <p>Easily manage your thoughts</p>
         </div>
       </section>

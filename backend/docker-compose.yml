@@ -3,7 +3,7 @@ version: "3.9"
 services:
   app:
     build: .
-    image: fastnote
+    image: fockspace/fastnote
     env_file:
       - .env
     ports:
