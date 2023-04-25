@@ -7,8 +7,9 @@ import { summarizeDoc } from "../services/documents/summarizeDoc.js";
 import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 import { escapeRegExp } from "../utils/regexEscape.js";
+import cache from "../utils/cache.js";
 
-// *sprint 2 (fin)
+// sprint 4 (fin)
 export const getAllDocuments = async (req, res) => {
   // extract par
   const { paging, tagging = [], is_favorite, is_trash, keyword } = req.query;
@@ -17,6 +18,13 @@ export const getAllDocuments = async (req, res) => {
   // validation paging
   if ((paging && !Number.isInteger(parseInt(paging))) || paging < 0)
     return res.status(400).json({ error: "please provide a valid paging" });
+
+  // Check if the documents are in the Redis cache
+  const cacheKey = `documents:${userId}:${JSON.stringify(req.query)}`;
+  const cachedDocuments = await cache.get(cacheKey);
+  if (cachedDocuments) {
+    return res.status(200).json({ data: cachedDocuments });
+  }
 
   // preparing query parameters
   const query = { userId };
@@ -31,6 +39,8 @@ export const getAllDocuments = async (req, res) => {
 
   // find documents
   const documents = await findDocs(query, keyword, paging);
+  await cache.set(cacheKey, documents, 60);
+
   return res.status(200).json({ data: documents });
 };
 

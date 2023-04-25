@@ -25,7 +25,9 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "multer": "^1.4.5-lts.1",
-    "openai": "^3.2.1"
+    "openai": "^3.2.1",
+    "redis": "^4.6.5",
+    "redis-connection-pool": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
