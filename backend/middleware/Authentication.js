@@ -10,7 +10,6 @@ export const verifyGoogle = async (req, res, next) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
 
   try {
-
     const user = await TokenIsFromGoogle(token, clientId);
     req.user = user;
     next();
@@ -34,7 +33,6 @@ const TokenIsFromGoogle = async (token, clientId) => {
     name,
     picture,
   } = ticket.getPayload();
-
 
   // Check that the token was issued by Google
   if (
@@ -63,8 +61,13 @@ export const authUserWithGoogle = async (req, res) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
   const client = new OAuth2(clientId, clientSecret, "postmessage");
-  const { tokens } = await client.getToken(req.body.code); // exchange code for tokens
-  return res.json(tokens);
+  try {
+    const { tokens } = await client.getToken(req.body.code); // exchange code for tokens
+    return res.status(200).json(tokens);
+  } catch (e) {
+    console.error("Failed to get token from Google:", e.message);
+    return res.status(500).json({ message: e.message });
+  }
 };
 
 export const verifyUser = async (req, res, next) => {
