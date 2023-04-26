@@ -1,5 +1,4 @@
 import Document from "../../models/Document.js";
-import cache from "../../utils/cache.js";
 
 // @@@ desc fetch doc by id
 // @@@ params document_id <Object_id>

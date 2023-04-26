@@ -2,7 +2,7 @@ import { createClient } from "redis";
 
 const isProduction = process.env.NODE_ENV === "production";
 const redisHost = isProduction ? process.env.AWS_ELASTIC_CACHE : "localhost";
-const expireTime = 60;
+const expireTime = 86400;
 
 let client = null;
 
@@ -28,7 +28,7 @@ const createRedisClient = async () => {
   }
 };
 
-const set = async (key, value, options) => {
+const set = async (key, value, options = {}) => {
   try {
     const client = await createRedisClient();
     if (!client) return null;
@@ -57,7 +57,21 @@ const get = async (key) => {
   }
 };
 
+const del = async (key) => {
+  try {
+    const client = await createRedisClient();
+    if (!client) return null;
+
+    const result = await client.del(key);
+    return result;
+  } catch (error) {
+    console.error("Error in del function:", error.message);
+    return null;
+  }
+};
+
 export default {
   set,
   get,
+  del,
 };

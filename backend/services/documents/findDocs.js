@@ -4,9 +4,14 @@ import Paragraph from "../../models/Paragraph.js";
 import { escapeRegExp } from "../../utils/regexEscape.js";
 import cache from "../../utils/cache.js";
 
-// todo : adding cache into this
+const baseCases = (is_favorite, is_trash) => {
+  if (is_trash) return "trash";
+  if (is_favorite) return "favorite";
+  return "default";
+};
+
 export const findDocs = async ({
-  paging,
+  paging = 0,
   tagging = [],
   is_favorite,
   is_trash,
@@ -14,8 +19,8 @@ export const findDocs = async ({
   userId,
 }) => {
   // if default case, cache it
-  const shouldCache = !(keyword || tagging.length);
-  const cacheKey = `documents:${userId}:${paging}:${is_favorite}:${is_trash}`;
+  const shouldCache = !(keyword || tagging.length || paging > 0);
+  const cacheKey = `documents:${userId}:${baseCases(is_favorite, is_trash)}`;
 
   if (shouldCache) {
     const cachedDocuments = await cache.get(cacheKey);
@@ -46,7 +51,7 @@ export const findDocs = async ({
     .limit(limit);
 
   if (shouldCache) {
-    await cache.set(cacheKey, documents, "EX", 60);
+    await cache.set(cacheKey, documents, { EX: 86400 });
   }
 
   return documents;
