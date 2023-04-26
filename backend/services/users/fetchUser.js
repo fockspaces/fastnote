@@ -8,7 +8,6 @@ export const fetchUser = async (user) => {
   const cacheKey = `user:${user.email}`;
   const cachedUser = await cache.get(cacheKey);
   if (cachedUser) {
-    console.log({ message: "hit", cachedUser });
     return new User(cachedUser);
   }
 

@@ -45,7 +45,7 @@ export const updateDocument = async (req, res) => {
 
   // auth the user
   const user = await fetchUser(req.user);
-  const document = await findDoc(document_id);
+  const document = await findDoc(document_id, true);
   if (!user._id.equals(document.userId))
     return res.status(403).json({ error: "forbidden (not the owner)" });
 
@@ -54,7 +54,7 @@ export const updateDocument = async (req, res) => {
   return res.status(200).json({ message: "Updated successfully", data });
 };
 
-// *sprint 2 (fin)
+// *sprint 4 (fin)
 export const createDocument = async (req, res) => {
   const { title, description, tags } = req.body;
   const userId = req.user._id;
