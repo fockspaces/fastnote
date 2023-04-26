@@ -1,3 +1,4 @@
+import "../../../styles/EditPage/listContainer.scss";
 import React, { useState } from "react";
 import NoteList from "../Note/NoteList";
 import ToListPage from "./ToListPage";
@@ -13,7 +14,7 @@ function List({
   createNote,
   deleteNote,
   selectedNote,
-  setCurrentDoc,
+  toggleModal,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -29,6 +30,7 @@ function List({
           setSelectedNote={setSelectedNote}
           notes={notes}
           deleteNote={deleteNote}
+          toggleModal={toggleModal}
         />
       </div>
       <div className="list__footer">

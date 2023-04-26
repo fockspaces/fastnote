@@ -1,39 +1,116 @@
 import { PAGE_LIMIT } from "../../configs/Configs.js";
 import Document from "../../models/Document.js";
 import Paragraph from "../../models/Paragraph.js";
-import { escapeRegExp } from "../../utils/regexEscape.js";
+import cache from "../../utils/cache.js";
+import mongoose from "mongoose";
 
-export const findDocs = async (query, keyword, paging) => {
-  const limit = paging ? PAGE_LIMIT : 500;
-
-  if (keyword) {
-    const keywordQuery = await addKeywordQuery(keyword);
-    query = { ...query, ...keywordQuery };
-  }
-
-  const documents = await Document.find(query)
-    .sort({ createdAt: -1 })
-    .skip(paging ? parseInt(paging) * limit : 0)
-    .limit(limit);
-  return documents;
+const baseCases = (is_favorite, is_trash) => {
+  if (is_trash) return "trash";
+  if (is_favorite) return "favorite";
+  return "default";
 };
 
-// convert keword into query format
-const addKeywordQuery = async (keyword) => {
-  const escapedKeyword = escapeRegExp(keyword);
-  const keywordRegex = new RegExp(escapedKeyword, "i");
+export const findDocs = async ({
+  paging = 0,
+  tagging = [],
+  is_favorite,
+  is_trash,
+  keyword,
+  userId,
+}) => {
+  const shouldCache = !(keyword || tagging.length || paging > 0);
+  const cacheKey = `documents:${userId}:${baseCases(is_favorite, is_trash)}`;
+  if (shouldCache) {
+    const cachedDocuments = await cache.get(cacheKey);
+    if (cachedDocuments) return cachedDocuments;
+  }
 
-  // Find paragraph IDs with matching content
-  const matchingParagraphs = await Paragraph.find({
-    content: { $regex: keywordRegex },
-  });
+  const limit = paging ? PAGE_LIMIT : 500;
 
-  const matchingParagraphIds = matchingParagraphs.map((p) => p._id);
-  return {
-    $or: [
-      { title: { $regex: keywordRegex } },
-      { description: { $regex: keywordRegex } }, 
-      { paragraphs: { $in: matchingParagraphIds } },
-    ],
+  let pipeline = [];
+
+  const userIdObj = new mongoose.Types.ObjectId(userId);
+  const query = {
+    userId: userIdObj,
+    ...(is_favorite !== undefined && { is_favorite: is_favorite === "true" }),
+    ...(is_trash !== undefined && { is_trash: is_trash === "true" }),
   };
+
+  if (keyword) {
+    pipeline = [
+      // documents search
+      {
+        $search: {
+          index: "default",
+          text: {
+            query: keyword,
+            path: { wildcard: "*" },
+          },
+        },
+      },
+      // paragraphs search
+      {
+        $unionWith: {
+          coll: "paragraphs",
+          pipeline: [
+            {
+              $search: {
+                index: "paragraphs",
+                text: {
+                  query: keyword,
+                  path: "content",
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: "documents",
+                localField: "document_id",
+                foreignField: "_id",
+                as: "document",
+              },
+            },
+            {
+              $unwind: "$document",
+            },
+            {
+              $replaceRoot: {
+                newRoot: "$document",
+              },
+            },
+          ],
+        },
+      },
+      // Group by _id and remove duplicates
+      {
+        $group: {
+          _id: "$_id",
+          document: {
+            $first: "$$ROOT",
+          },
+        },
+      },
+      // Replace the root with the document object
+      {
+        $replaceRoot: {
+          newRoot: "$document",
+        },
+      },
+    ];
+  }
+
+  pipeline.push(
+    { $match: { ...query } },
+    { $sort: { createdAt: -1 } },
+    { $skip: paging ? parseInt(paging) * limit : 0 },
+    { $limit: limit }
+  );
+
+  const documents = await Document.aggregate(pipeline);
+
+  if (shouldCache) {
+    await cache.set(cacheKey, documents, { EX: 86400 });
+  }
+
+  return documents;
 };

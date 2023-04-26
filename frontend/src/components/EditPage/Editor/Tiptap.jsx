@@ -8,7 +8,7 @@ import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 
-import { Floating, Bubble } from "./Menu";
+import { Bubble } from "./Menu";
 import { CustomDocument } from "./extensions/Document";
 import { CustomParagraph } from "./extensions/indent";
 import { CustomPlacehoder } from "./extensions/Placeholder";
@@ -71,15 +71,24 @@ const Tiptap = ({ note, setContent }) => {
     if (editor) editor.commands.setContent(note.content);
   }, [note]);
 
+  // handle image upload and bubble menu
   useEffect(() => {
     if (editor) {
       const handleKeydown = (event) => {
         const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
         const cmdKey = isMac ? event.metaKey : event.ctrlKey;
         const slashKey = event.key === "/";
+        const singleQuoteKey = event.key === "'";
 
         if (cmdKey && slashKey) {
           event.preventDefault();
+          // Display the bubble menu
+          editor.commands.selectParentNode();
+        }
+
+        if (cmdKey && singleQuoteKey) {
+          event.preventDefault();
+          // Trigger image upload
           imageInputRef.current.click();
         }
       };
@@ -94,7 +103,11 @@ const Tiptap = ({ note, setContent }) => {
 
   return (
     <>
-      <Bubble editor={editor} tippyOptions={{ duration: 100 }} />
+      <Bubble
+        editor={editor}
+        tippyOptions={{ duration: 100 }}
+        imageInputRef={imageInputRef}
+      />
       <input
         type="file"
         accept="image/*"

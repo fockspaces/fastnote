@@ -1,72 +1,72 @@
 // src/components/HomePage.scss
 .homepage {
-  font-family: Arial, sans-serif;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    height: 10%;
-    background-color: #333;
-    color: #fff;
-
-    h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    nav {
-      a {
-        color: #fff;
-        text-decoration: none;
-        margin-left: 15px;
-
-        &:hover {
-          text-decoration: underline;
+    font-family: Arial, sans-serif;
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      height: 10%;
+      background-color: #333;
+      color: #fff;
+  
+      h1 {
+        font-size: 24px;
+        margin: 0;
+      }
+  
+      nav {
+        a {
+          color: #fff;
+          text-decoration: none;
+          margin-left: 15px;
+  
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
-  }
-
-  .hero {
-    height: 85%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-
-    .hero-content {
+  
+    .hero {
+      height: 85%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+  
+      .hero-content {
+        text-align: center;
+  
+        h2 {
+          font-size: 48px;
+          margin-bottom: 20px;
+        }
+  
+        p {
+          font-size: 18px;
+          margin-bottom: 40px;
+        }
+  
+        button {
+          padding: 12px 24px;
+          font-size: 18px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+  
+        }
+      }
+    }
+  
+    .footer {
+      background-color: #333;
+      color: #fff;
       text-align: center;
-
-      h2 {
-        font-size: 48px;
-        margin-bottom: 20px;
-      }
-
+      height: 5%;
       p {
-        font-size: 18px;
-        margin-bottom: 40px;
-      }
-
-      button {
-        padding: 12px 24px;
-        font-size: 18px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-
+        margin: 0;
       }
     }
   }
-
-  .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    height: 5%;
-    p {
-      margin: 0;
-    }
-  }
-}

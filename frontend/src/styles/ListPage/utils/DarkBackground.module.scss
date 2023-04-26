@@ -1,0 +1,33 @@
+.darkBackground {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+  }
+  
+  .hintContainer {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    color: white;
+    font-size: 1.25rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  .restoreHint{
+    margin-left: 142px;
+  }
+  
+  .trashHint {
+    margin-right: 67px;
+  }
+  

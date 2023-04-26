@@ -1,7 +1,13 @@
 import "../../../styles/ListPage/confirmModal.scss";
 import { Button, Modal } from "react-bootstrap";
 
-const ConfirmModal = ({ showModal, setShowModal, handleConfirmDelete }) => {
+const ConfirmModal = ({
+  showModal,
+  setShowModal,
+  handleConfirmDelete,
+  message,
+}) => {
+  if (!message) return null;
   return (
     <Modal
       show={showModal}
@@ -9,9 +15,9 @@ const ConfirmModal = ({ showModal, setShowModal, handleConfirmDelete }) => {
       className="confirm-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Confirm Delete</Modal.Title>
+        <Modal.Title>{message.title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Are you sure you want to delete this document?</Modal.Body>
+      <Modal.Body>{message.body}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Cancel
@@ -22,7 +28,7 @@ const ConfirmModal = ({ showModal, setShowModal, handleConfirmDelete }) => {
             handleConfirmDelete(e);
           }}
         >
-          Delete
+          {message.confirm}
         </Button>
       </Modal.Footer>
     </Modal>

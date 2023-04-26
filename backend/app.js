@@ -19,6 +19,11 @@ mongoose.connect(MONGODB_URI, {
 app.use(cors());
 app.use(express.json());
 
+// health check
+app.get("/api/", (req, res) => {
+  return res.status(200).json({ status: "OK" });
+});
+
 app.use("/api/documents", document);
 app.use("/api/users", user);
 app.use("/api/images", image);

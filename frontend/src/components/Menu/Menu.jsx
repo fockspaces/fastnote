@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
-  FaHeart,
   FaTrash,
   FaUser,
   FaHome,
@@ -12,6 +11,7 @@ import {
   FaChevronRight,
   FaListUl,
 } from "react-icons/fa";
+import { RiBookMarkFill } from "react-icons/ri";
 import { IoCreate } from "react-icons/io5";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 const user = localStorage.getItem("user");
@@ -48,7 +48,7 @@ function Menu({ menuOpen, setMenuOpen }) {
         </div>
         <ul>
           <li onClick={user ? handleCreate : null}>
-            <Link  className={`nav-link ${!user ? "disabled" : ""}`}>
+            <Link className={`nav-link ${!user ? "disabled" : ""}`}>
               <IoCreate />
               <span>New</span>
             </Link>
@@ -58,7 +58,10 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/documents" className={`nav-link ${!user ? "disabled" : ""}`}>
+            <Link
+              to="/documents"
+              className={`nav-link ${!user ? "disabled" : ""}`}
+            >
               <FaListUl />
               <span>Notes</span>
             </Link>
@@ -68,9 +71,12 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/favorites" className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaHeart />
-              <span>Favorites</span>
+            <Link
+              to="/favorites"
+              className={`nav-link ${!user ? "disabled" : ""}`}
+            >
+              <RiBookMarkFill />
+              <span>Bookmarks</span>
             </Link>
           </li>
           <li
@@ -88,7 +94,10 @@ function Menu({ menuOpen, setMenuOpen }) {
               handleCollapse();
             }}
           >
-            <Link to="/profile" className={`nav-link ${!user ? "disabled" : ""}`}>
+            <Link
+              to="/profile"
+              className={`nav-link ${!user ? "disabled" : ""}`}
+            >
               <FaUser />
               <span>Profile</span>
             </Link>
@@ -104,7 +113,10 @@ function Menu({ menuOpen, setMenuOpen }) {
             </Link>
           </li>
           <li onClick={handleLogout}>
-            <Link to="/logout" className={`nav-link ${!user ? "disabled" : ""}`}>
+            <Link
+              to="/logout"
+              className={`nav-link ${!user ? "disabled" : ""}`}
+            >
               <FaSignOutAlt />
               <span>Logout</span>
             </Link>

@@ -34,8 +34,6 @@ const TokenIsFromGoogle = async (token, clientId) => {
     picture,
   } = ticket.getPayload();
 
-  // console.log(ticket.getPayload());
-
   // Check that the token was issued by Google
   if (
     tokenIssuer !== "https://accounts.google.com" &&
@@ -57,6 +55,19 @@ const TokenIsFromGoogle = async (token, clientId) => {
 
   // Return the user ID from the token claims
   return { userId, email, name, picture };
+};
+
+export const authUserWithGoogle = async (req, res) => {
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const client = new OAuth2(clientId, clientSecret, "postmessage");
+  try {
+    const { tokens } = await client.getToken(req.body.code); // exchange code for tokens
+    return res.status(200).json(tokens);
+  } catch (e) {
+    console.error("Failed to get token from Google:", e.message);
+    return res.status(500).json({ message: e.message });
+  }
 };
 
 export const verifyUser = async (req, res, next) => {

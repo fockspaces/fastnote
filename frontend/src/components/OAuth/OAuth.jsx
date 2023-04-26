@@ -1,11 +1,9 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleOAuth from "./GoogleOAuth";
 import { useState, useEffect } from "react";
 import { login } from "../../api/login";
 import jwt_decode from "jwt-decode";
 
 function OAuth() {
-
   const [user, setUser] = useState(null);
 
   const handleLogin = async (access_token) => {
@@ -21,11 +19,7 @@ function OAuth() {
     }
   }, []);
 
-  return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT}>
-      {!user && <GoogleOAuth handleLogin={handleLogin} />}
-    </GoogleOAuthProvider>
-  );
+  return <> {!user && <GoogleOAuth handleLogin={handleLogin} />}</>;
 }
 
 export default OAuth;

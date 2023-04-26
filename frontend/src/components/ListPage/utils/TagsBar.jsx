@@ -1,16 +1,14 @@
 import "../../../styles/tags-bar.scss";
 
 import React, { useEffect, useRef } from "react";
-import { Row, Col } from "react-bootstrap";
 import Tagify from "@yaireo/tagify";
-import { AiOutlineTags } from "react-icons/ai";
 
 function TagsBar({ tagging, setTagging, whitelist }) {
   const inputRef = useRef();
   useEffect(() => {
     const tagify = new Tagify(inputRef.current, {
       delimiters: ",",
-      maxTags: 10,
+      maxTags: 5,
       whitelist,
       enforceWhitelist: true,
       dropdown: {
@@ -38,19 +36,14 @@ function TagsBar({ tagging, setTagging, whitelist }) {
 
   return (
     <div className="tags-container">
-      <Row>
-        <Col>
-          <AiOutlineTags className="me-2" />
-          <span style={{ color: "grey" }}>Add tags and press Enter...</span>
-          <input
-            ref={inputRef}
-            className="tagify"
-            name="tags"
-            value={tagging}
-            onChange={(e) => {}}
-          />
-        </Col>
-      </Row>
+      <input
+        ref={inputRef}
+        className="tagify"
+        name="tags"
+        value={tagging}
+        onChange={(e) => {}}
+        placeholder={'Add tags here...'}
+      />
     </div>
   );
 }

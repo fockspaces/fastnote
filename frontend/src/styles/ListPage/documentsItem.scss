@@ -1,9 +1,22 @@
 .document-item {
-  min-width: 400px;
+  min-width: 200px;
   margin-bottom: 1rem;
+
+  .hover-effect:hover {
+    box-shadow: 0 1px 1px;
+    transition: box-shadow 0.3s;
+    border-color: #333;
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
 
   .card {
     min-height: 300px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.1); // Add box-shadow here
+
     .card-body {
       display: flex;
       flex-direction: column;
@@ -16,11 +29,19 @@
         padding-bottom: 0.5rem;
         input {
           width: 80%;
-          font-size: 1.25rem;
+          font-size: 1.5rem;
           margin-bottom: 0.5rem;
           border: none;
           outline: none;
           color: #333;
+          &:focus,
+          &.editing {
+            border: 1px solid #333;
+          }
+        }
+
+        .card-text {
+          font-size: 1rem; // Adjust the font size for the card description
         }
 
         .document-date {
@@ -62,16 +83,25 @@
 .favorite-icon {
   padding: 0.25rem;
   margin-right: 0.45rem;
-  font-size: 1.5rem; /* Change the value to your desired size */
+  font-size: 1.5rem; // Change the value to your desired size
 
-  :hover {
-    .text-secondary {
-      color: #333 !important;
-      cursor: pointer;
-    }
-    .text-warning {
-      color: #e68d44 !important;
-      cursor: pointer;
+  .bookmark-icon {
+    position: absolute;
+    top: -6px; // Adjust to your preference
+    right: -9px; // Adjust to your preference
+    cursor: pointer;
+
+    svg {
+      height: 50px;
+      width: 50px;
     }
   }
+
+  .bookmark-icon:hover {
+    filter: drop-shadow(1px 3px 3px #525252);
+  }
+}
+
+.text-saturated-orange {
+  color: #ffa500 !important; // Saturated orange color
 }

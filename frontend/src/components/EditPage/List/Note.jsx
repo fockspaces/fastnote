@@ -1,3 +1,4 @@
+import '../../../styles/EditPage/note.scss'
 import React, { useState, useEffect } from "react";
 import Tiptap from "../Editor/Tiptap";
 import NotePreview from "../Note/NotePreview";

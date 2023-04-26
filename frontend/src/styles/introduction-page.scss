@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap");
+.google-login-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.google-login-btn:hover {
+  text-decoration: none;
+}
+
+.introduction-page {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  scroll-behavior: smooth;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    .logo {
+      margin: 5px;
+      height: 40px; // Adjust this value according to your preferred size
+      width: auto;
+    }
+
+    nav {
+      a,
+      .nav-button {
+        margin-left: 1rem;
+        text-decoration: none;
+        color: #333;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      a:hover,
+      .nav-button:hover {
+        color: #007bff;
+      }
+    }
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+
+    .hero-content {
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    }
+
+    img {
+      max-width: 40%;
+    }
+  }
+
+  .features {
+    padding: 2rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid #ebe0e0;
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .feature-gif {
+        width: 60vw; /* Adjust the width as needed */
+        max-width: 600px; /* Adjust the max-width as needed */
+        height: auto; /* Maintain the aspect ratio */
+      }
+
+      p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        line-height: 1.5;
+        text-align: center;
+      }
+    }
+  }
+
+  .try-it {
+    background-color: #f8f9fa;
+    padding: 2rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .ProseMirror {
+      min-height: 25vh;
+      max-height: 25vh;
+      overflow-y: auto;
+    }
+    .tiptap-editor {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+
+    p {
+      margin: 0;
+    }
+  }
+}

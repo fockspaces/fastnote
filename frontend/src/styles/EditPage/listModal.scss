@@ -1,0 +1,32 @@
+.list-modal {
+  position: absolute;
+  transform: translate(0%, -20%);
+  .modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  // Custom modal styles
+  .modal-content {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-header {
+    background-color: #ffffff;
+    border-bottom: none;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .modal-body {
+    background-color: #ffffff;
+    padding: 20px;
+    max-height: 80vh; // Limit the container height
+    overflow-y: auto; // Enable scrolling when the content exceeds the container height
+    display: flex; // Use flexbox to align the List in the middle
+    justify-content: center;
+    align-items: center;
+  }
+}
