@@ -13,17 +13,17 @@ export const findDocs = async ({
   keyword,
   userId,
 }) => {
-  // cache
-  const cacheKey = `documents:${userId}:${paging}:${tagging}:${is_favorite}:${is_trash}:${keyword}`;
-  
-  console.time("Cache fetch");
-  const cachedDocuments = await cache.get(cacheKey);
-  console.timeEnd("Cache fetch");
+  // if default case, cache it
+  const shouldCache = !(keyword || tagging.length);
+  const cacheKey = `documents:${userId}:${paging}:${is_favorite}:${is_trash}`;
 
-  if (cachedDocuments) return cachedDocuments;
+  if (shouldCache) {
+    const cachedDocuments = await cache.get(cacheKey);
+    if (cachedDocuments) return cachedDocuments;
+  }
 
   // preparing query parameters
-  const query = { userId };
+  let query = { userId };
   if (typeof tagging === "string" && tagging.length)
     query.tags = {
       $all: tagging
@@ -40,20 +40,17 @@ export const findDocs = async ({
     query = { ...query, ...keywordQuery };
   }
 
-  console.time("Database fetch");
   const documents = await Document.find(query)
     .sort({ createdAt: -1 })
     .skip(paging ? parseInt(paging) * limit : 0)
     .limit(limit);
-  console.timeEnd("Database fetch");
 
-  console.time("Cache set");
-  await cache.set(cacheKey, documents, "EX", 60);
-  console.timeEnd("Cache set");
+  if (shouldCache) {
+    await cache.set(cacheKey, documents, "EX", 60);
+  }
 
   return documents;
 };
-
 
 // convert keword into query format
 const addKeywordQuery = async (keyword) => {

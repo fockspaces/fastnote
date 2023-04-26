@@ -14,7 +14,7 @@ const createRedisClient = async () => {
   });
 
   client.on("error", (err) => {
-    console.error("Redis Client Error", err);
+    console.error("Redis Client Error", err.message);
     client.disconnect(); // Close the connection to avoid reconnecting
     client = null;
   });
@@ -23,7 +23,7 @@ const createRedisClient = async () => {
     await client.connect();
     return client;
   } catch (err) {
-    console.error("Failed to connect to Redis:", err);
+    console.error("Failed to connect to Redis:", err.message);
     return null;
   }
 };
@@ -36,7 +36,7 @@ const set = async (key, value, options) => {
     const result = await client.set(key, JSON.stringify(value), options);
     return result;
   } catch (error) {
-    console.error("Error in set function:", error);
+    console.error("Error in set function:", error.message);
     return null;
   }
 };
@@ -52,7 +52,7 @@ const get = async (key) => {
     }
     return value ? JSON.parse(value) : null;
   } catch (error) {
-    console.error("Error in get function:", error);
+    console.error("Error in get function:", error.message);
     return null;
   }
 };
