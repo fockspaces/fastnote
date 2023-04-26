@@ -49,7 +49,7 @@ const updatePargraph = async (updateData, paragraph_id) => {
 };
 
 const insertNewParagraph = async (updateData, document_id) => {
-  const newParagraph = new Paragraph(updateData);
+  const newParagraph = new Paragraph({ ...updateData, document_id });
   await newParagraph.save();
 
   await Document.findByIdAndUpdate(
