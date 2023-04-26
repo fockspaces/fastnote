@@ -2,25 +2,38 @@ import { createClient } from "redis";
 
 const isProduction = process.env.NODE_ENV === "production";
 const redisHost = isProduction ? process.env.AWS_ELASTIC_CACHE : "localhost";
-const expirteTime = 60;
+const expireTime = 60;
+
+let client = null;
 
 const createRedisClient = async () => {
-  const client = createClient({
+  if (client) return client;
+
+  client = createClient({
     url: `redis://${redisHost}:6379`,
   });
 
-  client.on("error", (err) => console.error("Redis Client Error", err));
+  client.on("error", (err) => {
+    console.error("Redis Client Error", err);
+    client.disconnect(); // Close the connection to avoid reconnecting
+    client = null;
+  });
 
-  await client.connect();
-
-  return client;
+  try {
+    await client.connect();
+    return client;
+  } catch (err) {
+    console.error("Failed to connect to Redis:", err);
+    return null;
+  }
 };
 
 const set = async (key, value, options) => {
   try {
     const client = await createRedisClient();
+    if (!client) return null;
+
     const result = await client.set(key, JSON.stringify(value), options);
-    await client.disconnect();
     return result;
   } catch (error) {
     console.error("Error in set function:", error);
@@ -31,11 +44,12 @@ const set = async (key, value, options) => {
 const get = async (key) => {
   try {
     const client = await createRedisClient();
+    if (!client) return null;
+
     const value = await client.get(key);
     if (value) {
-      await client.expire(key, expirteTime);
+      await client.expire(key, expireTime);
     }
-    await client.disconnect();
     return value ? JSON.parse(value) : null;
   } catch (error) {
     console.error("Error in get function:", error);
