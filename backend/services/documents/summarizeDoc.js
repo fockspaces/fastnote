@@ -46,27 +46,26 @@ const generatePreserveTerms = (tags) => {
   )} unchanged.`;
 };
 
-const extractContent = (document) => {
+export const summarizeDoc = async (document_id, options) => {
+  console.time("summary");
+  // handle the number of tags
+  let min_tags = 1,
+    max_tags = 5;
+  if (options) {
+    min_tags = options.min_tags;
+    max_tags = options.max_tags;
+  }
+  if (min_tags > max_tags) return;
+  const document = await findDoc(document_id);
+
   // find updated paragraphs
   const updatedParagraphs = document.paragraphs.filter(
     (paragraph) => paragraph.isUpdated
   );
-  return updatedParagraphs
+  const plainText = updatedParagraphs
     .map((paragraph) => stripHTMLTags(paragraph.content))
     .join(" ");
-};
-
-export const summarizeDoc = async (document_id) => {
-  console.time("summary");
-  const document = await findDoc(document_id);
-  const plainText = extractContent(document);
   if (plainText.length < 100) return;
-
-  // Detect the original language
-  let lang = franc(plainText);
-  console.log({ lang, plainText });
-  if (lang === "cmn") lang = "Traditional Chinese";
-  // console.log({ lang });
 
   const chunks = chunkText(plainText, 2048);
   // console.log({ length: chunks.length });
@@ -92,56 +91,45 @@ Summary: `;
   });
 
   const summaries = await Promise.all(summaryPromises);
-  let combinedSummary = summaries.join(" ");
-  const tagsPrompt = `Please provide topic tags for the following summary:
+  const combinedSummary = summaries.join(" ");
 
-  ${combinedSummary}
+  const tagsPrompt = `Please follow the steps below to generate relevant tags for the given summary:
+
+  1. Detect the language of the summary and generate tags in the original language.
+  2. Identify the main topics, themes, or subjects discussed in the summary. Avoid generating tags that are too specific or detailed.
+  3. Combine similar tags into a single, more general tag when appropriate.
+  4. Prioritize the tags based on their relevance and representation of the summary's content.
+  5. Generate tags within the range of ${min_tags} to ${max_tags}, and ensure that the tags are in the same language as the original context.
   
-  Once you've read the summary, follow these steps to generate topic tags:
-  1. Identify the main ideas, themes, and key points in the summary.
-  2. Consider the relevance of each idea, theme, or key point to the overall context.
-  3. Create a list of topic tags that accurately represent the main ideas and themes.
-  4. Ensure that the topic tags are separated by commas.
+  Summary: ${combinedSummary}
   
-  Example format: Tag1, Tag2, Tag3
-  
-  Tags: `;
+  Tags:`;
   const tagsResponse = await fetchGPT(tagsPrompt);
 
   const finalTags = parseGPTResponse(tagsResponse.choices, "tags");
   console.log({ finalTags });
-  return;
 
-  const finalPrompt = `First, identify the language of the text provided below:
-  ${combinedSummary}
-  
-  Once you've identified the language, follow these steps to generate a one-sentence summary in the original language:
-  
-  1. Carefully read the text, focusing on the main ideas and themes of each restaurant mentioned.
-  2. Break down the text into smaller, manageable parts, and analyze each part in detail.
-  3. Consider the relevance of each part to the overall context, and identify the key points for each restaurant.
-  4. Combine the key points for each restaurant separately, ensuring the information is clear and not mixed.
-  5. Create a concise summary that accurately captures the essence of the content, mentioning both restaurants.
-  6. Ensure that the summary is in the original language of the text and forms a complete sentence.
-  
-  Summary: `;
-  const finalResponse = await fetchGPT(finalPrompt);
+  let finalSummary;
+  if (chunks.length > 1) {
+    const finalPrompt = `First, identify the language of the text provided below:
+    ${combinedSummary}
+    
+    Once you've identified the language, follow these steps to generate a one-sentence summary in the original language:
+    
+    1. Carefully read the text, focusing on the main ideas and themes of each restaurant mentioned.
+    2. Break down the text into smaller, manageable parts, and analyze each part in detail.
+    3. Consider the relevance of each part to the overall context, and identify the key points for each restaurant.
+    4. Combine the key points for each restaurant separately, ensuring the information is clear and not mixed.
+    5. Create a concise summary that accurately captures the essence of the content, mentioning both restaurants.
+    6. Ensure that the summary is in the original language of the text and forms a complete sentence.
+    
+    Summary: `;
+    const finalResponse = await fetchGPT(finalPrompt);
+    finalSummary = parseGPTResponse(finalResponse.choices, "summary");
+  } else finalSummary = combinedSummary;
 
   console.log({ combinedSummary });
-  let finalSummary = parseGPTResponse(finalResponse.choices, "summary");
   console.log({ finalSummary });
-
-  // Translate the finalSummary back to the original language if it's not English
-  // if (lang !== "eng") {
-  //   const wordCount = finalSummary.split(" ").length;
-
-  //   const preserveTerms = generatePreserveTerms(finalTags);
-  //   const translationPrompt = `Translate the following text from English to ${lang}:\n\n${finalSummary}\n\n${preserveTerms}\n\nTranslation: `;
-  //   const translationResponse = await fetchGPT(translationPrompt);
-  //   finalSummary = parseGPTResponse(translationResponse.choices, "summary");
-  // }
-
-  // console.log({ finalSummary });
 
   // You can update the document's description and tags with the finalSummary and finalTags here.
   await updateDoc(
