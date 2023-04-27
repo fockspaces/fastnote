@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import "../../../styles/ListPage/taggerStyles.scss";
 
-const maximun_tag = 10;
+const maximun_tag = 5;
 
 const Tagger = ({ tags, tagging, setTagging }) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -50,14 +50,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
           className="btn p-0 tag-toggler-button"
           onClick={handleToggleCollapse}
         >
-          {collapsed ? (
-            <>
-              ...
-              <FaPlus />
-            </>
-          ) : (
-            <FaMinus />
-          )}
+          {collapsed ? "...more" : "... show less"}
         </button>
       )}
     </div>
