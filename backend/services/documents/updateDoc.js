@@ -1,5 +1,6 @@
 import Paragraph from "../../models/Paragraph.js";
 import Document from "../../models/Document.js";
+import cache from "../../utils/cache.js";
 
 // @desc: update document with event
 // @params: event <String>, updateData <Object>,
@@ -34,6 +35,7 @@ const updatePartials = async (updateData, document_id) => {
       new: true,
     }
   );
+  await cache.flushPop(newDocument.userId);
   return newDocument;
 };
 

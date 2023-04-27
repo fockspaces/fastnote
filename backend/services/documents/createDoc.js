@@ -8,12 +8,7 @@ export const createDoc = async (docInfo) => {
   const document = new Document(docInfo);
   await document.save();
 
-  const userId = docInfo.userId;
-  // invalidate three cases for favorite, trash and default
-  const baseCases = ["trash", "favorite", "default"];
-  for (const caseSuffix of baseCases) {
-    await cache.del(`documents:${userId}:${caseSuffix}`);
-  }
+  await cache.flushPop(docInfo.userId);
 
   return document;
 };

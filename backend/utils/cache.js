@@ -70,8 +70,17 @@ const del = async (key) => {
   }
 };
 
+const flushPop = async (userId) => {
+  // invalidate three cases for favorite, trash and default
+  const baseCases = ["trash", "favorite", "default"];
+  for (const caseSuffix of baseCases) {
+    await del(`documents:${userId}:${caseSuffix}`);
+  }
+};
+
 export default {
   set,
   get,
   del,
+  flushPop,
 };

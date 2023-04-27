@@ -66,20 +66,16 @@ export const summarizeDoc = async (document_id) => {
 
   const chunks = chunkText(plainText, 2048);
   console.log({ length: chunks.length });
-  let combinedSummary = "";
-
-  for (const chunk of chunks) {
+  // Replace the for loop with the following code:
+  const summaryPromises = chunks.map(async (chunk) => {
     const prompt = `Please provide a summary for the following text:\n\n${chunk}\n\nSummary: `;
-    console.log({ chunk });
     const response = await fetchGPT(prompt);
     const summary = parseGPTResponse(response.choices, "summary");
-    console.log({ summary });
+    return summary;
+  });
 
-    combinedSummary += summary + " ";
-  }
-
-  combinedSummary = chunkText(combinedSummary, 2048)[0];
-
+  const summaries = await Promise.all(summaryPromises);
+  let combinedSummary = summaries.join(" ");
   const tagsPrompt = `Please provide topic tags for the following summary:\n\n${combinedSummary}\n\nExample format: Tag1, Tag2, Tag3\n\nTags: `;
   const tagsResponse = await fetchGPT(tagsPrompt);
 

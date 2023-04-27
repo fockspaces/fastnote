@@ -19,11 +19,7 @@ export const deleteDoc = async (document_id, user) => {
   const deletedDocument = await Document.findByIdAndDelete(document_id);
 
   // invalidate three cases for favorite, trash and default
-  const userId = document.userId;
-  const baseCases = ["trash", "favorite", "default"];
-  for (const caseSuffix of baseCases) {
-    await cache.del(`documents:${userId}:${caseSuffix}`);
-  }
+  cache.flushPop(document.userId)
 
   return deletedDocument; // return deleted document
 };

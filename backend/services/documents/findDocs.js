@@ -5,8 +5,8 @@ import cache from "../../utils/cache.js";
 import mongoose from "mongoose";
 
 const baseCases = (is_favorite, is_trash) => {
-  if (is_trash) return "trash";
-  if (is_favorite) return "favorite";
+  if (is_trash === "true") return "trash";
+  if (is_favorite === "true") return "favorite";
   return "default";
 };
 
