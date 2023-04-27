@@ -1,5 +1,5 @@
 export const tagsHelper = (tags) => {
-  const tagging = tags.join(",");
+  const tagging = tags.map(tag => encodeURIComponent(tag)).join(",");
   return `&tagging=${tagging}`;
 };
 

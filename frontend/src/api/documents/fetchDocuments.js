@@ -1,4 +1,5 @@
 export const fetchDocuments = async (queryString) => {
+  console.log(queryString);
   try {
     const access_token = localStorage.getItem("access_token");
     const response = await fetch(
