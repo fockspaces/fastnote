@@ -19,6 +19,7 @@ export const findDocs = async ({
   userId,
 }) => {
   const shouldCache = !(keyword || tagging.length || paging > 0);
+  console.log({ keyword, tagging, paging, shouldCache });
   const cacheKey = `documents:${userId}:${baseCases(is_favorite, is_trash)}`;
   if (shouldCache) {
     const cachedDocuments = await cache.get(cacheKey);
@@ -28,12 +29,14 @@ export const findDocs = async ({
   const limit = paging ? PAGE_LIMIT : 500;
 
   let pipeline = [];
+  const tagsArray = tagging.split(",").map((tag) => tag.trim());
 
   const userIdObj = new mongoose.Types.ObjectId(userId);
   const query = {
     userId: userIdObj,
     ...(is_favorite !== undefined && { is_favorite: is_favorite === "true" }),
     ...(is_trash !== undefined && { is_trash: is_trash === "true" }),
+    ...(tagging.length > 0 && { tags: { $in: tagsArray } }),
   };
 
   if (keyword) {
