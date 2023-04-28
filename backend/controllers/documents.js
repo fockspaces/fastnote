@@ -77,6 +77,12 @@ export const deleteDocument = async (req, res) => {
 
 export const summarizeDocument = async (req, res) => {
   const { document_id } = req.params;
-  const result = await summarizeDoc(document_id);
+
+  // Extract the access_token from the Authorization header
+  const authHeader = req.headers.authorization;
+  const access_token = authHeader.split(" ")[1];
+
+  const result = await summarizeDoc(document_id, access_token);
+
   return res.status(200).json({ message: "summary process finished", result });
 };

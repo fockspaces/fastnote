@@ -29,7 +29,11 @@ export const findDocs = async ({
   const limit = paging ? PAGE_LIMIT : 500;
 
   let pipeline = [];
-  const tagsArray = tagging.split(",").map((tag) => tag.trim());
+
+  const tagsArray =
+    typeof tagging === "string"
+      ? tagging.split(",").map((tag) => tag.trim())
+      : [];
 
   const userIdObj = new mongoose.Types.ObjectId(userId);
   const query = {
