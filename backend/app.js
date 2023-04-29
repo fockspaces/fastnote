@@ -21,6 +21,7 @@ app.use(express.json());
 
 // health check
 app.get("/api/", (req, res) => {
+  console.log('OK');
   return res.status(200).json({ status: "OK" });
 });
 
