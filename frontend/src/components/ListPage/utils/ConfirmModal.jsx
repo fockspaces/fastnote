@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "../../../styles/ListPage/confirmModal.scss";
 import { Button, Modal } from "react-bootstrap";
 
@@ -7,6 +8,23 @@ const ConfirmModal = ({
   handleConfirmDelete,
   message,
 }) => {
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleConfirmDelete(event);
+    }
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      window.removeEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showModal]);
+
   if (!message) return null;
   return (
     <Modal
@@ -20,7 +38,7 @@ const ConfirmModal = ({
       <Modal.Body>{message.body}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>
-          Cancel
+          {`Cancel (Esc)`}
         </Button>
         <Button
           variant="danger"
@@ -28,7 +46,7 @@ const ConfirmModal = ({
             handleConfirmDelete(e);
           }}
         >
-          {message.confirm}
+          {`${message.confirm} (Enter)`}
         </Button>
       </Modal.Footer>
     </Modal>

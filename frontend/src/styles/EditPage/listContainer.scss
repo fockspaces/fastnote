@@ -68,7 +68,7 @@
       .title-container {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 95%;
 
         .note-title {
           width: 100%;
@@ -85,9 +85,10 @@
           margin-top: 0.25rem;
         }
       }
+
       .delete-icon {
         position: absolute;
-        top: 50%;
+        top: 70%;
         right: 10px;
         transform: translateY(-50%);
         cursor: pointer;
