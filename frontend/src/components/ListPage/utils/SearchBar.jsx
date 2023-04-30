@@ -27,7 +27,7 @@ function SearchBar({ setKeyword, setTagging }) {
         <div className="search-input-container">
           <FormControl
             type="text"
-            placeholder="Search notes..."
+            placeholder="Search for notes..."
             className="mr-sm-2 search-input"
             value={search}
             onChange={(e) => setSearch(e.target.value)}

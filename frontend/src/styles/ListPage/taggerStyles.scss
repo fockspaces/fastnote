@@ -5,20 +5,22 @@
   gap: 0.25rem;
   max-width: 100%; /* Update this based on your document item width */
 }
-
 .badge {
   background-color: #6c757d;
   cursor: pointer;
   transition: 0.3s;
-  position: relative; /* Add this */
+  position: relative;
+  margin: 0px 2px; /* Add this to create space around the tags */
 }
 
 .badge:hover {
   transform: scale(1.1);
   opacity: 0.8;
-  z-index: 100; /* Add this */
-  position: relative; /* Add this */
+  z-index: 100;
+  position: relative;
+  margin: 0px 4px; /* Reset the margin to 0 when hovering */
 }
+
 
 .tag-toggler-button {
   height: 1px;

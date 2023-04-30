@@ -1,3 +1,12 @@
+.drag-preview {
+  position: fixed;
+  pointer-events: none;
+  width: 150px;
+  height: auto;
+  z-index: 9;
+  opacity: 0.8;
+}
+
 .document-item {
   min-width: 200px;
   margin-bottom: 1rem;

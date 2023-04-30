@@ -48,8 +48,8 @@ function RestoreTrash({ isDraggingDocument, handleDelete, is_trash }) {
       ref={drop}
       style={{
         backgroundColor: isOver ? "white" : "white",
-        minHeight: "50px",
-        minWidth: "50px",
+        minHeight: "80px",
+        minWidth: "80px",
         position: "fixed",
         bottom: "50%",
         left: "150px",
@@ -60,7 +60,7 @@ function RestoreTrash({ isDraggingDocument, handleDelete, is_trash }) {
         borderRadius: "30px",
       }}
     >
-      {isOver ? <MdOutlineRestorePage size={38} /> : <MdRestorePage size={28} />}
+      {isOver ? <MdOutlineRestorePage size={62} /> : <MdRestorePage size={50} />}
     </div>
   );
 }
