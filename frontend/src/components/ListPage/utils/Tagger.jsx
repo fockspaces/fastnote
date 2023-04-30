@@ -28,6 +28,8 @@ const Tagger = ({ tags, tagging, setTagging }) => {
     });
   };
 
+  
+
   return (
     <div className="tags-container">
       {visibleTags.map((tag, index) => (

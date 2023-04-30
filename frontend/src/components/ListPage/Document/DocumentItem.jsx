@@ -51,7 +51,7 @@ function DocumentListItem({
       }}
     >
       <Link to={`/document/${currentDocument._id}`} className="card-link">
-        <Card className="h-full position-relative hover-effect">
+        <Card className="h-100 position-relative hover-effect">
           <div
             className="favorite-icon position-absolute top-0 end-0"
             onClick={(e) => {
@@ -78,7 +78,6 @@ function DocumentListItem({
               )}
             </label>
           </div>
-
           <Card.Body className="h-full flex flex-col">
             <Card.Title className="text-md font-bold mb-2">
               <div

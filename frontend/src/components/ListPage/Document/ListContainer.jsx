@@ -38,6 +38,7 @@ function ListContainer({ query, is_trash }) {
   return (
     <div className="list-container mt-4">
       <div className="left-sidebar">
+        <Logo />
         <SearchBar setKeyword={setKeyword} setTagging={setTagging} />
         <TagsBar
           tagging={tagging}
