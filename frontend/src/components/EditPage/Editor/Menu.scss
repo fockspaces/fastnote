@@ -10,9 +10,9 @@
     border: none;
     background: none;
     color: #333;
-    font-size: 0.9rem;
+    font-size: 1.1rem; /* Increase the font size */
     font-weight: 500;
-    padding: 0 0.3rem;
+    padding: 0.3rem 0.5rem; /* Increase padding */
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -32,7 +32,7 @@
 
     .hint-shortcut {
       color: #888;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       margin-left: 20px;
     }
   }
