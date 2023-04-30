@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import List from "./ListContainer";
-import '../../../styles/EditPage/listModal.scss';
+import "../../../styles/EditPage/listModal.scss";
+import SearchBar from "../../ListPage/utils/SearchBar";
 
 const ListModal = ({
   showModal,

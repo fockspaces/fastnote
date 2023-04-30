@@ -20,6 +20,13 @@
     font-weight: bold;
   }
 
+  .search-bar-container {
+    padding: 0 15px 5px 15px; // Reduce the bottom padding to bring the search bar closer to the list
+    max-width: 100%;
+    margin: 0 25px; // Add auto margins to horizontally center the search bar
+  }
+  
+
   .modal-body {
     background-color: #ffffff;
     padding: 20px;
