@@ -22,6 +22,14 @@ const IntroductionPage = () => {
     };
   }, []);
 
+  // Add this function at the beginning of your IntroductionPage component
+  const handleAnchorClick = (event) => {
+    event.preventDefault();
+    const targetId = event.target.getAttribute("href");
+    const targetElement = document.querySelector(targetId);
+    targetElement.scrollIntoView({ behavior: "smooth" });
+  };
+
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
@@ -35,8 +43,12 @@ const IntroductionPage = () => {
       <header className="header">
         <Logo />
         <nav>
-          <a href="#features">Features</a>
-          <a href="#try-it">Try It Now</a>
+          <a href="#features" onClick={handleAnchorClick}>
+            Features
+          </a>
+          <a href="#try-it" onClick={handleAnchorClick}>
+            Try It Now
+          </a>
           {!user && (
             <button className="nav-button" onClick={() => googleLogin()}>
               Sign in
@@ -49,26 +61,36 @@ const IntroductionPage = () => {
         <div className="hero-content">
           <h2>Introducing Note App</h2>
           <p>The best note-taking app for all your needs.</p>
-          <Button variant="outline-dark" href="#try-it">
+          <Button
+            variant="outline-dark"
+            className="cta-btn"
+            href="#try-it"
+            onClick={handleAnchorClick}
+          >
             Try it now
           </Button>
         </div>
         <img src={src.cover} alt="Note-taking app" />
       </section>
-
       <section className="features" id="features">
         <h2>Features</h2>
         <div className="feature">
           <img className="feature-gif" src={src.Search} alt="Feature 1" />
-          <p>Organize your notes with tags and categories.</p>
+          <div className="feature-text">
+            <p>Organize your notes with tags and categories.</p>
+          </div>
         </div>
         <div className="feature">
           <img className="feature-gif" src={src.slashMenu} alt="Feature 2" />
-          <p>Take notes easily with our powerful editor.</p>
+          <div className="feature-text">
+            <p>Take notes easily with our powerful editor.</p>
+          </div>
         </div>
         <div className="feature">
           <img className="feature-gif" src={src.delete} alt="Feature 3" />
-          <p>Easily manage your thoughts</p>
+          <div className="feature-text">
+            <p>Easily manage your thoughts</p>
+          </div>
         </div>
       </section>
 
