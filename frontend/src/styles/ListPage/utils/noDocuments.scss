@@ -1,0 +1,35 @@
+.no-documents-hint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    width: 100%;
+  
+    h2 {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      color: grey;
+    }
+  
+    @media (max-width: 768px) {
+      margin: 20px 10px;
+  
+      h4 {
+        font-size: 1.2rem;
+      }
+  
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  

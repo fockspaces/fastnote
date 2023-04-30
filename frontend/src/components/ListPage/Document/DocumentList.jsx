@@ -6,6 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import DarkBackground from "../utils/DarkBackground";
 import TrashBin from "../utils/TrashBin";
 import RestoreTrash from "../utils/RestoreTrash";
+import { useMediaQuery } from "../utils/useMediaQuery";
 
 function DocumentList({
   documents,
@@ -15,10 +16,14 @@ function DocumentList({
   is_trash,
 }) {
   const [isDraggingDocument, setIsDraggingDocument] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1080px)");
+  const isMediumScreen = useMediaQuery("(min-width: 930px)");
+  const col_num = isLargeScreen ? 3 : 2;
+  const md_cols = isMediumScreen ? 2 : 1;
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Row sm={1} md={2} lg={3} className="justify-content-left">
+      <Row sm={1} md={md_cols} lg={col_num}  className="justify-content-left">
         {documents.map((doc) => (
           <DocumentListItem
             key={doc._id}

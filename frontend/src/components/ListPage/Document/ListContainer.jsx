@@ -49,7 +49,7 @@ function ListContainer({ query, is_trash }) {
       </div>
       <div className="right-side-list">
         {documents.length === 0 ? (
-          <NoDocumentsHint />
+          <NoDocumentsHint is_trash={is_trash} />
         ) : (
           <DocumentList
             tagging={tagging}
