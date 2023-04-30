@@ -1,7 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap");
+
+// Color variables
+$primary: #212121;
+$secondary: #323232;
+$accent: #0D7377;
+$highlight: #14FFEC;
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: $primary;
+}
+
 .list-container {
   display: flex;
   width: 100%;
   overflow: hidden;
+  margin-top: 1rem;
 }
 
 .left-sidebar {
@@ -14,11 +28,13 @@
 }
 
 .right-side-list {
+  background-color: #fff;
   flex-grow: 1;
   height: 85vh;
   overflow: hidden; // disable horizontal scrolling
   overflow-y: auto; // Enable vertical scrolling when the content exceeds the height
   padding: 10px;
+  width: 90%; // Set a fixed width in percentage
 }
 
 .search-bar {
