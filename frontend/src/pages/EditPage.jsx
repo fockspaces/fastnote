@@ -77,12 +77,13 @@ const EditPage = () => {
 
   // delete note
   const deleteNote = async (note) => {
-    console.log(note);
     const updatedParagraphs = currentDoc.paragraphs.filter(
       (p) => p._id !== note._id
     );
+    const lastNote = updatedParagraphs.slice(-1);
+    console.log(lastNote);
     setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
-    setSelectedNote({
+    setSelectedNote(lastNote.length ? lastNote[0] : {
       preview: true,
     });
     await updateDoc(
