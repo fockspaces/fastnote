@@ -33,7 +33,6 @@ const chunkText = (text, maxLength) => {
 
 export const summarizeDoc = async (document_id, access_token) => {
   const document = await findDoc(document_id);
-
   // preparing parameters
   const updatedParagraphs = document.paragraphs.filter(
     (paragraph) => paragraph.isUpdated

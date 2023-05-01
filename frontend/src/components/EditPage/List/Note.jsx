@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { updateNote } from "../../../utils/noteHelper";
 import { updateDoc } from "../../../api/documents/updateDocument";
 
-function Note({ selectedNote, setCurrentDoc, createNote }) {
+function Note({ selectedNote, setCurrentDoc, setShowModal }) {
   const [content, setContent] = useState(selectedNote.content);
   const { document_id } = useParams();
 
@@ -37,7 +37,7 @@ function Note({ selectedNote, setCurrentDoc, createNote }) {
     return () => clearTimeout(timeoutId);
   }, [content]);
 
-  if (selectedNote.preview) return <NotePreview createNote={createNote} />;
+  if (selectedNote.preview) return <NotePreview setShowModal={setShowModal} />;
 
   return (
     <div className="container">

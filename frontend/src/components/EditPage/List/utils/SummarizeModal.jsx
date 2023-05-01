@@ -1,5 +1,5 @@
 import "../../../../styles/EditPage/summarizeModal.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { summarizeDocument } from "../../../../api/documents/summarizeDocument.js";
@@ -24,6 +24,26 @@ const SummarizeModal = ({ setShowModal, showModal, notes }) => {
   const handleProcessingMessageClose = () => {
     setProcessingMessageVisible(false);
   };
+
+  const handleKeyDown = (event) => {
+    // console.log({ processingMessageVisible, event });
+    if (event.key === "Enter") {
+      if (!processingMessageVisible) return handleModalConfirm(event);
+      handleProcessingMessageClose();
+    }
+  };
+
+  useEffect(() => {
+    if (showModal || processingMessageVisible) {
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      window.removeEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showModal, processingMessageVisible]);
+
   return (
     <>
       <Modal show={showModal} onHide={() => setShowModal(false)}>

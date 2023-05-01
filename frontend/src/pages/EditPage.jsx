@@ -112,7 +112,7 @@ const EditPage = () => {
         <Note
           selectedNote={selectedNote}
           setCurrentDoc={setCurrentDoc}
-          createNote={createNote}
+          setShowModal={setShowModal}
         />
       </div>
     </div>

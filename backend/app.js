@@ -21,9 +21,16 @@ app.use(express.json());
 
 // health check
 app.get("/api/", (req, res) => {
-  console.log('OK');
+  // Get the IP address from the request
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+
+  // Log the IP address and a custom message
+  console.log(`Health Check OK - IP: ${ip}`);
+
   return res.status(200).json({ status: "OK" });
 });
+
+app.get('/api/test', (req, res) => {})
 
 app.use("/api/documents", document);
 app.use("/api/users", user);

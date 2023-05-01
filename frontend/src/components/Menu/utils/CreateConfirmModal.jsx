@@ -36,7 +36,7 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
             <Form.Label className="mb-2">Title</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter note title"
+              placeholder="Enter document title"
               value={inputTitle}
               onChange={(e) => setInputTitle(e.target.value)}
               required
@@ -47,7 +47,7 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
             <Form.Control
               as="textarea"
               rows={3}
-              placeholder="Enter note description"
+              placeholder="Enter document description"
               value={inputDescription}
               onChange={(e) => setInputDescription(e.target.value)}
             />
