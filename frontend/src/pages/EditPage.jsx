@@ -83,9 +83,13 @@ const EditPage = () => {
     const lastNote = updatedParagraphs.slice(-1);
     console.log(lastNote);
     setCurrentDoc({ ...currentDoc, paragraphs: updatedParagraphs });
-    setSelectedNote(lastNote.length ? lastNote[0] : {
-      preview: true,
-    });
+    setSelectedNote(
+      lastNote.length
+        ? lastNote[0]
+        : {
+            preview: true,
+          }
+    );
     await updateDoc(
       { document_id, paragraph_id: note._id },
       "delete_paragraph"
@@ -105,7 +109,11 @@ const EditPage = () => {
         setCurrentDoc={setCurrentDoc}
       />
       <div className="note">
-        <Note selectedNote={selectedNote} setCurrentDoc={setCurrentDoc} />
+        <Note
+          selectedNote={selectedNote}
+          setCurrentDoc={setCurrentDoc}
+          createNote={createNote}
+        />
       </div>
     </div>
   );

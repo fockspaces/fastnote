@@ -13,16 +13,22 @@ function NoteList({
   return (
     <div className="note-list mt-3">
       <ListGroup>
-        {notes.map((note, idx) => (
-          <NoteListItem
-            key={idx}
-            note={note}
-            selectedNote={selectedNote}
-            setSelectedNote={setSelectedNote}
-            deleteNote={deleteNote}
-            toggleModal={toggleModal}
-          />
-        ))}
+        {notes.length === 0 ? (
+          <div className="hint-text">
+            List is empty, please create a new note to start.
+          </div>
+        ) : (
+          notes.map((note, idx) => (
+            <NoteListItem
+              key={idx}
+              note={note}
+              selectedNote={selectedNote}
+              setSelectedNote={setSelectedNote}
+              deleteNote={deleteNote}
+              toggleModal={toggleModal}
+            />
+          ))
+        )}
       </ListGroup>
     </div>
   );
