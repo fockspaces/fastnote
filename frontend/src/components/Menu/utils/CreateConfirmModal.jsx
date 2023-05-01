@@ -28,7 +28,7 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
       onHide={() => setShowModal(false)}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Create New Document</Modal.Title>
+        <Modal.Title>Create New Note</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleFormSubmit}>
@@ -36,7 +36,7 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
             <Form.Label className="mb-2">Title</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter document title"
+              placeholder="Enter note title"
               value={inputTitle}
               onChange={(e) => setInputTitle(e.target.value)}
               required
@@ -47,7 +47,7 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
             <Form.Control
               as="textarea"
               rows={3}
-              placeholder="Enter document description"
+              placeholder="Enter note description"
               value={inputDescription}
               onChange={(e) => setInputDescription(e.target.value)}
             />

@@ -47,7 +47,7 @@ const IntroductionPage = () => {
             Features
           </a>
           <a href="#try-it" onClick={handleAnchorClick}>
-            Try It Now
+            Playground
           </a>
           {!user && (
             <button className="nav-button" onClick={() => googleLogin()}>
@@ -64,8 +64,7 @@ const IntroductionPage = () => {
           <Button
             variant="outline-dark"
             className="cta-btn"
-            href="#try-it"
-            onClick={handleAnchorClick}
+            onClick={() => googleLogin()}
           >
             Try it now
           </Button>

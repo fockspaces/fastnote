@@ -3,7 +3,7 @@ const NotePreview = () => {
   const commandKey = isMac ? "⌘" : "Ctrl";
 
   return (
-    <div className="note-preview">{`Press ${commandKey} + m to open menu`}</div>
+    <div className="note-preview">{`Press ${commandKey} + m to open paragraphs list`}</div>
   );
 };
 

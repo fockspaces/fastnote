@@ -23,9 +23,9 @@ const EditPage = () => {
     setShowModal(!showModal);
   };
 
-  useEffect(() => {
-    setShowModal(true);
-  }, []);
+  // useEffect(() => {
+  //   setShowModal(true);
+  // }, []);
 
   // control fetch document
   useEffect(() => {
@@ -64,7 +64,7 @@ const EditPage = () => {
 
   // create new note
   const createNote = async () => {
-    const note = { document_id, title: "new note", content: "" };
+    const note = { document_id, title: "new paragraph", content: "" };
     const result = await updateDoc(note, "insert_paragraph");
     const newNote = result.data;
 

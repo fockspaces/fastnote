@@ -19,7 +19,7 @@ export const login = async (access_token) => {
     // Store the access token in localStorage
     localStorage.setItem("access_token", responseData.access_token);
     localStorage.setItem("user", JSON.stringify(responseData.user));
-    window.location.reload();
+    window.location.href = '/documents';
   } catch (error) {
     console.error(error);
   }

@@ -38,7 +38,7 @@ const ConfirmModal = ({
       <Modal.Body>{message.body}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>
-          {`Cancel (Esc)`}
+          {`Cancel`}
         </Button>
         <Button
           variant="danger"
@@ -46,7 +46,7 @@ const ConfirmModal = ({
             handleConfirmDelete(e);
           }}
         >
-          {`${message.confirm} (Enter)`}
+          {`${message.confirm}`}
         </Button>
       </Modal.Footer>
     </Modal>
