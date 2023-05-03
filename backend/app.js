@@ -21,16 +21,21 @@ app.use(express.json());
 
 // health check
 app.get("/api/", (req, res) => {
+  return res.status(200).json({ status: "OK" });
+});
+
+// lambda testing
+app.get("/api/lambda", (req, res) => {
+  const { message } = req.query;
   // Get the IP address from the request
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
 
   // Log the IP address and a custom message
-  console.log(`Health Check OK - IP: ${ip}`);
-
-  return res.status(200).json({ status: "OK" });
+  console.log(`lambda Check OK - IP: ${ip}, message: ${message}`);
+  return res.status(200).json({ message });
 });
 
-app.get('/api/test', (req, res) => {})
+app.get("/api/test", (req, res) => {});
 
 app.use("/api/documents", document);
 app.use("/api/users", user);
