@@ -88,6 +88,7 @@ export const verifyUser = async (req, res, next) => {
     // Call the next middleware
     next();
   } catch (err) {
+    console.log({ err });
     res.status(401).json({ message: "Authorization denied, invalid token" });
   }
 };

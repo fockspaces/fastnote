@@ -1,12 +1,19 @@
 import { Configuration, OpenAIApi } from "openai";
 
-export const fetchGPT = async (prompt, token) => {
-  console.log({ prompt });
-  const max_tokens = token ? token : 150;
+export const fetchGPT = async (prompt) => {
+  const max_tokens = 150;
 
   const configuration = new Configuration({
     apiKey: process.env.GPT_ACCESS_KEY,
+    basePath: "https://api.pawan.krd/v1",
   });
+
+  console.log({
+    apiKey: process.env.GPT_ACCESS_KEY,
+    basePath: "https://api.pawan.krd/v1",
+    prompt,
+  });
+
   const openai = new OpenAIApi(configuration);
 
   try {
@@ -21,7 +28,6 @@ export const fetchGPT = async (prompt, token) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching GPT response:", error);
-    throw error;
+    console.error("Error fetching GPT response:", error.message);
   }
 };

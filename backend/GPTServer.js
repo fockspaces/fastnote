@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import errorHandler from "express-error-handler";
 import { verifyUser } from "./middleware/Authentication.js";
+import { fetchGPT } from "./utils/fetchGPT.js";
 
 dotenv.config();
 const app = express();
@@ -18,8 +19,11 @@ app.use(cors());
 app.use(express.json());
 app.use(verifyUser);
 
-app.get("/api/summary", (req, res) => {
-  return res.status(200).json({ status: "OK" });
+app.post("/api/summary", async (req, res) => {
+  const { prompt } = req.body;
+  const result = await fetchGPT(prompt);
+  console.log({result});
+  return res.status(200).json({ result });
 });
 
 // error hanlding
