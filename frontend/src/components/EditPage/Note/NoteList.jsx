@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import ConfirmModal from "../../ListPage/utils/ConfirmModal";
 
@@ -55,6 +55,8 @@ function NoteListItem({
     setShowModal(false);
   };
 
+  const deleteTooltip = <Tooltip>Delete Chapter</Tooltip>;
+
   return (
     <ListGroup.Item
       className={`mt-2 ${isSelected ? "selected" : ""}`}
@@ -78,15 +80,17 @@ function NoteListItem({
               }).format(new Date(note.updatedAt))}
           </div>
         </div>
-        <div
-          className="delete-icon"
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowModal(true);
-          }}
-        >
-          <FaTrash size={20} />
-        </div>
+        <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+          <div
+            className="delete-icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowModal(true);
+            }}
+          >
+            <FaTrash size={20} />
+          </div>
+        </OverlayTrigger>
       </div>
       <ConfirmModal
         showModal={showModal}

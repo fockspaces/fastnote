@@ -66,7 +66,7 @@ const EditPage = () => {
 
   // create new note
   const createNote = async () => {
-    const note = { document_id, title: "new paragraph", content: "" };
+    const note = { document_id, title: "new chapter", content: "" };
     const result = await updateDoc(note, "insert_paragraph");
     const newNote = result.data;
 

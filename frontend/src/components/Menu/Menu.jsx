@@ -12,7 +12,7 @@ import {
   FaListUl,
 } from "react-icons/fa";
 import { RiBookMarkFill } from "react-icons/ri";
-import { IoCreate } from "react-icons/io5";
+import { MdCreateNewFolder } from "react-icons/md";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 import { useLocation } from "react-router-dom";
 import ConfirmModal from "../ListPage/utils/ConfirmModal";
@@ -80,7 +80,7 @@ function Menu({ menuOpen, setMenuOpen }) {
         <ul>
           <li onClick={user ? handleCreate : null}>
             <Link className={`nav-link ${!user ? "disabled" : ""}`}>
-              <IoCreate />
+              <MdCreateNewFolder />
               <span>New</span>
             </Link>
           </li>

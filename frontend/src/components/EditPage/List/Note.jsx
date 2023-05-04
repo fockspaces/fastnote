@@ -42,7 +42,7 @@ function Note({ selectedNote, setCurrentDoc, setShowModal }) {
 
   return (
     <div className="container">
-      <MenuButtons setShowModal={setShowModal}/>
+      <MenuButtons setShowModal={setShowModal} />
       <Tiptap note={selectedNote} setContent={setContent} />
     </div>
   );

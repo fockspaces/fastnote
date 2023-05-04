@@ -79,7 +79,6 @@ const Tiptap = ({ note, setContent }) => {
         const cmdKey = isMac ? event.metaKey : event.ctrlKey;
         const slashKey = event.key === "/";
         const singleQuoteKey = event.key === "'";
-
         if (cmdKey && slashKey) {
           event.preventDefault();
           // Display the bubble menu

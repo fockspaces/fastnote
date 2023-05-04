@@ -35,11 +35,10 @@ function List({
   return (
     <div className="list">
       <div className="list__header">
-        <ToListPage />
         <CreateNote createNote={createNote} />
+        <SearchBar setKeyword={handleSearch} setTagging={() => {}} />
       </div>
       <div className="list__body">
-        <SearchBar setKeyword={handleSearch} setTagging={() => {}} />
         <NoteList
           selectedNote={selectedNote}
           setSelectedNote={setSelectedNote}
