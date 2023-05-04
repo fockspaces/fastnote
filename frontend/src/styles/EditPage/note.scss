@@ -7,18 +7,18 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: auto;
-    padding-left: 80px; /* Add left padding to prevent overlap */
+    padding-left: 50px; /* Add left padding to prevent overlap */
   }
 
   .floating-buttons {
     position: fixed;
     top: 50%;
-    left: 90px;
+    left: 80px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     transform: translateY(-50%); /* Center vertically */
-   }
+  }
 
   .floating-buttons .menu-button,
   .floating-buttons a {

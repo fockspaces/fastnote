@@ -6,7 +6,7 @@ const NotePreview = ({ setShowModal }) => {
     <div
       className="note-preview"
       onClick={() => setShowModal(true)}
-    >{`Press ${commandKey} + m to open note list`}</div>
+    >{`Press ${commandKey} + m to open chapter list`}</div>
   );
 };
 

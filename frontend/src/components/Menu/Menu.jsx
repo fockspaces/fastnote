@@ -1,17 +1,16 @@
 import "../../styles/menu.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { OverlayTrigger, Tooltip } from "react-bootstrap"; // Import OverlayTrigger and Tooltip
 
 import {
   FaTrash,
   FaUser,
   FaHome,
   FaSignOutAlt,
-  FaChevronLeft,
-  FaChevronRight,
-  FaListUl,
+  FaBook,
 } from "react-icons/fa";
-import { RiBookMarkFill } from "react-icons/ri";
+import { BsFillBookmarksFill ,BsJournalBookmarkFill} from "react-icons/bs";
 import { MdCreateNewFolder } from "react-icons/md";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 import { useLocation } from "react-router-dom";
@@ -30,11 +29,6 @@ function Menu({ menuOpen, setMenuOpen }) {
   const [showModal, setShowModal] = useState(false);
   const [showLogoutModal, setLogoutModal] = useState(false);
 
-  const handleCollapse = (toggle) => {
-    if (toggle) return setMenuOpen((prevState) => !prevState);
-    setMenuOpen(false);
-  };
-
   const logoutMessage = {
     title: "Confirm Logout",
     body: "We appreciate your visit and hope to see you back soon.",
@@ -49,14 +43,12 @@ function Menu({ menuOpen, setMenuOpen }) {
 
   const handleCreate = () => {
     setShowModal(true);
-    handleCollapse();
   };
 
   // close the menu when not focus on
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        handleCollapse(false);
       }
     };
 
@@ -69,89 +61,92 @@ function Menu({ menuOpen, setMenuOpen }) {
   return (
     <div className="menu-wrapper">
       <nav ref={menuRef} className={`menu ${menuOpen ? "" : "collapsed"}`}>
-        <div
-          className="collapse-btn"
-          onClick={() => {
-            handleCollapse(true);
-          }}
-        >
-          {menuOpen ? <FaChevronLeft /> : <FaChevronRight />}
-        </div>
         <ul>
           <li onClick={user ? handleCreate : null}>
-            <Link className={`nav-link ${!user ? "disabled" : ""}`}>
-              <MdCreateNewFolder />
-              <span>New</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              handleCollapse();
-            }}
-          >
-            <Link
-              to="/documents"
-              className={`nav-link ${!user ? "disabled" : ""}`}
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">New Notes</Tooltip>}
             >
-              <FaListUl color={getIconColor("/documents")} />
-              <span>Notes</span>
-            </Link>
+              <Link className={`nav-link ${!user ? "disabled" : ""}`}>
+                <MdCreateNewFolder />
+              </Link>
+            </OverlayTrigger>
           </li>
-          <li
-            onClick={() => {
-              handleCollapse();
-            }}
-          >
-            <Link
-              to="/favorites"
-              className={`nav-link ${!user ? "disabled" : ""}`}
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Notes</Tooltip>}
             >
-              <RiBookMarkFill color={getIconColor("/favorites")} />
-              <span>Bookmarks</span>
-            </Link>
+              <Link
+                to="/documents"
+                className={`nav-link ${!user ? "disabled" : ""}`}
+              >
+                <FaBook color={getIconColor("/documents")} />
+              </Link>
+            </OverlayTrigger>
           </li>
-          <li
-            onClick={() => {
-              handleCollapse();
-            }}
-          >
-            <Link to="/trash" className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaTrash color={getIconColor("/trash")} />
-              <span>Trash</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              handleCollapse();
-            }}
-          >
-            <Link
-              to="/profile"
-              className={`nav-link ${!user ? "disabled" : ""}`}
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Bookmarks</Tooltip>}
             >
-              <FaUser color={getIconColor("/profile")} />
-              <span>Profile</span>
-            </Link>
+              <Link
+                to="/favorites"
+                className={`nav-link ${!user ? "disabled" : ""}`}
+              >
+                <BsFillBookmarksFill color={getIconColor("/favorites")} />
+              </Link>
+            </OverlayTrigger>
           </li>
-          <li
-            onClick={() => {
-              handleCollapse();
-            }}
-          >
-            <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaHome color={getIconColor("/")} />
-              <span>Home</span>
-            </Link>
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Trash</Tooltip>}
+            >
+              <Link
+                to="/trash"
+                className={`nav-link ${!user ? "disabled" : ""}`}
+              >
+                <FaTrash color={getIconColor("/trash")} />
+              </Link>
+            </OverlayTrigger>
+          </li>
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Profile</Tooltip>}
+            >
+              <Link
+                to="/profile"
+                className={`nav-link ${!user ? "disabled" : ""}`}
+              >
+                <FaUser color={getIconColor("/profile")} />
+              </Link>
+            </OverlayTrigger>
+          </li>
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Home</Tooltip>}
+            >
+              <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
+                <FaHome color={getIconColor("/")} />
+              </Link>
+            </OverlayTrigger>
           </li>
           <li
             onClick={() => {
               if (user) setLogoutModal(true);
             }}
           >
-            <Link className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaSignOutAlt />
-              <span>Logout</span>
-            </Link>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Logout</Tooltip>}
+            >
+              <Link className={`nav-link ${!user ? "disabled" : ""}`}>
+                <FaSignOutAlt />
+              </Link>
+            </OverlayTrigger>
           </li>
         </ul>
       </nav>
