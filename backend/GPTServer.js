@@ -21,9 +21,9 @@ app.use(verifyUser);
 
 app.post("/api/summary", async (req, res) => {
   const { prompt } = req.body;
-  const result = await fetchGPT(prompt);
-  console.log({result});
-  return res.status(200).json({ result });
+  const data = await fetchGPT(prompt);
+  console.log({ data });
+  return res.status(200).json({ data });
 });
 
 // error hanlding
