@@ -12,7 +12,7 @@ const app = express();
 // Rate limiter configuration
 const rateLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 3, // limit to 10 requests per windowMs
+  max: 20, // limit to 10 requests per windowMs
   message: "Too many requests, please try again later.",
 });
 
