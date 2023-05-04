@@ -5,6 +5,7 @@ import NotePreview from "../Note/NotePreview";
 import { useParams } from "react-router-dom";
 import { updateNote } from "../../../utils/noteHelper";
 import { updateDoc } from "../../../api/documents/updateDocument";
+import MenuButtons from "../Note/utils/MenuButtons";
 
 function Note({ selectedNote, setCurrentDoc, setShowModal }) {
   const [content, setContent] = useState(selectedNote.content);
@@ -41,6 +42,7 @@ function Note({ selectedNote, setCurrentDoc, setShowModal }) {
 
   return (
     <div className="container">
+      <MenuButtons setShowModal={setShowModal}/>
       <Tiptap note={selectedNote} setContent={setContent} />
     </div>
   );

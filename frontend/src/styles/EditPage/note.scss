@@ -7,11 +7,35 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: auto;
+    padding-left: 80px; /* Add left padding to prevent overlap */
+  }
+
+  .floating-buttons {
+    position: fixed;
+    top: 50%;
+    left: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%); /* Center vertically */
+   }
+
+  .floating-buttons .menu-button,
+  .floating-buttons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  }
+
+  .floating-buttons .menu-button:hover,
+  .floating-buttons a:hover {
+    transform: scale(1.2);
+    color: rgb(99, 131, 190);
   }
 
   .note-preview {
     width: 100%;
-    background-color: #f0f0f0;
     color: #999;
     display: flex;
     justify-content: center;

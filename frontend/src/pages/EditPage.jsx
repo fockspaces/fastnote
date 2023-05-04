@@ -47,8 +47,6 @@ const EditPage = () => {
         event.preventDefault();
         toggleModal();
       }
-
-      
     };
 
     window.addEventListener("keydown", handleKeyDown);
