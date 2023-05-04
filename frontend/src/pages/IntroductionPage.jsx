@@ -64,7 +64,10 @@ const IntroductionPage = () => {
           <Button
             variant="outline-dark"
             className="cta-btn"
-            onClick={() => googleLogin()}
+            onClick={() => {
+              if(user) return window.location.href = '/documents' 
+              googleLogin();
+            }}
           >
             Try it now
           </Button>

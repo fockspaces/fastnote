@@ -143,7 +143,11 @@ function Menu({ menuOpen, setMenuOpen }) {
               <span>Home</span>
             </Link>
           </li>
-          <li onClick={() => setLogoutModal(true)}>
+          <li
+            onClick={() => {
+              if (user) setLogoutModal(true);
+            }}
+          >
             <Link className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaSignOutAlt />
               <span>Logout</span>

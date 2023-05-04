@@ -11,8 +11,8 @@ function NoDocumentsHint({ is_trash }) {
 
   return (
     <div className="no-documents-hint">
-      <h2>No matching documents found.</h2>
-      <p>Try adjusting your search or adding new documents.</p>
+      <h2>No document found.</h2>
+      <p>Try adjusting your search or creat new books.</p>
     </div>
   );
 }

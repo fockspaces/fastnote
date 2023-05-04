@@ -10,6 +10,21 @@ export const Bubble = ({ editor, imageInputRef }) => {
 
   const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
   const commandKey = isMac ? "⌘" : "Ctrl";
+  const optionKey = isMac ? "⌥" : "Alt";
+
+  const increaseHeadingLevel = () => {
+    const currentLevel = editor.getAttributes("heading").level || 6;
+
+    if (currentLevel > 1) {
+      editor
+        .chain()
+        .focus()
+        .setHeading({ level: currentLevel - 1 })
+        .run();
+    } else {
+      editor.chain().focus().setParagraph().run();
+    }
+  };
 
   if (!editor) {
     return null;
@@ -20,9 +35,12 @@ export const Bubble = ({ editor, imageInputRef }) => {
       className="bubble-menu"
       tippyOptions={{ duration: 100 }}
     >
-      <button>
+      <button onClick={increaseHeadingLevel}>
         <div className="button-content">
-          Heading <span className="hint-shortcut">{commandKey} + ⌥ + Number</span>
+          Heading
+          <span className="hint-shortcut">
+            {commandKey} + {optionKey} + Number
+          </span>
         </div>
       </button>
       <button
@@ -49,7 +67,8 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("bulletList") ? "is-active" : ""}
       >
         <div className="button-content">
-          BulletList <span className="hint-shortcut">{commandKey} + shift + 8</span>
+          BulletList{" "}
+          <span className="hint-shortcut">{commandKey} + shift + 8</span>
         </div>
       </button>
       <button
@@ -58,7 +77,10 @@ export const Bubble = ({ editor, imageInputRef }) => {
         className={editor.isActive("codeBlock") ? "is-active" : ""}
       >
         <div className="button-content">
-          CodeBlock <span className="hint-shortcut">{commandKey} + ⌥ + C</span>
+          CodeBlock{" "}
+          <span className="hint-shortcut">
+            {commandKey} + {optionKey} + C
+          </span>
         </div>
       </button>
       <button
