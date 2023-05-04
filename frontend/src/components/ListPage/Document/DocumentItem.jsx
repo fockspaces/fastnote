@@ -7,6 +7,7 @@ import { updateDoc } from "../../../api/documents/updateDocument";
 import Tagger from "../utils/Tagger";
 import { useDrag } from "react-dnd";
 
+
 function DocumentListItem({
   document,
   tagging,

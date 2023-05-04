@@ -23,9 +23,9 @@ const EditPage = () => {
     setShowModal(!showModal);
   };
 
-  // useEffect(() => {
-  //   setShowModal(true);
-  // }, []);
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
 
   // control fetch document
   useEffect(() => {
@@ -40,11 +40,15 @@ const EditPage = () => {
   // shortcut popup
   useEffect(() => {
     const handleKeyDown = (event) => {
+      const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+      const cmdKey = isMac ? event.metaKey : event.ctrlKey;
       // Check if the 'Cmd' key is pressed (metaKey) and the 'M' key (keyCode 77)
-      if (event.metaKey && event.keyCode === 77) {
+      if (cmdKey && event.keyCode === 77) {
         event.preventDefault();
         toggleModal();
       }
+
+      
     };
 
     window.addEventListener("keydown", handleKeyDown);

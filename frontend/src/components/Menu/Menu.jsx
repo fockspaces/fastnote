@@ -1,5 +1,5 @@
 import "../../styles/menu.scss";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -14,14 +14,31 @@ import {
 import { RiBookMarkFill } from "react-icons/ri";
 import { IoCreate } from "react-icons/io5";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
+import { useLocation } from "react-router-dom";
+import ConfirmModal from "../ListPage/utils/ConfirmModal";
+
 const user = localStorage.getItem("user");
 
 function Menu({ menuOpen, setMenuOpen }) {
+  const menuRef = useRef();
+  const location = useLocation();
+
+  const getIconColor = (path) => {
+    if (user) return location.pathname === path ? "wheat" : "inherit";
+  };
+
   const [showModal, setShowModal] = useState(false);
+  const [showLogoutModal, setLogoutModal] = useState(false);
 
   const handleCollapse = (toggle) => {
     if (toggle) return setMenuOpen((prevState) => !prevState);
     setMenuOpen(false);
+  };
+
+  const logoutMessage = {
+    title: "Confirm Logout",
+    body: "We appreciate your visit and hope to see you back soon.",
+    confirm: "Logout",
   };
 
   const handleLogout = () => {
@@ -35,9 +52,23 @@ function Menu({ menuOpen, setMenuOpen }) {
     handleCollapse();
   };
 
+  // close the menu when not focus on
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        handleCollapse(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen, menuRef]);
+
   return (
     <div className="menu-wrapper">
-      <nav className={`menu ${menuOpen ? "" : "collapsed"}`}>
+      <nav ref={menuRef} className={`menu ${menuOpen ? "" : "collapsed"}`}>
         <div
           className="collapse-btn"
           onClick={() => {
@@ -62,7 +93,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               to="/documents"
               className={`nav-link ${!user ? "disabled" : ""}`}
             >
-              <FaListUl />
+              <FaListUl color={getIconColor("/documents")} />
               <span>Notes</span>
             </Link>
           </li>
@@ -75,7 +106,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               to="/favorites"
               className={`nav-link ${!user ? "disabled" : ""}`}
             >
-              <RiBookMarkFill />
+              <RiBookMarkFill color={getIconColor("/favorites")} />
               <span>Bookmarks</span>
             </Link>
           </li>
@@ -85,7 +116,7 @@ function Menu({ menuOpen, setMenuOpen }) {
             }}
           >
             <Link to="/trash" className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaTrash />
+              <FaTrash color={getIconColor("/trash")} />
               <span>Trash</span>
             </Link>
           </li>
@@ -98,7 +129,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               to="/profile"
               className={`nav-link ${!user ? "disabled" : ""}`}
             >
-              <FaUser />
+              <FaUser color={getIconColor("/profile")} />
               <span>Profile</span>
             </Link>
           </li>
@@ -108,15 +139,12 @@ function Menu({ menuOpen, setMenuOpen }) {
             }}
           >
             <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
-              <FaHome />
+              <FaHome color={getIconColor("/")} />
               <span>Home</span>
             </Link>
           </li>
-          <li onClick={handleLogout}>
-            <Link
-              to="/logout"
-              className={`nav-link ${!user ? "disabled" : ""}`}
-            >
+          <li onClick={() => setLogoutModal(true)}>
+            <Link className={`nav-link ${!user ? "disabled" : ""}`}>
               <FaSignOutAlt />
               <span>Logout</span>
             </Link>
@@ -124,6 +152,12 @@ function Menu({ menuOpen, setMenuOpen }) {
         </ul>
       </nav>
       <CreateConfirmModal showModal={showModal} setShowModal={setShowModal} />
+      <ConfirmModal
+        showModal={showLogoutModal}
+        setShowModal={setLogoutModal}
+        handleConfirmDelete={handleLogout}
+        message={logoutMessage}
+      />
     </div>
   );
 }

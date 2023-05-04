@@ -3,8 +3,8 @@
 // Color variables
 $primary: #212121;
 $secondary: #323232;
-$accent: #0D7377;
-$highlight: #14FFEC;
+$accent: #0d7377;
+$highlight: #14ffec;
 
 body {
   font-family: "Poppins", sans-serif;
@@ -23,18 +23,19 @@ body {
   display: flex;
   flex-direction: column;
   position: sticky;
-  height: 85vh;
+  height: 90vh;
+  width: 20vw;
+  min-width: 300px;
   flex-shrink: 0; // Prevent left-sidebar from shrinking
 }
 
 .right-side-list {
   background-color: #fff;
   flex-grow: 1;
-  height: 85vh;
+  height: 90vh;
   overflow: hidden; // disable horizontal scrolling
   overflow-y: auto; // Enable vertical scrolling when the content exceeds the height
   padding: 10px;
-  width: 90%; // Set a fixed width in percentage
 }
 
 .search-bar {
