@@ -7,20 +7,19 @@ import Logo from "../components/Logo";
 import { Button } from "react-bootstrap";
 import { src } from "../utils/srcLink";
 
+const initNote = localStorage.getItem("note");
 const IntroductionPage = () => {
-  const initContent = localStorage.getItem("content") || "";
   const user = localStorage.getItem("user");
-  const [content, setContent] = useState(initContent);
+  const initNoteObj = initNote ? JSON.parse(initNote) : { _id: 1, content: "" };
+  const [note, setNote] = useState(initNoteObj);
+  const [content, setContent] = useState(initNoteObj.content);
 
   useEffect(() => {
-    localStorage.setItem("content", content);
+    const updatedNote = { ...note, content: content };
+    localStorage.setItem("note", JSON.stringify(updatedNote));
   }, [content]);
 
-  useEffect(() => {
-    return () => {
-      localStorage.setItem("content", content);
-    };
-  }, []);
+  console.log({ note, content });
 
   // Add this function at the beginning of your IntroductionPage component
   const handleAnchorClick = (event) => {
@@ -65,7 +64,7 @@ const IntroductionPage = () => {
             variant="outline-dark"
             className="cta-btn"
             onClick={() => {
-              if(user) return window.location.href = '/documents' 
+              if (user) return (window.location.href = "/documents");
               googleLogin();
             }}
           >
@@ -98,7 +97,7 @@ const IntroductionPage = () => {
 
       <section className="try-it" id="try-it">
         <h2>Try It Now</h2>
-        <Tiptap note={{ content }} setContent={setContent} />
+        <Tiptap note={note} setContent={setContent} />
       </section>
 
       <footer className="footer">
