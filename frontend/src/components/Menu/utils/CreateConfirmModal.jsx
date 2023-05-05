@@ -2,6 +2,7 @@ import "../../../styles/ListPage/CreateConfirmModal.scss";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { createDocument } from "../../../api/documents/createDocument";
+import { updateDoc } from "../../../api/documents/updateDocument";
 import { useNavigate } from "react-router-dom";
 
 const CreateConfirmModal = ({ showModal, setShowModal }) => {
@@ -15,10 +16,15 @@ const CreateConfirmModal = ({ showModal, setShowModal }) => {
       title: inputTitle,
       description: inputDescription,
     });
-    setInputTitle("");
-    setInputDescription("");
     setShowModal(false);
+    await createNote(result.document._id);
     navigate(`/document/${result.document._id}`);
+  };
+
+  // create new note
+  const createNote = async (document_id) => {
+    const note = { document_id, title: "new chapter", content: "" };
+    await updateDoc(note, "insert_paragraph");
   };
 
   return (

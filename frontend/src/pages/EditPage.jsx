@@ -15,9 +15,8 @@ import ListModal from "../components/EditPage/List/ListModal";
 const EditPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentDoc, setCurrentDoc] = useState(null);
-  const [selectedNote, setSelectedNote] = useState({ preview: true });
+  const [selectedNote, setSelectedNote] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
   const { document_id } = useParams();
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -26,6 +25,10 @@ const EditPage = () => {
   useEffect(() => {
     setShowModal(true);
   }, []);
+
+  useEffect(() => {
+    if (currentDoc) setSelectedNote(currentDoc.paragraphs[0]);
+  }, [currentDoc]);
 
   // control fetch document
   useEffect(() => {
@@ -100,7 +103,7 @@ const EditPage = () => {
 
   return (
     <div className="EditPage">
-      <ListModal
+      {/* <ListModal
         showModal={showModal}
         toggleModal={toggleModal}
         createNote={createNote}
@@ -109,13 +112,15 @@ const EditPage = () => {
         setSelectedNote={setSelectedNote}
         deleteNote={deleteNote}
         setCurrentDoc={setCurrentDoc}
-      />
+      /> */}
       <div className="note">
-        <Note
-          selectedNote={selectedNote}
-          setCurrentDoc={setCurrentDoc}
-          setShowModal={setShowModal}
-        />
+        {selectedNote && (
+          <Note
+            selectedNote={selectedNote}
+            setCurrentDoc={setCurrentDoc}
+            setShowModal={setShowModal}
+          />
+        )}
       </div>
     </div>
   );
