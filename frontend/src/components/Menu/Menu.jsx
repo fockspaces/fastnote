@@ -65,7 +65,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           <li onClick={user ? handleCreate : null}>
             <OverlayTrigger
               placement="right"
-              overlay={<Tooltip id="new-tooltip">New Notes</Tooltip>}
+              overlay={<Tooltip id="new-tooltip">New Note</Tooltip>}
             >
               <Link className={`nav-link ${!user ? "disabled" : ""}`}>
                 <MdCreateNewFolder />
