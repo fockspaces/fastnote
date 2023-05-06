@@ -89,7 +89,7 @@ function NoteListItem({
         toggleModal();
         // go to edit page
         if (document_id !== note.document_id) {
-          navigate(`/document/${note.document_id}`);
+          window.location.href = `/document/${note.document_id}`;
         }
       }}
     >

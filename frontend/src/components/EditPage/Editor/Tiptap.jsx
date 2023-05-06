@@ -69,7 +69,28 @@ const Tiptap = ({ note, setContent }) => {
   useEffect(() => {
     // update the document whenever the paragraph prop changes
     if (editor) editor.commands.setContent(note.content);
-  }, [note]);
+  }, []);
+
+  const selectCurrentWord = () => {
+    const { selection } = editor.state;
+    const { $from, $to } = selection;
+
+    if ($from.sameParent($to)) {
+      const regex = /\b/;
+      const fromPos = $from.start();
+      const toPos = $to.end();
+      const textNode = $from.parent.textContent;
+
+      const startOffset = textNode.slice(0, $from.parentOffset).search(regex);
+      const endOffset = textNode.slice($from.parentOffset).search(regex);
+      const startPos = fromPos + (startOffset === -1 ? 0 : startOffset);
+      const endPos = endOffset === -1 ? toPos : $from.pos + endOffset;
+
+      const tr = editor.state.tr;
+      tr.setSelection(selection.constructor.create(tr.doc, startPos, endPos));
+      editor.view.dispatch(tr);
+    }
+  };
 
   // handle image upload and bubble menu
   useEffect(() => {
@@ -81,8 +102,8 @@ const Tiptap = ({ note, setContent }) => {
         const singleQuoteKey = event.key === "'";
         if (cmdKey && slashKey) {
           event.preventDefault();
-          // Display the bubble menu
-          editor.commands.selectParentNode();
+          // Select the current word
+          selectCurrentWord();
         }
 
         if (cmdKey && singleQuoteKey) {
