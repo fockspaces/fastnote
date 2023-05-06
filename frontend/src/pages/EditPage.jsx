@@ -23,10 +23,6 @@ const EditPage = () => {
   };
 
   useEffect(() => {
-    setShowModal(true);
-  }, []);
-
-  useEffect(() => {
     if (currentDoc) setSelectedNote(currentDoc.paragraphs[0]);
   }, [currentDoc]);
 
@@ -103,7 +99,7 @@ const EditPage = () => {
 
   return (
     <div className="EditPage">
-      {/* <ListModal
+      <ListModal
         showModal={showModal}
         toggleModal={toggleModal}
         createNote={createNote}
@@ -112,7 +108,7 @@ const EditPage = () => {
         setSelectedNote={setSelectedNote}
         deleteNote={deleteNote}
         setCurrentDoc={setCurrentDoc}
-      /> */}
+      />
       <div className="note">
         {selectedNote && (
           <Note

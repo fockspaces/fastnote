@@ -48,7 +48,7 @@ function Menu({ menuOpen, setMenuOpen }) {
 
   // create new note
   const createNote = async (document_id) => {
-    const note = { document_id, title: "new chapter", content: "" };
+    const note = { document_id, title: "new note", content: "" };
     await updateDoc(note, "insert_paragraph");
   };
 

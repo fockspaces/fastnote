@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { IoBarcodeOutline } from "react-icons/io5";
 import SummarizeModal from "./utils/SummarizeModal";
 import SearchBar from "../../ListPage/utils/SearchBar";
+import { fetchDocuments } from "../../../api/documents/fetchDocuments";
 
 function List({
   notes,
@@ -16,27 +17,26 @@ function List({
   deleteNote,
   selectedNote,
   toggleModal,
+  document_id,
 }) {
   const [showModal, setShowModal] = useState(false);
   const [currentNotes, setCurrentNotes] = useState(notes);
+  const [keyword, setKeyword] = useState("");
+  console.log(keyword);
 
   useEffect(() => {
-    setCurrentNotes(notes);
-  }, [notes]);
-
-  const handleSearch = (keyword) => {
-    const searchTerm = keyword.substring(9);
-    const filteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setCurrentNotes(filteredNotes);
-  };
+    const fetchData = async () => {
+      const result = await fetchDocuments("?is_trash=false" + keyword);
+      setCurrentNotes(result.map((doc) => doc.paragraphs[0]));
+    };
+    fetchData();
+  }, [keyword]);
 
   return (
     <div className="list">
       <div className="list__header">
-        <CreateNote createNote={createNote} />
-        <SearchBar setKeyword={handleSearch} setTagging={() => {}} />
+        {/* <CreateNote createNote={createNote} /> */}
+        <SearchBar setKeyword={setKeyword} setTagging={() => {}} />
       </div>
       <div className="list__body">
         <NoteList

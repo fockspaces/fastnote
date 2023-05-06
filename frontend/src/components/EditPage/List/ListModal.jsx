@@ -13,6 +13,7 @@ const ListModal = ({
   setSelectedNote,
   deleteNote,
   setCurrentDoc,
+  document_id,
 }) => {
   return (
     <Modal
@@ -23,7 +24,7 @@ const ListModal = ({
       className="list-modal" // Add the new CSS class
     >
       <Modal.Header closeButton>
-        <Modal.Title>Chapters</Modal.Title>
+        {/* <Modal.Title>Notes</Modal.Title> */}
       </Modal.Header>
       <Modal.Body>
         <List

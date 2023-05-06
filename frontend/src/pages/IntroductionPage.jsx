@@ -19,7 +19,7 @@ const IntroductionPage = () => {
     localStorage.setItem("note", JSON.stringify(updatedNote));
   }, [content]);
 
-  console.log({ note, content });
+  // console.log({ note, content });
 
   // Add this function at the beginning of your IntroductionPage component
   const handleAnchorClick = (event) => {

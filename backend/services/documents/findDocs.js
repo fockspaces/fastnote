@@ -108,7 +108,7 @@ export const findDocs = async ({
 
   pipeline.push(
     { $match: { ...query } },
-    { $sort: { createdAt: -1 } },
+    { $sort: { updatedAt: -1 } },
     { $skip: paging ? parseInt(paging) * limit : 0 },
     { $limit: limit },
     {
