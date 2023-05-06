@@ -11,15 +11,26 @@ function NoteList({
   selectedNote,
   toggleModal,
 }) {
-  return (
-    <div className="note-list mt-3">
-      <ListGroup>
-        {notes.length === 0 ? (
-          <div className="hint-text">
-            List is empty, please create a new note to start.
-          </div>
-        ) : (
-          notes.map((note, idx) => (
+  const filterNotesByDate = (minDays, maxDays) => {
+    const now = new Date();
+    return notes.filter((note) => {
+      const updatedAt = new Date(note.updatedAt);
+      const daysDifference = (now - updatedAt) / (1000 * 60 * 60 * 24);
+      return daysDifference >= minDays && daysDifference <= maxDays;
+    });
+  };
+
+  const renderNotesByDate = (minDays, maxDays, title) => {
+    const filteredNotes = filterNotesByDate(minDays, maxDays);
+    if (filteredNotes.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="mt-3">
+        <ListGroup>
+          <p className="date-title">{title}</p>
+          {filteredNotes.map((note, idx) => (
             <NoteListItem
               key={idx}
               note={note}
@@ -28,9 +39,18 @@ function NoteList({
               deleteNote={deleteNote}
               toggleModal={toggleModal}
             />
-          ))
-        )}
-      </ListGroup>
+          ))}
+        </ListGroup>
+      </div>
+    );
+  };
+
+  return (
+    <div className="note-list mt-3">
+      {renderNotesByDate(0, 1, "Today")}
+      {renderNotesByDate(1, 2, "Yesterday")}
+      {renderNotesByDate(2, 7, "Past Week")}
+      {renderNotesByDate(7, Infinity, "Over a Week")}
     </div>
   );
 }
@@ -79,7 +99,7 @@ function NoteListItem({
           <div className="updated-at">
             {note.updatedAt &&
               new Intl.DateTimeFormat(undefined, {
-                month: "numeric",
+                month: "short",
                 day: "numeric",
                 hour: "numeric",
                 minute: "numeric",
@@ -87,24 +107,7 @@ function NoteListItem({
               }).format(new Date(note.updatedAt))}
           </div>
         </div>
-        {/* <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
-          <div
-            className="delete-icon"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowModal(true);
-            }}
-          >
-            <FaTrash size={20} />
-          </div>
-        </OverlayTrigger> */}
       </div>
-      {/* <ConfirmModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        handleConfirmDelete={handleDeleteNote}
-        message={message}
-      /> */}
     </ListGroup.Item>
   );
 }

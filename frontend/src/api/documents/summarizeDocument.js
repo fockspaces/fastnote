@@ -15,9 +15,9 @@ export const summarizeDocument = async (document_id) => {
       throw new Error("Could not fetch document");
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
+    return null;
   }
 };

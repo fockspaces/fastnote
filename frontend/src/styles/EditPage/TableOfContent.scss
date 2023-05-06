@@ -1,0 +1,21 @@
+.table-of-contents {
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  
+    .toc-item {
+      cursor: pointer;
+  
+      &.level-2 {
+        margin-left: 1rem;
+      }
+  
+      &.level-3 {
+        margin-left: 2rem;
+      }
+  
+      // Add more levels if needed
+    }
+  }
+  

@@ -6,19 +6,27 @@ import { summarizeDocument } from "../../../../api/documents/summarizeDocument.j
 
 const confirmMessage =
   "Are you sure you want to generate a summary for this document?";
-const processingMessage =
-  "We'll process your request shortly. This may take 3-5 minutes.";
 
 const SummarizeModal = ({ setShowModal, showModal }) => {
   const [processingMessageVisible, setProcessingMessageVisible] =
     useState(false);
 
+  const [processingMessage, setProcessingMessage] = useState({
+    title: "Sumarization Service",
+    body: "We'll process your request shortly. This may take 3-5 minutes.",
+  });
+
   const { document_id } = useParams();
 
   const handleModalConfirm = async () => {
     setShowModal(false);
+    const result = await summarizeDocument(document_id);
+    if (!result)
+      setProcessingMessage({
+        title: "Failed",
+        body: "content length should be over 100 characters",
+      });
     setProcessingMessageVisible(true);
-    await summarizeDocument(document_id);
   };
 
   const handleProcessingMessageClose = () => {
@@ -68,9 +76,9 @@ const SummarizeModal = ({ setShowModal, showModal }) => {
         onHide={handleProcessingMessageClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Processing</Modal.Title>
+          <Modal.Title>{processingMessage.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{processingMessage}</Modal.Body>
+        <Modal.Body>{processingMessage.body}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleProcessingMessageClose}>
             Close

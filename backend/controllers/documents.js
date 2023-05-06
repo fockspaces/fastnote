@@ -83,6 +83,10 @@ export const summarizeDocument = async (req, res) => {
   const access_token = authHeader.split(" ")[1];
 
   const result = await summarizeDoc(document_id, access_token);
-
-  return res.status(200).json({ message: "summary process finished", result });
+  if (result) {
+    return res
+      .status(200)
+      .json({ message: "summary process finished", result });
+  }
+  return res.status(400).json({ message: "content length is less than 100" });
 };

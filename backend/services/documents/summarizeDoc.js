@@ -40,7 +40,7 @@ export const summarizeDoc = async (document_id, access_token) => {
   const content = updatedParagraphs
     .map((paragraph) => stripHTMLTags(paragraph.content))
     .join(" ");
-  if (content.length < 100) return;
+  if (content.length < 100) return null;
 
   // todo : call the api gateway to store job {document_id, content, access_token} into SQS
   await sendSummaryJob(document_id, content, access_token);
