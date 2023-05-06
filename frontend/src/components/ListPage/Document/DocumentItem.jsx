@@ -14,7 +14,7 @@ function DocumentListItem({
   setTagging,
   setIsDraggingDocument,
 }) {
-  const [title, setTitle] = useState(document.title);
+  const [title, setTitle] = useState(document.paragraphs[0].title);
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
 

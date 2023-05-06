@@ -18,7 +18,7 @@ const TitleList = ({ documents }) => {
           }}
           className="title-link"
         >
-          {document.title}
+          {document.paragraphs[0].title}
         </a>
       </div>
     );

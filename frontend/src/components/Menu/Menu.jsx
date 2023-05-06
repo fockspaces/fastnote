@@ -1,32 +1,29 @@
 import "../../styles/menu.scss";
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap"; // Import OverlayTrigger and Tooltip
 
-import {
-  FaTrash,
-  FaUser,
-  FaHome,
-  FaSignOutAlt,
-  FaBook,
-} from "react-icons/fa";
-import { BsFillBookmarksFill ,BsJournalBookmarkFill} from "react-icons/bs";
+import { FaTrash, FaUser, FaHome, FaSignOutAlt, FaBook } from "react-icons/fa";
+import { BsFillBookmarksFill, BsJournalBookmarkFill } from "react-icons/bs";
 import { MdCreateNewFolder } from "react-icons/md";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 import { useLocation } from "react-router-dom";
 import ConfirmModal from "../ListPage/utils/ConfirmModal";
+import { createDocument } from "../../api/documents/createDocument";
+import { updateDoc } from "../../api/documents/updateDocument";
 
 const user = localStorage.getItem("user");
 
 function Menu({ menuOpen, setMenuOpen }) {
   const menuRef = useRef();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const getIconColor = (path) => {
     if (user) return location.pathname === path ? "wheat" : "inherit";
   };
 
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [showLogoutModal, setLogoutModal] = useState(false);
 
   const logoutMessage = {
@@ -41,8 +38,18 @@ function Menu({ menuOpen, setMenuOpen }) {
     window.location.href = "/";
   };
 
-  const handleCreate = () => {
-    setShowModal(true);
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    const result = await createDocument({});
+
+    await createNote(result.document._id);
+    navigate(`/document/${result.document._id}`);
+  };
+
+  // create new note
+  const createNote = async (document_id) => {
+    const note = { document_id, title: "new chapter", content: "" };
+    await updateDoc(note, "insert_paragraph");
   };
 
   // close the menu when not focus on
@@ -150,7 +157,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           </li>
         </ul>
       </nav>
-      <CreateConfirmModal showModal={showModal} setShowModal={setShowModal} />
+      {/* <CreateConfirmModal showModal={showModal} setShowModal={setShowModal} /> */}
       <ConfirmModal
         showModal={showLogoutModal}
         setShowModal={setLogoutModal}

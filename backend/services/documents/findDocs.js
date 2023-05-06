@@ -110,7 +110,20 @@ export const findDocs = async ({
     { $match: { ...query } },
     { $sort: { createdAt: -1 } },
     { $skip: paging ? parseInt(paging) * limit : 0 },
-    { $limit: limit }
+    { $limit: limit },
+    {
+      $lookup: {
+        from: "paragraphs",
+        localField: "paragraphs",
+        foreignField: "_id",
+        as: "paragraphs",
+      },
+    }, // Project only necessary fields
+    {
+      $project: {
+        "paragraphs.content": 0,
+      },
+    }
   );
 
   const documents = await Document.aggregate(pipeline);
