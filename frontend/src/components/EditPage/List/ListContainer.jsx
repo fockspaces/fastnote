@@ -22,7 +22,6 @@ function List({
   const [showModal, setShowModal] = useState(false);
   const [currentNotes, setCurrentNotes] = useState(notes);
   const [keyword, setKeyword] = useState("");
-  console.log(keyword);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +46,7 @@ function List({
           toggleModal={toggleModal}
         />
       </div>
-      <div className="list__footer">
+      {/* <div className="list__footer">
         <Link>
           <Button
             variant="outline-dark"
@@ -58,12 +57,12 @@ function List({
             <IoBarcodeOutline /> Summarize
           </Button>
         </Link>
-      </div>
-      <SummarizeModal
+      </div> */}
+      {/* <SummarizeModal
         notes={notes}
         showModal={showModal}
         setShowModal={setShowModal}
-      />
+      /> */}
     </div>
   );
 }

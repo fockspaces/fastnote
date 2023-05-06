@@ -9,7 +9,7 @@ const confirmMessage =
 const processingMessage =
   "We'll process your request shortly. This may take 3-5 minutes.";
 
-const SummarizeModal = ({ setShowModal, showModal, notes }) => {
+const SummarizeModal = ({ setShowModal, showModal }) => {
   const [processingMessageVisible, setProcessingMessageVisible] =
     useState(false);
 

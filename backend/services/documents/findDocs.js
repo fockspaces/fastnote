@@ -42,7 +42,6 @@ export const findDocs = async ({
     ...(is_trash !== undefined && { is_trash: is_trash === "true" }),
     ...(tagging.length > 0 && { tags: { $in: tagsArray } }),
   };
-
   if (keyword) {
     pipeline = [
       // documents search
@@ -51,7 +50,7 @@ export const findDocs = async ({
           index: "default",
           text: {
             query: keyword,
-            path: { wildcard: "*" },
+            path: "description",
           },
         },
       },
@@ -62,7 +61,7 @@ export const findDocs = async ({
           pipeline: [
             {
               $search: {
-                index: "paragraphs",
+                index: "paragraph",
                 text: {
                   query: keyword,
                   path: "content",
