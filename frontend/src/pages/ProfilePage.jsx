@@ -1,5 +1,7 @@
-import React from 'react';
-import '../styles/profilePage.scss';
+import React, { useEffect, useState } from "react";
+import "../styles/profilePage.scss";
+import { fetchTags } from "../api/documents/fetchTags";
+import TagList from "../components/ProfilePage/TagList";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -11,6 +13,7 @@ const ProfilePage = () => {
       </div>
       <div className="user-name">{user.name}</div>
       <div className="user-email">{user.email}</div>
+      <TagList />
     </div>
   );
 };

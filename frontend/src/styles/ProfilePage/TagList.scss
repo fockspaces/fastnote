@@ -1,0 +1,40 @@
+.tags-list-page {
+  margin-top: 20px;
+  padding-left: 120px; // Add left padding to move the tag list to the right
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tags-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        font-size: 16px;
+        margin-bottom: 5px;
+        cursor: pointer;
+
+        &:hover {
+          color: #007bff;
+        }
+      }
+    }
+  }
+}

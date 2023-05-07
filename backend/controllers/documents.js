@@ -103,10 +103,8 @@ export const updateTagName = async (req, res) => {
   const userId = req.user._id;
   const { oldTagName, newTagName } = req.body;
 
-  if (!oldTagName || !newTagName) {
-    return res
-      .status(400)
-      .json({ message: "Both oldTagName and newTagName are required." });
+  if (!oldTagName) {
+    return res.status(400).json({ message: "oldTagName is required." });
   }
 
   if (oldTagName === newTagName) {
