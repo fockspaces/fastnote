@@ -10,8 +10,8 @@ import NotFound from "./pages/functionPage/NotFound";
 import Menu from "./components/Menu/Menu";
 import FavoritePage from "./pages/FavoritePage";
 import TrashPage from "./pages/TrashPage";
-import ProfilePage from "./pages/ProfilePage";
 import IntroductionPage from "./pages/IntroductionPage";
+import TagsPage from "./pages/TagsPage";
 const user = localStorage.getItem("user");
 
 function App() {
@@ -56,10 +56,10 @@ function App() {
             }
           />
           <Route
-            path="/profile"
+            path="/tags"
             element={
               <ProtectedRoute user={user}>
-                <ProfilePage />
+                <TagsPage />
               </ProtectedRoute>
             }
           />

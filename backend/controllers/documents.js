@@ -9,7 +9,7 @@ import { fetchUser } from "../services/users/fetchUser.js";
 import { escapeRegExp } from "../utils/regexEscape.js";
 import cache from "../utils/cache.js";
 import { fetchTags } from "../services/documents/fetchTags.js";
-import { updateTag } from "../services/documents/updateTag.js";
+import { updateTags } from "../services/documents/updateTag.js";
 
 // sprint 4 (fin)
 export const getAllDocuments = async (req, res) => {
@@ -101,19 +101,13 @@ export const getAllTags = async (req, res) => {
 
 export const updateTagName = async (req, res) => {
   const userId = req.user._id;
-  const { oldTagName, newTagName } = req.body;
+  const { tags = [], newTagName } = req.body;
 
-  if (!oldTagName) {
-    return res.status(400).json({ message: "oldTagName is required." });
+  if (!tags.length) {
+    return res.status(400).json({ message: "tags is required." });
   }
 
-  if (oldTagName === newTagName) {
-    return res
-      .status(400)
-      .json({ message: "Both oldTagName and newTagName are the same." });
-  }
-
-  await updateTag(userId, oldTagName, newTagName);
+  await updateTags(userId, tags, newTagName);
 
   return res.status(200).json({ message: "Tag updated successfully." });
 };

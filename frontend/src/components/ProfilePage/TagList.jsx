@@ -1,24 +1,27 @@
-import "../../styles/ProfilePage/TagList.scss";
+import "../../styles/TagsPage/TagList.scss";
 import React, { useEffect, useState } from "react";
 import { fetchTags } from "../../api/documents/fetchTags";
 import { Button, Modal } from "react-bootstrap";
 import TagModal from "./TagModal";
-import { updateTag } from "../../api/documents/updateTag";
+import { updateTags } from "../../api/documents/updateTag";
+import TagsSelectionModal from "./TagsSelectionModal";
 
 const TagList = () => {
   const [tags, setTags] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const message = { title: "tags", body: "edit tag", confirm: "edit" };
+  const [showTagsSelectionModal, setShowTagsSelectionModal] = useState(false);
+  const [modalKey, setModalKey] = useState(0);
 
-  const handleUpdate = async (newTagName) => {
-    console.log(newTagName);
-    if (!selectedTag || !newTagName) return;
-    const isSuccess = await updateTag(selectedTag, newTagName);
+  const handleUpdate = async (newTagName, selectedTags) => {
+    console.log({ newTagName, selectedTags });
+    if (!selectedTags.length || !newTagName) return;
+    const isSuccess = await updateTags(selectedTags, newTagName);
     if (isSuccess) {
-      const newTags = tags.map((tag) =>
-        tag === selectedTag ? newTagName : tag
-      );
+      const newTags = tags.filter((tag) => !selectedTags.includes(tag));
+      if (!tags.includes(newTagName) || selectedTags.includes(newTagName)) {
+        newTags.push(newTagName);
+      }
       setTags(newTags);
       setSelectedTag(null);
       setShowModal(false);
@@ -29,6 +32,7 @@ const TagList = () => {
 
   const handleTagClick = (tag) => {
     setSelectedTag(tag);
+    setModalKey((prevKey) => prevKey + 1);
     setShowModal(true);
   };
 
@@ -89,15 +93,31 @@ const TagList = () => {
 
   return (
     <div className="tags-list-page">
-      <h1>Tags</h1>
+      <h1>Tags</h1>{" "}
+      <Button
+        variant="outline-dark mb-3"
+        onClick={() => {
+          setShowTagsSelectionModal(true);
+          setModalKey((prevKey) => prevKey + 1);
+        }}
+      >
+        Merge Tags
+      </Button>
+      <TagsSelectionModal
+        showModal={showTagsSelectionModal}
+        setShowModal={setShowTagsSelectionModal}
+        handleUpdate={handleUpdate}
+        tags={tags}
+        key={modalKey}
+      />
       {renderTags()}
       <TagModal
         showModal={showModal}
         setShowModal={setShowModal}
-        message={message}
         handleUpdate={handleUpdate}
         oldTagName={selectedTag}
         handleDelete={handleDelete}
+        key={modalKey}
       />
     </div>
   );

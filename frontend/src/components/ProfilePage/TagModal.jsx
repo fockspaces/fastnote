@@ -7,20 +7,16 @@ const TagModal = ({
   setShowModal,
   handleUpdate,
   message,
-  handleDelete,
   oldTagName,
 }) => {
-  const [newTagName, setNewTagName] = useState(oldTagName);
+  const [newTagName, setNewTagName] = useState("");
   const [isValid, setIsValid] = useState(true);
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && isValid) {
-      handleUpdate(newTagName);
+      handleUpdate(newTagName, [oldTagName]);
     }
   };
-  useEffect(() => {
-    setNewTagName("");
-    setIsValid(true);
-  }, [oldTagName]);
+
   useEffect(() => {
     if (showModal) {
       window.addEventListener("keydown", handleKeyDown);
@@ -67,7 +63,7 @@ const TagModal = ({
         <Button
           variant="danger"
           disabled={!isValid}
-          onClick={() => handleUpdate(newTagName)}
+          onClick={() => handleUpdate(newTagName, [oldTagName])}
         >
           Edit
         </Button>

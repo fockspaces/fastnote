@@ -1,18 +1,18 @@
 import Document from "../../models/Document.js";
 import mongoose from "mongoose";
 
-export const updateTag = async (userId, oldTagName, newTagName) => {
-  if (newTagName)
-    return await Document.updateMany(
-      { userId: new mongoose.Types.ObjectId(userId), tags: oldTagName },
-      [
-        { $set: { tags: { $concatArrays: [[newTagName], "$tags"] } } },
-        { $set: { tags: { $setDifference: ["$tags", [oldTagName]] } } },
-      ]
-    );
-
-  return await Document.updateMany(
-    { userId: new mongoose.Types.ObjectId(userId), tags: oldTagName },
-    { $pull: { tags: oldTagName } }
+export const updateTags = async (userId, tags, newTagName) => {
+  // Remove all tags in the tags array
+  await Document.updateMany(
+    { userId: new mongoose.Types.ObjectId(userId), tags: { $in: tags } },
+    { $pullAll: { tags: tags } }
   );
+
+  // Insert newTagName if provided
+  if (newTagName) {
+    await Document.updateMany(
+      { userId: new mongoose.Types.ObjectId(userId) },
+      { $addToSet: { tags: newTagName } }
+    );
+  }
 };

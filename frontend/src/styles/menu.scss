@@ -40,6 +40,15 @@
       ); // Add a hover effect to the collapse-btn
     }
   }
+  .profile-picture {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 18px;
+    filter: brightness(80%);
+  }
 
   ul {
     padding: 0;
@@ -47,7 +56,7 @@
     display: flex; // Add display flex
     flex-direction: column; // Make the list items display in a column
     justify-content: center; // Center the list items vertically
-    height: 90%; // Set the height to 100% to fill the menu container
+    height: 88%; // Set the height to 100% to fill the menu container
 
     li {
       padding: 0;

@@ -8,7 +8,6 @@ function TagsBar({ tagging, setTagging, whitelist }) {
   useEffect(() => {
     const tagify = new Tagify(inputRef.current, {
       delimiters: ",",
-      maxTags: 5,
       whitelist,
       enforceWhitelist: true,
       dropdown: {

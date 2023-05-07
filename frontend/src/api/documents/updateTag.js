@@ -1,4 +1,4 @@
-export const updateTag = async (oldTagName, newTagName) => {
+export const updateTags = async (tags, newTagName) => {
   const access_token = localStorage.getItem("access_token");
 
   try {
@@ -10,7 +10,7 @@ export const updateTag = async (oldTagName, newTagName) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
-        body: JSON.stringify({ oldTagName, newTagName }),
+        body: JSON.stringify({ tags, newTagName }),
       }
     );
 

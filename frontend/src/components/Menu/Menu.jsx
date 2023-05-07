@@ -3,7 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap"; // Import OverlayTrigger and Tooltip
 
-import { FaTrash, FaUser, FaHome, FaSignOutAlt, FaBook } from "react-icons/fa";
+import {
+  FaHashtag,
+  FaTrash,
+  FaUser,
+  FaHome,
+  FaSignOutAlt,
+  FaBook,
+} from "react-icons/fa";
 import { BsFillBookmarksFill, BsJournalBookmarkFill } from "react-icons/bs";
 import { MdCreateNewFolder } from "react-icons/md";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
@@ -12,7 +19,7 @@ import ConfirmModal from "../ListPage/utils/ConfirmModal";
 import { createDocument } from "../../api/documents/createDocument";
 import { updateDoc } from "../../api/documents/updateDocument";
 
-const user = localStorage.getItem("user");
+const user = JSON.parse(localStorage.getItem("user"));
 
 function Menu({ menuOpen, setMenuOpen }) {
   const menuRef = useRef();
@@ -121,13 +128,13 @@ function Menu({ menuOpen, setMenuOpen }) {
           <li>
             <OverlayTrigger
               placement="right"
-              overlay={<Tooltip id="new-tooltip">Profile</Tooltip>}
+              overlay={<Tooltip id="new-tooltip">Tags</Tooltip>}
             >
               <Link
-                to="/profile"
+                to="/tags"
                 className={`nav-link ${!user ? "disabled" : ""}`}
               >
-                <FaUser color={getIconColor("/profile")} />
+                <FaHashtag color={getIconColor("/tags")} />
               </Link>
             </OverlayTrigger>
           </li>
@@ -156,6 +163,9 @@ function Menu({ menuOpen, setMenuOpen }) {
             </OverlayTrigger>
           </li>
         </ul>
+        {user && (
+          <img src={user.picture} alt="Profile" className="profile-picture" />
+        )}
       </nav>
       {/* <CreateConfirmModal showModal={showModal} setShowModal={setShowModal} /> */}
       <ConfirmModal
