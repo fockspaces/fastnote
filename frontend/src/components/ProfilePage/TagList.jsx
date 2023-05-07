@@ -2,10 +2,35 @@ import "../../styles/ProfilePage/TagList.scss";
 import React, { useEffect, useState } from "react";
 import { fetchTags } from "../../api/documents/fetchTags";
 import { Button, Modal } from "react-bootstrap";
+import TagModal from "./TagModal";
+import { updateTag } from "../../api/documents/updateTag";
 
 const TagList = () => {
   const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const message = { title: "tags", body: "edit tag", confirm: "edit" };
+
+  const handleUpdate = async (newTagName) => {
+    console.log(newTagName);
+    if (!selectedTag || !newTagName) return;
+    const isSuccess = await updateTag(selectedTag, newTagName);
+    if (isSuccess) {
+      const newTags = tags.map((tag) =>
+        tag === selectedTag ? newTagName : tag
+      );
+      setTags(newTags);
+      setSelectedTag(null);
+      setShowModal(false);
+    }
+  };
+
+  const handleDelete = async () => {};
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
+    setShowModal(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +60,6 @@ const TagList = () => {
 
   const renderTags = () => {
     const groupedTags = groupTagsByPrefix(tags);
-    console.log(groupedTags);
 
     // Sort the prefixes (keys) alphabetically
     const sortedPrefixes = Object.keys(groupedTags).sort();
@@ -47,16 +71,13 @@ const TagList = () => {
             <h3>{prefix}</h3>
             <ul>
               {groupedTags[prefix].map((tag) => (
-                <li key={tag}>
+                <li
+                  key={tag}
+                  onClick={() => {
+                    handleTagClick(tag);
+                  }}
+                >
                   {tag}
-                  <Button
-                    className="edit-button"
-                    variant="link"
-                    size="sm"
-                    onClick={() => console.log("d")}
-                  >
-                    Edit
-                  </Button>
                 </li>
               ))}
             </ul>
@@ -70,6 +91,14 @@ const TagList = () => {
     <div className="tags-list-page">
       <h1>Tags</h1>
       {renderTags()}
+      <TagModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        message={message}
+        handleUpdate={handleUpdate}
+        oldTagName={selectedTag}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
