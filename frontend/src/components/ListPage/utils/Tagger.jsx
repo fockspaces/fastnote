@@ -31,9 +31,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
   const renderTag = (tag) => {
     return (
       <span
-        className={`badge ${
-          isTagSelected(tag) ? "bg-dark" : "bg-secondary"
-        } `}
+        className={`badge ${isTagSelected(tag) ? "bg-dark" : "bg-secondary"} `}
         onClick={() => {
           toggleTagging(tag);
         }}
@@ -46,7 +44,7 @@ const Tagger = ({ tags, tagging, setTagging }) => {
   return (
     <div className="tags-container">
       {visibleTags.map((tag, index) =>
-        tag.length > maximun_tag ? (
+        tag.length > 10 ? (
           <OverlayTrigger
             key={index}
             placement="top"

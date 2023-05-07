@@ -1,5 +1,5 @@
 .tags-container {
-  margin-top: 0.5rem;
+  padding: 0px 1px;
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
@@ -20,7 +20,6 @@
   position: relative;
   margin: 0px 3px; /* Reset the margin to 0 when hovering */
 }
-
 
 .tag-toggler-button {
   height: 1px;
