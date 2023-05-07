@@ -9,16 +9,27 @@ AWS.config.update({
 
 const sqs = new AWS.SQS();
 
-export const sendSummaryJob = async (document_id, content, access_token) => {
+export const sendSummaryJob = async (
+  document_id,
+  content,
+  access_token,
+  lang
+) => {
   const event = "fetchGPT";
   const params = {
-    MessageBody: JSON.stringify({ document_id, content, access_token, event }),
+    MessageBody: JSON.stringify({
+      document_id,
+      content,
+      access_token,
+      event,
+      lang,
+    }),
     QueueUrl: process.env.AWS_SQS_URL, // Replace with your SQS Queue URL
   };
 
   try {
     const result = await sqs.sendMessage(params).promise();
-    console.log("Message sent to SQS:", result);
+    console.log("Message sent to SQS:", { result, params });
   } catch (error) {
     console.error("Error sending message to SQS:", error);
   }
