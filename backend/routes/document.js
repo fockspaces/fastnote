@@ -7,6 +7,8 @@ import {
   deleteDocument,
   updateDocument,
   summarizeDocument,
+  getAllTags,
+  updateTagName,
 } from "../controllers/documents.js";
 import { catchAsync } from "../utils/errorHandling.js";
 
@@ -17,6 +19,9 @@ document
   .route("/")
   .get(catchAsync(getAllDocuments))
   .post(catchAsync(createDocument));
+
+document.route("/tags").get(catchAsync(getAllTags));
+document.route("/tags").patch(catchAsync(updateTagName));
 
 document
   .route("/:document_id")

@@ -8,6 +8,8 @@ import { updateDoc } from "../services/documents/updateDoc.js";
 import { fetchUser } from "../services/users/fetchUser.js";
 import { escapeRegExp } from "../utils/regexEscape.js";
 import cache from "../utils/cache.js";
+import { fetchTags } from "../services/documents/fetchTags.js";
+import { updateTag } from "../services/documents/updateTag.js";
 
 // sprint 4 (fin)
 export const getAllDocuments = async (req, res) => {
@@ -89,4 +91,31 @@ export const summarizeDocument = async (req, res) => {
       .json({ message: "summary process finished", result });
   }
   return res.status(400).json({ message: "content length is less than 100" });
+};
+
+export const getAllTags = async (req, res) => {
+  const userId = req.user._id;
+  const tags = await fetchTags(userId);
+  return res.status(200).json({ tags });
+};
+
+export const updateTagName = async (req, res) => {
+  const userId = req.user._id;
+  const { oldTagName, newTagName } = req.body;
+
+  if (!oldTagName || !newTagName) {
+    return res
+      .status(400)
+      .json({ message: "Both oldTagName and newTagName are required." });
+  }
+
+  if (oldTagName === newTagName) {
+    return res
+      .status(400)
+      .json({ message: "Both oldTagName and newTagName are the same." });
+  }
+
+  await updateTag(userId, oldTagName, newTagName);
+
+  return res.status(200).json({ message: "Tag updated successfully." });
 };
