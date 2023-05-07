@@ -106,3 +106,11 @@
 .text-saturated-orange {
   color: #ffa500 !important; // Saturated orange color
 }
+
+.description-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; // Set the number of rows you want to display
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

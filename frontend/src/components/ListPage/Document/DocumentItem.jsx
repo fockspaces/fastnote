@@ -118,10 +118,8 @@ function DocumentListItem({
               </div>
             </Card.Title>
             {document.description && (
-              <Card.Text>
-                {document.description.length > 210
-                  ? document.description.slice(0, 210) + "..."
-                  : document.description}
+              <Card.Text className="description-text">
+                {document.description}
               </Card.Text>
             )}
             {document.tags && (

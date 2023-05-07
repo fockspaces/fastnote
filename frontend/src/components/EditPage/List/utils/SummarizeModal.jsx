@@ -24,7 +24,7 @@ const SummarizeModal = ({ setShowModal, showModal }) => {
     if (!result)
       setProcessingMessage({
         title: "Failed",
-        body: "content length should be over 100 characters",
+        body: "The content must have a variance of more than 100 characters compared to the previous version.",
       });
     setProcessingMessageVisible(true);
   };
