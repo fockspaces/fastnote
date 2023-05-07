@@ -5,7 +5,10 @@ export const updateTag = async (userId, oldTagName, newTagName) => {
   if (newTagName)
     return await Document.updateMany(
       { userId: new mongoose.Types.ObjectId(userId), tags: oldTagName },
-      { $set: { "tags.$": newTagName } }
+      [
+        { $set: { tags: { $concatArrays: [[newTagName], "$tags"] } } },
+        { $set: { tags: { $setDifference: ["$tags", [oldTagName]] } } },
+      ]
     );
 
   return await Document.updateMany(

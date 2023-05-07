@@ -1,9 +1,11 @@
 import "../../styles/ProfilePage/TagList.scss";
 import React, { useEffect, useState } from "react";
 import { fetchTags } from "../../api/documents/fetchTags";
+import { Button, Modal } from "react-bootstrap";
 
 const TagList = () => {
   const [tags, setTags] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,19 +41,29 @@ const TagList = () => {
     const sortedPrefixes = Object.keys(groupedTags).sort();
 
     return (
-        <div className="tags-container">
-          {sortedPrefixes.map((prefix) => (
-            <div key={prefix} className="tags-group">
-              <h3>{prefix}</h3>
-              <ul>
-                {groupedTags[prefix].map((tag) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
+      <div className="tags-container">
+        {sortedPrefixes.map((prefix) => (
+          <div key={prefix} className="tags-group">
+            <h3>{prefix}</h3>
+            <ul>
+              {groupedTags[prefix].map((tag) => (
+                <li key={tag}>
+                  {tag}
+                  <Button
+                    className="edit-button"
+                    variant="link"
+                    size="sm"
+                    onClick={() => console.log("d")}
+                  >
+                    Edit
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
