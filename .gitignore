@@ -4,3 +4,6 @@ uploads
 test
 infrastructure
 public
+
+test.js
+lambda_function.zip
