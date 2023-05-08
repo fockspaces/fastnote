@@ -10,16 +10,28 @@ export const updateDoc = async (event, updateData, document_id) => {
   const { paragraph_id } = updateData;
   if (event === "update_paragraph") {
     const newParagraph = await updatePargraph(updateData, paragraph_id);
+    await Document.findByIdAndUpdate(
+      document_id,
+      { updatedAt: Date.now() } // Update updatedAt timestamp
+    );
     return newParagraph;
   }
 
   if (event === "insert_paragraph") {
     const newDocument = await insertNewParagraph(updateData, document_id);
+    await Document.findByIdAndUpdate(
+      document_id,
+      { updatedAt: Date.now() } // Update updatedAt timestamp
+    );
     return newDocument;
   }
 
   if (event === "delete_paragraph") {
     const deletedParagrpah = await deleteParagraph(paragraph_id, document_id);
+    await Document.findByIdAndUpdate(
+      document_id,
+      { updatedAt: Date.now() } // Update updatedAt timestamp
+    );
     return deletedParagrpah;
   }
 
@@ -47,6 +59,7 @@ const updatePargraph = async (updateData, paragraph_id) => {
       new: true,
     }
   );
+
   return newParagraph;
 };
 

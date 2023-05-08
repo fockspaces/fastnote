@@ -21,7 +21,6 @@
     "express": "^4.18.2",
     "express-error-handler": "^1.1.0",
     "express-rate-limit": "^6.7.0",
-    "franc": "^6.1.0",
     "googleapis": "^114.0.0",
     "jsdom": "^21.1.1",
     "jsonwebtoken": "^9.0.0",

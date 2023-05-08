@@ -9,12 +9,7 @@ AWS.config.update({
 
 const sqs = new AWS.SQS();
 
-export const sendSummaryJob = async (
-  document_id,
-  content,
-  access_token,
-  lang
-) => {
+export const sendSummaryJob = async (document_id, content, access_token) => {
   const event = "fetchGPT";
   const params = {
     MessageBody: JSON.stringify({
@@ -22,7 +17,6 @@ export const sendSummaryJob = async (
       content,
       access_token,
       event,
-      lang,
     }),
     QueueUrl: process.env.AWS_SQS_URL, // Replace with your SQS Queue URL
   };

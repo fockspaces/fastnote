@@ -41,10 +41,6 @@
           }
         }
 
-        .card-text {
-          font-size: 1rem; // Adjust the font size for the card description
-        }
-
         .document-date {
           font-size: 0.7em;
           color: #6c757d;
@@ -114,3 +110,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.no-summary-preview {
+  color: #aaa;
+  font-size: 0.9em;
+}
+

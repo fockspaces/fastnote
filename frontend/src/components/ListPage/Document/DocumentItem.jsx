@@ -117,9 +117,13 @@ function DocumentListItem({
                 </div>
               </div>
             </Card.Title>
-            {document.description && (
+            {document.description ? (
               <Card.Text className="description-text">
                 {document.description}
+              </Card.Text>
+            ) : (
+              <Card.Text className="no-summary-preview">
+                {` No summary to preview :(`}
               </Card.Text>
             )}
             {document.tags && (

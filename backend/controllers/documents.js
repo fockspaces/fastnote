@@ -79,6 +79,7 @@ export const deleteDocument = async (req, res) => {
 
 export const summarizeDocument = async (req, res) => {
   const { document_id } = req.params;
+  console.log("hi");
 
   // Extract the access_token from the Authorization header
   const authHeader = req.headers.authorization;
