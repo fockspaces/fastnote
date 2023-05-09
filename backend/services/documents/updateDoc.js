@@ -59,7 +59,7 @@ const updatePargraph = async (updateData, paragraph_id) => {
       new: true,
     }
   );
-
+  console.log(newParagraph);
   return newParagraph;
 };
 

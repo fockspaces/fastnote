@@ -15,8 +15,9 @@ const TagsSelectionModal = ({
 
   const handleChange = (event) => {
     const value = event.target.value;
+    console.log(value);
     setNewTagName(value);
-    setIsValid(value.length >= 2 && value.length <= 12);
+    setIsValid(value.length >= 2 && value.length <= 20);
   };
 
   const handleConfirm = () => {
@@ -43,7 +44,7 @@ const TagsSelectionModal = ({
             isInvalid={!isValid}
           />
           <Form.Control.Feedback type="invalid">
-            The new tag name must be between 2 and 12 characters long.
+            The new tag name must be between 2 and 20 characters long.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

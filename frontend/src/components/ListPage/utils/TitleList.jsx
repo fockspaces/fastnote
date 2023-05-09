@@ -24,7 +24,11 @@ const TitleList = ({ documents }) => {
     );
   });
 
-  return <div className="title-list-container">{renderList}</div>;
+  return (
+    <div className="title-list-container">
+      {renderList}
+    </div>
+  );
 };
 
 export default TitleList;

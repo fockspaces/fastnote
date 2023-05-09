@@ -1,9 +1,5 @@
 /* Basic editor styles */
 .ProseMirror {
-  ul,
-  ol {
-    padding: 1rem;
-  }
 
   code {
     background-color: rgba(#616161, 0.1);
@@ -30,7 +26,7 @@
   }
 
   img {
-    max-width: 30%;
+    max-width: 100%;
     height: auto;
   }
 
