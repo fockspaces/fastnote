@@ -1,6 +1,7 @@
 import { CgMenuBoxed } from "react-icons/cg";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoBarcodeOutline } from "react-icons/io5";
+import { FiInfo } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -58,29 +59,56 @@ const Summarize = () => {
   );
 };
 
-const MenuButtons = ({ setShowModal }) => {
+const Menu = ({ setShowModal }) => {
   const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
   const commandKey = isMac ? "⌘" : "Ctrl";
   return (
+    <OverlayTrigger
+      placement="right"
+      overlay={
+        <Tooltip id="menu-tooltip">{`Open Menu (${commandKey} + m)`}</Tooltip>
+      }
+    >
+      <Button
+        className="menu-button"
+        variant=""
+        size="md"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        <CgMenuBoxed size={40} />
+      </Button>
+    </OverlayTrigger>
+  );
+};
+
+const Info = ({ setShowInfoModal }) => {
+  return (
+    <OverlayTrigger
+      placement="right"
+      overlay={<Tooltip id="menu-tooltip">{"Info"}</Tooltip>}
+    >
+      <Button
+        className="menu-button"
+        variant=""
+        size="md"
+        onClick={() => {
+          setShowInfoModal(true);
+        }}
+      >
+        <FiInfo size={40} />
+      </Button>
+    </OverlayTrigger>
+  );
+};
+
+const MenuButtons = ({ setShowModal, setShowInfoModal }) => {
+  return (
     <div className="floating-buttons">
       <Return />
-      <OverlayTrigger
-        placement="right"
-        overlay={
-          <Tooltip id="menu-tooltip">{`Open Menu (${commandKey} + m)`}</Tooltip>
-        }
-      >
-        <Button
-          className="menu-button"
-          variant=""
-          size="md"
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          <CgMenuBoxed size={40} />
-        </Button>
-      </OverlayTrigger>
+      <Menu setShowModal={setShowModal} />
+      <Info setShowInfoModal={setShowInfoModal} />
       <Summarize />
     </div>
   );

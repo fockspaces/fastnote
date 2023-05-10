@@ -11,15 +11,23 @@ import { updateDoc } from "../api/documents/updateDocument";
 import { fetchDocument } from "../api/documents/fetchDocument";
 import { Modal } from "react-bootstrap";
 import ListModal from "../components/EditPage/List/ListModal";
+import InfoModal from "../components/EditPage/List/InfoModal";
 
 const EditPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [selectedNote, setSelectedNote] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  console.log(currentDoc);
+
   const { document_id } = useParams();
   const toggleModal = () => {
-    setShowModal(!showModal);
+    setShowModal((state) => !state);
+  };
+
+  const ToggleInfoModal = () => {
+    setShowInfoModal((state) => !state);
   };
 
   useEffect(() => {
@@ -109,12 +117,19 @@ const EditPage = () => {
         deleteNote={deleteNote}
         setCurrentDoc={setCurrentDoc}
       />
+      <InfoModal
+        tags={currentDoc.tags}
+        showModal={showInfoModal}
+        toggleModal={ToggleInfoModal}
+        document={currentDoc}
+      />
       <div className="note">
         {selectedNote && (
           <Note
             selectedNote={selectedNote}
             setCurrentDoc={setCurrentDoc}
             setShowModal={setShowModal}
+            setShowInfoModal={setShowInfoModal}
           />
         )}
       </div>

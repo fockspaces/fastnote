@@ -5,11 +5,16 @@ import Tagify from "@yaireo/tagify";
 
 function TagsBar({ tagging, setTagging, whitelist }) {
   const inputRef = useRef();
+  let whitListConfig;
+  if (whitelist)
+    whitListConfig = {
+      whitelist,
+      enforceWhitelist: true,
+    };
   useEffect(() => {
     const tagify = new Tagify(inputRef.current, {
       delimiters: ",",
-      whitelist,
-      enforceWhitelist: true,
+      ...whitListConfig,
       dropdown: {
         enabled: 0,
         maxItems: 5,
@@ -41,7 +46,7 @@ function TagsBar({ tagging, setTagging, whitelist }) {
         name="tags"
         value={tagging}
         onChange={(e) => {}}
-        placeholder={'Add tags here...'}
+        placeholder={"Add tags here..."}
       />
     </div>
   );

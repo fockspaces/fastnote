@@ -23,7 +23,7 @@ export const sendSummaryJob = async (document_id, content, access_token) => {
 
   try {
     const result = await sqs.sendMessage(params).promise();
-    console.log("Message sent to SQS:", { result, params });
+    console.log("Message sent to SQS:", { result });
   } catch (error) {
     console.error("Error sending message to SQS:", error);
   }

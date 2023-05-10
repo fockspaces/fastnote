@@ -13,7 +13,6 @@ const ListModal = ({
   setSelectedNote,
   deleteNote,
   setCurrentDoc,
-  document_id,
 }) => {
   return (
     <Modal

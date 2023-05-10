@@ -11,7 +11,6 @@ import cache from "../utils/cache.js";
 import { fetchTags } from "../services/documents/fetchTags.js";
 import { updateTags } from "../services/documents/updateTag.js";
 
-// sprint 4 (fin)
 export const getAllDocuments = async (req, res) => {
   // validation paging
   const { paging } = req.query;
@@ -70,6 +69,7 @@ export const deleteDocument = async (req, res) => {
   const user = req.user;
   const { document_id } = req.params;
   const document = await deleteDoc(document_id, user);
+  // TODO: error -> message
   if (document.error)
     return res.status(document.err_code).json({ error: document.error });
   return res
@@ -79,7 +79,6 @@ export const deleteDocument = async (req, res) => {
 
 export const summarizeDocument = async (req, res) => {
   const { document_id } = req.params;
-  console.log("hi");
 
   // Extract the access_token from the Authorization header
   const authHeader = req.headers.authorization;

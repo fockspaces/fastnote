@@ -35,7 +35,6 @@ app.get("/api/lambda", (req, res) => {
   return res.status(200).json({ message });
 });
 
-app.get("/api/test", (req, res) => {});
 
 app.use("/api/documents", document);
 app.use("/api/users", user);

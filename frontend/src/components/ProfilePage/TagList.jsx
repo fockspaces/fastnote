@@ -67,7 +67,6 @@ const TagList = () => {
 
     // Sort the prefixes (keys) alphabetically
     const sortedPrefixes = Object.keys(groupedTags).sort();
-
     return (
       <div className="tags-container">
         {sortedPrefixes.map((prefix) => (
@@ -108,7 +107,7 @@ const TagList = () => {
         setShowModal={setShowTagsSelectionModal}
         handleUpdate={handleUpdate}
         tags={tags}
-        key={modalKey}
+        key={modalKey + 1}
       />
       {renderTags()}
       <TagModal

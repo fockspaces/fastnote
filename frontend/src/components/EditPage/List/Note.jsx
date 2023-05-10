@@ -7,7 +7,7 @@ import { updateNote } from "../../../utils/noteHelper";
 import { updateDoc } from "../../../api/documents/updateDocument";
 import MenuButtons from "../Note/utils/MenuButtons";
 
-function Note({ selectedNote, setCurrentDoc, setShowModal }) {
+function Note({ selectedNote, setCurrentDoc, setShowModal, setShowInfoModal }) {
   const [content, setContent] = useState(selectedNote.content);
   const { document_id } = useParams();
 
@@ -42,7 +42,10 @@ function Note({ selectedNote, setCurrentDoc, setShowModal }) {
 
   return (
     <div className="container">
-      <MenuButtons setShowModal={setShowModal} />
+      <MenuButtons
+        setShowModal={setShowModal}
+        setShowInfoModal={setShowInfoModal}
+      />
       <Tiptap note={selectedNote} setContent={setContent} />
     </div>
   );

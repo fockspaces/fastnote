@@ -20,6 +20,7 @@ document
   .get(catchAsync(getAllDocuments))
   .post(catchAsync(createDocument));
 
+// TODO: 把這兩行接在一起
 document.route("/tags").get(catchAsync(getAllTags));
 document.route("/tags").patch(catchAsync(updateTagName));
 

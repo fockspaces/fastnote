@@ -21,6 +21,7 @@ export const findDocs = async ({
   const shouldCache = !(keyword || tagging.length || paging > 0);
   console.log({ keyword, tagging, paging, shouldCache });
   const cacheKey = `documents:${userId}:${baseCases(is_favorite, is_trash)}`;
+
   if (shouldCache) {
     const cachedDocuments = await cache.get(cacheKey);
     if (cachedDocuments) return cachedDocuments;
@@ -42,6 +43,10 @@ export const findDocs = async ({
     ...(is_trash !== undefined && { is_trash: is_trash === "true" }),
     ...(tagging.length > 0 && { tags: { $in: tagsArray } }),
   };
+
+  // TODO: is_favorite ? Boolean("false")
+  // TODO: 判斷undefined, 再確定boolean
+
   if (keyword) {
     pipeline = [
       // documents search
