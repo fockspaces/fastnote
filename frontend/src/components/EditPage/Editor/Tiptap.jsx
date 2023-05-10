@@ -100,6 +100,8 @@ const Tiptap = ({ note, setContent }) => {
         const cmdKey = isMac ? event.metaKey : event.ctrlKey;
         const slashKey = event.key === "/";
         const singleQuoteKey = event.key === "'";
+        const escKey = event.key === "Escape";
+
         if (cmdKey && slashKey) {
           event.preventDefault();
           // Select the current word
@@ -110,6 +112,17 @@ const Tiptap = ({ note, setContent }) => {
           event.preventDefault();
           // Trigger image upload
           imageInputRef.current.click();
+        }
+
+        // Collapse selection when ESC key is pressed
+        if (escKey) {
+          event.preventDefault();
+          const { selection } = editor.state;
+          const tr = editor.state.tr;
+          tr.setSelection(
+            selection.constructor.create(tr.doc, selection.to, selection.to)
+          );
+          editor.view.dispatch(tr);
         }
       };
 

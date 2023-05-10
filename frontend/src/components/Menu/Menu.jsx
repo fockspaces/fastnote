@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { BsFillBookmarksFill, BsJournalBookmarkFill } from "react-icons/bs";
 import { MdCreateNewFolder } from "react-icons/md";
+import { IoMdCreate } from "react-icons/io";
 import CreateConfirmModal from "./utils/CreateConfirmModal";
 import { useLocation } from "react-router-dom";
 import ConfirmModal from "../ListPage/utils/ConfirmModal";
@@ -82,7 +83,7 @@ function Menu({ menuOpen, setMenuOpen }) {
               overlay={<Tooltip id="new-tooltip">New Note</Tooltip>}
             >
               <Link className={`nav-link ${!user ? "disabled" : ""}`}>
-                <MdCreateNewFolder />
+                <IoMdCreate />
               </Link>
             </OverlayTrigger>
           </li>
