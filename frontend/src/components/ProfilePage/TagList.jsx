@@ -5,12 +5,14 @@ import { Button, Modal } from "react-bootstrap";
 import TagModal from "./TagModal";
 import { updateTags } from "../../api/documents/updateTag";
 import TagsSelectionModal from "./TagsSelectionModal";
+import TagsDeletionModal from "./TagsDeletionModal";
 
 const TagList = () => {
   const [tags, setTags] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showTagsSelectionModal, setShowTagsSelectionModal] = useState(false);
+  const [showTagsDeleteModal, setShowTagsDeleteModal] = useState(false);
   const [modalKey, setModalKey] = useState(0);
 
   const handleUpdate = async (newTagName, selectedTags) => {
@@ -28,7 +30,16 @@ const TagList = () => {
     }
   };
 
-  const handleDelete = async () => {};
+  const handleDelete = async (selectedTags) => {
+    if (!selectedTags.length) return;
+    const isSuccess = await updateTags(selectedTags);
+    if (isSuccess) {
+      const newTags = tags.filter((tag) => !selectedTags.includes(tag));
+      setTags(newTags);
+      setSelectedTag(null);
+      setShowModal(false);
+    }
+  };
 
   const handleTagClick = (tag) => {
     setSelectedTag(tag);
@@ -92,9 +103,10 @@ const TagList = () => {
 
   return (
     <div className="tags-list-page">
-      <h1>Tags</h1>{" "}
+      <h1>Tags</h1>
       <Button
-        variant="outline-dark mb-3"
+        className="merge-tags-btn"
+        variant="outline-dark mb-3 mr-3"
         onClick={() => {
           setShowTagsSelectionModal(true);
           setModalKey((prevKey) => prevKey + 1);
@@ -102,12 +114,29 @@ const TagList = () => {
       >
         Merge Tags
       </Button>
+      <Button
+        className="merge-tags-btn"
+        variant="outline-dark mb-3"
+        onClick={() => {
+          setShowTagsDeleteModal(true);
+          setModalKey((prevKey) => prevKey + 1);
+        }}
+      >
+        Remove Tags
+      </Button>
       <TagsSelectionModal
         showModal={showTagsSelectionModal}
         setShowModal={setShowTagsSelectionModal}
         handleUpdate={handleUpdate}
         tags={tags}
         key={modalKey + 1}
+      />
+      <TagsDeletionModal
+        showModal={showTagsDeleteModal}
+        setShowModal={setShowTagsDeleteModal}
+        handleUpdate={handleDelete}
+        tags={tags}
+        key={modalKey + 2}
       />
       {renderTags()}
       <TagModal

@@ -2,6 +2,7 @@ import Document from "../../models/Document.js";
 import mongoose from "mongoose";
 
 export const updateTags = async (userId, tags, newTagName) => {
+  console.log({ tags, newTagName });
   // Find documents matching tags includes any in tags field
   const matchingDocuments = await Document.find({
     userId: new mongoose.Types.ObjectId(userId),
