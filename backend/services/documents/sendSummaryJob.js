@@ -9,12 +9,18 @@ AWS.config.update({
 
 const sqs = new AWS.SQS();
 
-export const sendSummaryJob = async (document_id, content, access_token) => {
+export const sendSummaryJob = async (
+  document_id,
+  content,
+  tags,
+  access_token
+) => {
   const event = "fetchGPT";
   const params = {
     MessageBody: JSON.stringify({
       document_id,
       content,
+      tags,
       access_token,
       event,
     }),

@@ -2,7 +2,12 @@ import { checkAPI, updateDocument } from "./updateDocument.js";
 import { JSDOM } from "jsdom";
 import { fetchGPT } from "./fetchGPT.js";
 
-export async function summarizeContent(document_id, content, access_token) {
+export async function summarizeContent(
+  document_id,
+  content,
+  tags,
+  access_token
+) {
   // Define the helper functions
   const stripHTMLTags = (html) => {
     const dom = new JSDOM(html);
@@ -68,17 +73,22 @@ export async function summarizeContent(document_id, content, access_token) {
   const summaries = await Promise.all(summaryPromises);
   const combinedSummary = summaries.join(" ");
 
-  const tagsPrompt = `Please follow the steps below to generate relevant tags for the given summary:
+  const tagsPrompt = `Based on the given summary and existing tags, generate additional relevant tags:
 
-  1. Detect the language of the summary and remember it for the following steps.
+  Instructions:
+  1. Detect the language of the summary.
   2. Identify the main topics, themes, or subjects discussed in the summary. Avoid generating tags that are too specific or detailed.
-  3. Combine similar tags into a single, more general tag when appropriate.
-  4. Prioritize the tags based on their relevance and representation of the summary's content.
-  5. It is crucial to generate tags in the detected language from step 1. Ensure that the generated tags are in the original language of the summary.
+  3. Review the existing tags: ${tags.join(", ")}
+  4. Generate additional tags that align with the themes or topics represented by the existing tags.
+  5. Combine similar tags into a single, more general tag when appropriate.
+  6. Prioritize the tags based on their relevance to the summary's content.
+  7. Ensure that the generated tags are in the same language as the summary.
 
   Summary: ${combinedSummary}
 
-  Tags:`;
+  Existing Tags: ${tags.join(", ")}
+
+  New Tags:`;
 
   const tagsResponse = await fetchGPT(tagsPrompt, access_token);
 
