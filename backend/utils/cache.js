@@ -1,9 +1,9 @@
 import { createClient } from "redis";
-import rateLimit from "express-rate-limit";
-import RedisStore from "rate-limit-redis";
 
 const isProduction = process.env.NODE_ENV === "production";
-const redisHost = isProduction ? process.env.AWS_ELASTIC_CACHE : "localhost";
+const redisHost = isProduction
+  ? process.env.AWS_ELASTIC_CACHE
+  : "localhost:6379";
 const expireTime = 86400;
 
 let client = null;
@@ -12,7 +12,7 @@ const createRedisClient = async () => {
   if (client) return client;
 
   client = createClient({
-    url: `redis://${redisHost}:6379`,
+    url: `redis://${redisHost}`,
   });
 
   client.on("error", (err) => {

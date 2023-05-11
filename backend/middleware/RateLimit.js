@@ -10,7 +10,7 @@ export const createRateLimiter = async (req, res, next) => {
 
   if (existing) {
     const count = JSON.parse(existing);
-    console.log({ count,ip });
+    console.log({ count, ip });
 
     if (count >= maximun_requests) {
       // exceed limit
