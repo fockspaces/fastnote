@@ -74,6 +74,7 @@ export const verifyUser = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization)
     return res.status(400).json({ error: "please provide access_token" });
+
   const token = authorization.split(" ")[1];
 
   try {

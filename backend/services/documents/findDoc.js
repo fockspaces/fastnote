@@ -5,21 +5,33 @@ import cache from "../../utils/cache.js";
 // @@@ params document_id <Object_id>
 // @@@ return document <Object>
 export const findDoc = async (document_id, useCache) => {
-  // for only userId needed
   const cacheKey = `document:${document_id}:userId`;
+
   if (useCache) {
-    const cachedUserId = await cache.get(cacheKey);
-    if (cachedUserId) return { userId: cachedUserId };
+    const cachedDocument = await getDocumentFromCache(cacheKey);
+    if (cachedDocument) {
+      return cachedDocument;
+    }
   }
 
+  const document = await getDocumentFromDB(document_id, cacheKey);
+  return document;
+};
+
+const getDocumentFromCache = async (cacheKey) => {
+  const cachedUserId = await cache.get(cacheKey);
+  return cachedUserId ? { userId: cachedUserId } : null;
+};
+
+const getDocumentFromDB = async (document_id, cacheKey) => {
   const document = await Document.findById(document_id).populate({
     path: "paragraphs",
     options: { sort: { updatedAt: -1 } },
   });
 
-  if (useCache && document) {
+  if (document) {
     await cache.set(cacheKey, document.userId, { EX: 86400 });
   }
-  
+
   return document;
 };

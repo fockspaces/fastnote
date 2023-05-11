@@ -11,6 +11,7 @@ import {
   updateTagName,
 } from "../controllers/documents.js";
 import { catchAsync } from "../utils/errorHandling.js";
+import { validateObjectId } from "../middleware/validateObjectId.js";
 
 const document = express.Router();
 
@@ -20,10 +21,13 @@ document
   .get(catchAsync(getAllDocuments))
   .post(catchAsync(createDocument));
 
-// TODO: 把這兩行接在一起
-document.route("/tags").get(catchAsync(getAllTags));
-document.route("/tags").patch(catchAsync(updateTagName));
+document
+  .route("/tags")
+  .get(catchAsync(getAllTags))
+  .patch(catchAsync(updateTagName));
 
+  
+document.use(validateObjectId);
 document
   .route("/:document_id")
   .get(catchAsync(getDocumentDetail))
