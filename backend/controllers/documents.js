@@ -24,6 +24,7 @@ export const getAllDocuments = async (req, res) => {
 // -----------------------------------------------------
 export const getDocumentDetail = async (req, res) => {
   const { document_id } = req.params;
+  console.log(req.params);
 
   const document = await findDoc(document_id);
   if (!document) {

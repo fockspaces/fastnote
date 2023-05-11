@@ -14,7 +14,9 @@ function DocumentListItem({
   setTagging,
   setIsDraggingDocument,
 }) {
-  const [title, setTitle] = useState(document.paragraphs[0].title);
+  const [title, setTitle] = useState(
+    document.paragraphs[0] ? document.paragraphs[0].title : "new note"
+  );
   const [currentDocument, setCurrentDocument] = useState(document);
   const [isComposing, setIsComposing] = useState(false);
 

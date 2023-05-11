@@ -26,14 +26,15 @@ document
   .get(catchAsync(getAllTags))
   .patch(catchAsync(updateTagName));
 
-  
-document.use(validateObjectId);
 document
   .route("/:document_id")
+  .all(validateObjectId)
   .get(catchAsync(getDocumentDetail))
   .post(catchAsync(updateDocument))
   .delete(catchAsync(deleteDocument));
 
-document.route("/:document_id/summary").post(catchAsync(summarizeDocument));
+document
+  .route("/:document_id/summary")
+  .post(validateObjectId, catchAsync(summarizeDocument));
 
 export default document;

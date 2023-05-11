@@ -18,17 +18,13 @@ const TitleList = ({ documents }) => {
           }}
           className="title-link"
         >
-          {document.paragraphs[0].title}
+          {document.paragraphs[0] ? document.paragraphs[0].title : "new note"}
         </a>
       </div>
     );
   });
 
-  return (
-    <div className="title-list-container">
-      {renderList}
-    </div>
-  );
+  return <div className="title-list-container">{renderList}</div>;
 };
 
 export default TitleList;
