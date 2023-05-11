@@ -2,12 +2,14 @@ import { CgMenuBoxed } from "react-icons/cg";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoBarcodeOutline } from "react-icons/io5";
 import { FiInfo } from "react-icons/fi";
+import { FaTrash } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SummarizeModal from "../../List/utils/SummarizeModal";
+import { deleteDocument } from "../../../../api/documents/deleteDocument";
 
 const Return = () => {
   const navigate = useNavigate();
@@ -103,13 +105,36 @@ const Info = ({ setShowInfoModal }) => {
   );
 };
 
-const MenuButtons = ({ setShowModal, setShowInfoModal }) => {
+// TODO: add functions here
+const Trash = ({ document_id }) => {
+  const handleDelete = async () => {
+    await deleteDocument(document_id);
+  };
+  return (
+    <OverlayTrigger
+      placement="right"
+      overlay={<Tooltip id="menu-tooltip">{"Remove"}</Tooltip>}
+    >
+      <Button
+        className="menu-button"
+        variant=""
+        size="md"
+        onClick={handleDelete}
+      >
+        <FaTrash size={40} />
+      </Button>
+    </OverlayTrigger>
+  );
+};
+
+const MenuButtons = ({ setShowModal, setShowInfoModal, document }) => {
   return (
     <div className="floating-buttons">
       <Return />
       <Menu setShowModal={setShowModal} />
       <Info setShowInfoModal={setShowInfoModal} />
       <Summarize />
+      <Trash document_id={document._id} />
     </div>
   );
 };

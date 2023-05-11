@@ -77,10 +77,8 @@ export const verifyUser = async (req, res, next) => {
   const token = authorization.split(" ")[1];
 
   try {
-    console.log({ token });
     // Verify the token
     const user = verify(token);
-    console.log({ user });
 
     // Attach user object to the request for further use
     req.user = user;

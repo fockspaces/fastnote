@@ -1,4 +1,6 @@
 import { createClient } from "redis";
+import rateLimit from "express-rate-limit";
+import RedisStore from "rate-limit-redis";
 
 const isProduction = process.env.NODE_ENV === "production";
 const redisHost = isProduction ? process.env.AWS_ELASTIC_CACHE : "localhost";
@@ -41,13 +43,13 @@ const set = async (key, value, options = {}) => {
   }
 };
 
-const get = async (key) => {
+const get = async (key, notRefresh) => {
   try {
     const client = await createRedisClient();
     if (!client) return null;
 
     const value = await client.get(key);
-    if (value) {
+    if (value && !notRefresh) {
       await client.expire(key, expireTime);
     }
     return value ? JSON.parse(value) : null;

@@ -88,25 +88,7 @@ function DocumentListItem({
           </OverlayTrigger>
           <Card.Body className="h-full flex flex-col">
             <Card.Title className="text-md font-bold mb-2">
-              <div
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <input
-                  onChange={(e) => setTitle(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !isComposing) {
-                      e.target.blur(); // remove focus
-                    }
-                  }}
-                  className={isComposing ? "editing" : ""}
-                  onBlur={handleTitleUpdate}
-                  onCompositionStart={() => setIsComposing(true)}
-                  onCompositionEnd={() => setIsComposing(false)}
-                  value={title}
-                />
-              </div>
+              <div className="title-text">{title}</div>
               <div className="document-meta d-flex align-items-center justify-content-between">
                 <div className="document-date">
                   {new Date(document.createdAt).toLocaleDateString("en-GB", {

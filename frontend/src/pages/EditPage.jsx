@@ -19,7 +19,6 @@ const EditPage = () => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  console.log(currentDoc);
 
   const { document_id } = useParams();
   const toggleModal = () => {
@@ -130,6 +129,7 @@ const EditPage = () => {
             setCurrentDoc={setCurrentDoc}
             setShowModal={setShowModal}
             setShowInfoModal={setShowInfoModal}
+            document={currentDoc}
           />
         )}
       </div>

@@ -28,17 +28,13 @@
       .card-title {
         border-bottom: 1px solid #ccc;
         padding-bottom: 0.5rem;
-        input {
+        .title-text {
+          display: -webkit-box;
+          -webkit-line-clamp: 2; // Set the number of lines you want to display
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
           width: 80%;
-          font-size: 1.5rem;
-          margin-bottom: 0.5rem;
-          border: none;
-          outline: none;
-          color: #333;
-          &:focus,
-          &.editing {
-            border: 1px solid #333;
-          }
         }
 
         .document-date {
@@ -115,4 +111,3 @@
   color: #aaa;
   font-size: 0.9em;
 }
-
