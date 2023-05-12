@@ -5,3 +5,4 @@ export const corsOptions = {
   origin: ["http://localhost:3000", process.env.CLIENT_HOST],
   optionsSuccessStatus: 200,
 };
+export const CACHE_EXPIRATION_TIME = 86400;
