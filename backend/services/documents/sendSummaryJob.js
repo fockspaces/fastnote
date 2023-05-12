@@ -9,6 +9,7 @@ AWS.config.update({
 
 const sqs = new AWS.SQS();
 
+// --------------------------------------------------------------------------
 export const sendSummaryJob = async (
   document_id,
   content,
@@ -24,7 +25,7 @@ export const sendSummaryJob = async (
       access_token,
       event,
     }),
-    QueueUrl: process.env.AWS_SQS_URL, // Replace with your SQS Queue URL
+    QueueUrl: process.env.AWS_SQS_URL,
   };
 
   try {

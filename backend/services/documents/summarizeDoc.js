@@ -1,44 +1,50 @@
 import { JSDOM } from "jsdom";
-import { fetchGPT } from "../../utils/fetchGPT.js";
 import { findDoc } from "./findDoc.js";
-import { updateDoc } from "./updateDoc.js";
 import Paragraph from "../../models/Paragraph.js";
 import { sendSummaryJob } from "./sendSummaryJob.js";
 
-const stripHTMLTags = (html) => {
-  const dom = new JSDOM(html);
-  return dom.window.document.body.textContent;
+// --------------------------------------------------------------------------
+export const summarizeDoc = async (document_id, access_token) => {
+  try {
+    const document = await findDoc(document_id);
+    // preparing parameters
+    const updatedParagraphs = document.paragraphs.filter(
+      (paragraph) => paragraph.isUpdated
+    );
+    const content = updatedParagraphs
+      .map((paragraph) => stripHTMLTags(paragraph.content))
+      .join(" ");
+
+    // if content is too short, don't do summarize.
+    if (content.length < 100) return false;
+    const tags = document.tags;
+
+    // store job {document_id, content, access_token} into SQS
+    await sendSummaryJob(document_id, content, tags, access_token);
+
+    // Update the isUpdated field of the updatedParagraphs to false
+    await updateParagraphsIsUpdated(updatedParagraphs, false);
+
+    return true;
+  } catch (e) {
+    console.error("Error in summarizeDoc:", error);
+    return false;
+  }
 };
 
-export const summarizeDoc = async (document_id, access_token) => {
-  const document = await findDoc(document_id);
-  // preparing parameters
-  const updatedParagraphs = document.paragraphs.filter(
-    (paragraph) => paragraph.isUpdated
-  );
-  const content = updatedParagraphs
-    .map((paragraph) => stripHTMLTags(paragraph.content))
-    .join(" ");
-
-  // if content is too short, don't do summarize.
-  if (content.length < 100) return false;
-  const tags = document.tags;
-  console.log({ content });
-  // store job {document_id, content, access_token} into SQS
-  await sendSummaryJob(document_id, content, tags, access_token);
-
-  // Update the isUpdated field of the updatedParagraphs to false
+// --------------------------------------------------------------------------
+const updateParagraphsIsUpdated = async (updatedParagraphs, isUpdated) => {
   const updatedParagraphIds = updatedParagraphs.map(
     (paragraph) => paragraph._id
   );
-  await updateParagraphsIsUpdated(updatedParagraphIds, false);
-
-  return true;
-};
-
-const updateParagraphsIsUpdated = async (paragraphIds, isUpdated) => {
   await Paragraph.updateMany(
-    { _id: { $in: paragraphIds } },
+    { _id: { $in: updatedParagraphIds } },
     { $set: { isUpdated: isUpdated } }
   );
+};
+
+// --------------------------------------------------------------------------
+const stripHTMLTags = (html) => {
+  const dom = new JSDOM(html);
+  return dom.window.document.body.textContent;
 };

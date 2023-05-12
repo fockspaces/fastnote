@@ -2,43 +2,39 @@ import Paragraph from "../../models/Paragraph.js";
 import Document from "../../models/Document.js";
 import cache from "../../utils/cache.js";
 
-// @desc: update document with event
+// --------------------------------------------------------------------------
 // @params: event <String>, updateData <Object>,
 // document_id <Object_id>, paragraph_id <Object_id>
 // @return: newDocument <Object> / newParagraph <Object>
+// @desc: update document with event
 export const updateDoc = async (event, updateData, document_id) => {
   const { paragraph_id } = updateData;
-  if (event === "update_paragraph") {
-    const newParagraph = await updatePargraph(updateData, paragraph_id);
-    await Document.findByIdAndUpdate(
-      document_id,
-      { updatedAt: Date.now() } // Update updatedAt timestamp
-    );
-    return newParagraph;
+  let result;
+
+  switch (event) {
+    case "update_paragraph":
+      result = await updatePargraph(updateData, paragraph_id);
+      break;
+
+    case "insert_paragraph":
+      result = await insertNewParagraph(updateData, document_id);
+      break;
+
+    case "delete_paragraph":
+      result = await deleteParagraph(paragraph_id, document_id);
+      break;
+
+    default:
+      result = await updatePartials(updateData, document_id);
+      break;
   }
 
-  if (event === "insert_paragraph") {
-    const newDocument = await insertNewParagraph(updateData, document_id);
-    await Document.findByIdAndUpdate(
-      document_id,
-      { updatedAt: Date.now() } // Update updatedAt timestamp
-    );
-    return newDocument;
-  }
-
-  if (event === "delete_paragraph") {
-    const deletedParagrpah = await deleteParagraph(paragraph_id, document_id);
-    await Document.findByIdAndUpdate(
-      document_id,
-      { updatedAt: Date.now() } // Update updatedAt timestamp
-    );
-    return deletedParagrpah;
-  }
-
-  const newDocument = await updatePartials(updateData, document_id);
-  return newDocument;
+  // Update updatedAt timestamp
+  await Document.findByIdAndUpdate(document_id, { updatedAt: Date.now() });
+  return result;
 };
 
+// --------------------------------------------------------------------------
 const updatePartials = async (updateData, document_id) => {
   const newDocument = await Document.findByIdAndUpdate(
     document_id,
@@ -51,6 +47,7 @@ const updatePartials = async (updateData, document_id) => {
   return newDocument;
 };
 
+// --------------------------------------------------------------------------
 const updatePargraph = async (updateData, paragraph_id) => {
   const newParagraph = await Paragraph.findByIdAndUpdate(
     paragraph_id,
@@ -62,6 +59,7 @@ const updatePargraph = async (updateData, paragraph_id) => {
   return newParagraph;
 };
 
+// --------------------------------------------------------------------------
 const insertNewParagraph = async (updateData, document_id) => {
   const newParagraph = new Paragraph({ ...updateData, document_id });
   await newParagraph.save();
@@ -74,6 +72,7 @@ const insertNewParagraph = async (updateData, document_id) => {
   return newParagraph;
 };
 
+// --------------------------------------------------------------------------
 const deleteParagraph = async (paragraph_id, document_id) => {
   const deletedParagrpah = await Paragraph.deleteOne({ _id: paragraph_id });
   await Document.findByIdAndUpdate(
