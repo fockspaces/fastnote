@@ -23,7 +23,6 @@ app.use(verifyUser);
 app.post("/api/summary", rateLimiter, async (req, res) => {
   const { prompt } = req.body;
   const data = await fetchGPT(prompt);
-  console.log({ data });
   return res.status(200).json({ data });
 });
 

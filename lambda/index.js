@@ -8,6 +8,7 @@ export async function handler(event) {
 
   // Parse the message body (assuming it's a JSON string)
   const message = JSON.parse(record.body);
+  console.log(`Entire message: ${JSON.stringify(message)}`);
 
   // (monitor) check event from express server
   const data = await checkAPI(message.event);
@@ -18,7 +19,7 @@ export async function handler(event) {
   // go to fetchGPT and store the result back to SQS
   if (message.event === "fetchGPT") {
     const { document_id, content, tags, access_token } = message;
-    result = await summarizeContent(document_id, content, tags, access_token);
+    result = await summarizeContent(content, tags, access_token);
     const { combinedSummary, finalTags } = result;
     const newMessage = {
       event: "updateServer",
