@@ -11,20 +11,20 @@ function NoteList({
   selectedNote,
   toggleModal,
 }) {
-  
   const filterNotesByDate = (minDays, maxDays) => {
     const now = new Date();
     // Set the time part of the date object to 0 to only compare the date part
     now.setHours(0, 0, 0, 0);
-  
+
     return notes.filter((note) => {
+      if (!note) return false;
       const updatedAt = new Date(note.updatedAt);
       updatedAt.setHours(0, 0, 0, 0);
       const daysDifference = (now - updatedAt) / (1000 * 60 * 60 * 24);
       return daysDifference >= minDays && daysDifference < maxDays;
     });
   };
-  
+
   const renderNotesByDate = (minDays, maxDays, title) => {
     const filteredNotes = filterNotesByDate(minDays, maxDays);
     if (filteredNotes.length === 0) {

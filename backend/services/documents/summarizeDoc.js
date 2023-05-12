@@ -10,26 +10,6 @@ const stripHTMLTags = (html) => {
   return dom.window.document.body.textContent;
 };
 
-const chunkText = (text, maxLength) => {
-  const words = text.split(" ");
-  const chunks = [];
-
-  let currentChunk = "";
-  for (const word of words) {
-    if ((currentChunk + word).length > maxLength) {
-      chunks.push(currentChunk.trim());
-      currentChunk = "";
-    }
-    currentChunk += word + " ";
-  }
-
-  if (currentChunk.trim()) {
-    chunks.push(currentChunk.trim());
-  }
-
-  return chunks;
-};
-
 export const summarizeDoc = async (document_id, access_token) => {
   const document = await findDoc(document_id);
   // preparing parameters
@@ -43,8 +23,8 @@ export const summarizeDoc = async (document_id, access_token) => {
   // if content is too short, don't do summarize.
   if (content.length < 100) return false;
   const tags = document.tags;
-
-  // todo : call the api gateway to store job {document_id, content, access_token} into SQS
+  console.log({ content });
+  // store job {document_id, content, access_token} into SQS
   await sendSummaryJob(document_id, content, tags, access_token);
 
   // Update the isUpdated field of the updatedParagraphs to false

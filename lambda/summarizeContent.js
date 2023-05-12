@@ -1,19 +1,7 @@
-import { checkAPI, updateDocument } from "./updateDocument.js";
-import { JSDOM } from "jsdom";
 import { fetchGPT } from "./fetchGPT.js";
 
-export async function summarizeContent(
-  document_id,
-  content,
-  tags,
-  access_token
-) {
+export async function summarizeContent(content, tags = [], access_token) {
   // Define the helper functions
-  const stripHTMLTags = (html) => {
-    const dom = new JSDOM(html);
-    return dom.window.document.body.textContent;
-  };
-
   const chunkText = (text, maxLength) => {
     const words = text.split(" ");
     const chunks = [];
@@ -42,15 +30,14 @@ export async function summarizeContent(
   };
 
   // Main Lambda Function Logic
-  const plainText = stripHTMLTags(content);
-  if (plainText.length < 100) {
+  if (content < 100) {
     return {
       statusCode: 400,
       body: "Content length is less than 100 characters.",
     };
   }
 
-  const chunks = chunkText(plainText, 2000);
+  const chunks = chunkText(content, 2000);
   const summaryPromises = chunks.map(async (chunk) => {
     const prompt = `First, identify the language of the text provided below:
   ${chunk}
@@ -78,7 +65,7 @@ export async function summarizeContent(
   Instructions:
   1. Detect the language of the summary.
   2. Identify the main topics, themes, or subjects discussed in the summary. Avoid generating tags that are too specific or detailed.
-  3. Review the existing tags: ${tags.join(", ")}
+  3. Review the existing tags: ${tags.length ? tags.join(", ") : ""}
   4. Generate additional tags that align with the themes or topics represented by the existing tags.
   5. Combine similar tags into a single, more general tag when appropriate.
   6. Prioritize the tags based on their relevance to the summary's content.
@@ -86,7 +73,7 @@ export async function summarizeContent(
 
   Summary: ${combinedSummary}
 
-  Existing Tags: ${tags.join(", ")}
+  Existing Tags: ${tags.length ? tags.join(", ") : ""}
 
   New Tags:`;
 
