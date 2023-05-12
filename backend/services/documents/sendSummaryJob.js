@@ -28,7 +28,6 @@ export const sendSummaryJob = async (
     QueueUrl: process.env.AWS_SQS_URL,
   };
   try {
-    console.log(params);
     const result = await sqs.sendMessage(params).promise();
     console.log("Message sent to SQS:", { result });
   } catch (error) {
