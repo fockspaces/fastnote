@@ -1,11 +1,24 @@
+# Environment variables
 .env
-node_modules
-uploads
-test
-infrastructure
-public
 
+# Dependency directories
+node_modules/
+
+# Coverage directories
+coverage/
+
+# Infrastructure directories
+infrastructure/
+
+# Public directories
+public/
+
+# Specific files
 test.js
 lambda_function.zip
 
+# OS generated files
 .DS_Store
+
+# Upload directories
+uploads/

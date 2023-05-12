@@ -15,7 +15,6 @@
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
     .logo {
       margin: 5px;
       height: 40px; // Adjust this value according to your preferred size
@@ -26,12 +25,13 @@
       a,
       .nav-button {
         transition: color 0.3s ease;
-        margin-left: 1rem;
+        margin-left: 2rem;
         text-decoration: none;
         color: #333;
         background: none;
         border: none;
         cursor: pointer;
+
       }
 
       a:hover,

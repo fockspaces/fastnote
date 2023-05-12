@@ -1,6 +1,8 @@
 import { google } from "googleapis";
 const { OAuth2 } = google.auth;
 import { verify } from "../utils/jwt.js";
+import User from "../models/User.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const verifyGoogle = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -89,4 +91,24 @@ export const verifyUser = async (req, res, next) => {
     console.log({ err });
     res.status(401).json({ message: "Authorization denied, invalid token" });
   }
+};
+
+export const signupAsGuest = async (req, res, next) => {
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const uniqueIdentifier = uuidv4();
+  const guestEmail = `${ip}-${uniqueIdentifier}@guest.com`;
+
+  let user = await User.findOne({ email: guestEmail });
+
+  if (!user) {
+    user = new User({
+      email: guestEmail,
+      name: `Guest ${ip}-${uniqueIdentifier}`,
+    });
+
+    await user.save();
+  }
+
+  req.user = user; // Pass user to the next middleware function
+  next();
 };

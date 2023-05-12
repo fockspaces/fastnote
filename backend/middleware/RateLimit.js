@@ -5,7 +5,7 @@ export const createRateLimiter = async (req, res, next) => {
   const ip = req.ip;
   const key = `ratelimiter:${ip}`;
   const existing = await cache.get(key, true);
-  const maximun_requests = 60;
+  const maximun_requests = 1000;
   const time_window = 60;
 
   if (existing === false) {

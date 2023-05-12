@@ -6,6 +6,8 @@ import { authGoogle } from "../api/authGoogle";
 import Logo from "../components/Logo";
 import { Button } from "react-bootstrap";
 import { src } from "../utils/srcLink";
+import { login } from "../api/login";
+import ConfirmModal from "../components/ListPage/utils/ConfirmModal";
 
 const initNote = localStorage.getItem("note");
 const IntroductionPage = () => {
@@ -13,13 +15,23 @@ const IntroductionPage = () => {
   const initNoteObj = initNote ? JSON.parse(initNote) : { _id: 1, content: "" };
   const [note, setNote] = useState(initNoteObj);
   const [content, setContent] = useState(initNoteObj.content);
+  const [showModal, setShowModal] = useState(false);
+
+  const message = {
+    title: "Warning",
+    body: "Your data will not be stored in guest mode. If you wish to retain your data, please consider logging in.",
+    confirm: "Continue as Guest",
+  };
 
   useEffect(() => {
     const updatedNote = { ...note, content: content };
     localStorage.setItem("note", JSON.stringify(updatedNote));
   }, [content]);
 
-  // console.log({ note, content });
+  const confirmLogin = async () => {
+    if (user) return (window.location.href = "/documents");
+    await login("", "guest");
+  };
 
   // Add this function at the beginning of your IntroductionPage component
   const handleAnchorClick = (event) => {
@@ -60,16 +72,15 @@ const IntroductionPage = () => {
         <div className="hero-content">
           <h2>Introducing Note App</h2>
           <p>The best note-taking app for all your needs.</p>
-          <Button
+          {!user && <Button
             variant="outline-dark"
             className="cta-btn"
             onClick={() => {
-              if (user) return (window.location.href = "/documents");
-              googleLogin();
+              setShowModal(true);
             }}
           >
-            Try it now
-          </Button>
+            Continue as Guest
+          </Button>}
         </div>
         <img src={src.cover} alt="Note-taking app" />
       </section>
@@ -103,6 +114,12 @@ const IntroductionPage = () => {
       <footer className="footer">
         <p>&copy; {new Date().getFullYear()} Note App. All rights reserved.</p>
       </footer>
+      <ConfirmModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        handleConfirmDelete={confirmLogin}
+        message={message}
+      />
     </div>
   );
 };

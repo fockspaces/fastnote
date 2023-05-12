@@ -164,7 +164,7 @@ function Menu({ menuOpen, setMenuOpen }) {
             </OverlayTrigger>
           </li>
         </ul>
-        {user && (
+        {user && user.picture && (
           <img src={user.picture} alt="Profile" className="profile-picture" />
         )}
       </nav>
