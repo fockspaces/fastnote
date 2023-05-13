@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SummarizeModal from "../../List/utils/SummarizeModal";
 import { deleteDocument } from "../../../../api/documents/deleteDocument";
+import { updateDoc } from "../../../../api/documents/updateDocument";
 
 const Return = () => {
   const navigate = useNavigate();
@@ -105,10 +106,12 @@ const Info = ({ setShowInfoModal }) => {
   );
 };
 
-// TODO: add functions here
 const Trash = ({ document_id }) => {
+  const navigate = useNavigate();
+
   const handleDelete = async () => {
-    await deleteDocument(document_id);
+    await updateDoc({ is_trash: true, document_id });
+    navigate("/documents");
   };
   return (
     <OverlayTrigger
