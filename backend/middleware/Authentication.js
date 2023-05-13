@@ -74,10 +74,12 @@ export const authUserWithGoogle = async (req, res) => {
 
 export const verifyUser = async (req, res, next) => {
   const { authorization } = req.headers;
+
   if (!authorization)
-    return res.status(400).json({ error: "please provide access_token" });
+    return res.status(401).json({ error: "No access_token provided" });
 
   const token = authorization.split(" ")[1];
+
   try {
     // Verify the token
     const user = verify(token);
@@ -89,7 +91,7 @@ export const verifyUser = async (req, res, next) => {
     next();
   } catch (err) {
     console.log({ err });
-    res.status(401).json({ message: "Authorization denied, invalid token" });
+    res.status(403).json({ message: "Authorization denied, invalid token" });
   }
 };
 

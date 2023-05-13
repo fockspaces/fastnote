@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Tiptap from "../components/EditPage/Editor/Tiptap";
 import "../styles/introduction-page.scss";
 import { useGoogleLogin } from "@react-oauth/google";
 import { authGoogle } from "../api/authGoogle";
@@ -57,13 +56,14 @@ const IntroductionPage = () => {
           <a href="#features" onClick={handleAnchorClick}>
             Features
           </a>
-          <a href="#try-it" onClick={handleAnchorClick}>
-            Playground
-          </a>
           {!user && (
-            <button className="nav-button" onClick={() => googleLogin()}>
+            <Button
+              variant="outline-dark"
+              className="nav-button"
+              onClick={googleLogin}
+            >
               Sign in
-            </button>
+            </Button>
           )}
         </nav>
       </header>
@@ -72,15 +72,17 @@ const IntroductionPage = () => {
         <div className="hero-content">
           <h2>Introducing Note App</h2>
           <p>The best note-taking app for all your needs.</p>
-          {!user && <Button
-            variant="outline-dark"
-            className="cta-btn"
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            Continue as Guest
-          </Button>}
+          {!user && (
+            <Button
+              variant="outline-dark"
+              className="cta-btn"
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              Continue as Guest
+            </Button>
+          )}
         </div>
         <img src={src.cover} alt="Note-taking app" />
       </section>
@@ -104,11 +106,6 @@ const IntroductionPage = () => {
             <p>Easily manage your thoughts</p>
           </div>
         </div>
-      </section>
-
-      <section className="try-it" id="try-it">
-        <h2>Try It Now</h2>
-        <Tiptap note={note} setContent={setContent} />
       </section>
 
       <footer className="footer">

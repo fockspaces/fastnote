@@ -23,7 +23,7 @@ const ListModal = ({
       className="list-modal" // Add the new CSS class
     >
       <Modal.Header closeButton>
-        {/* <Modal.Title>Notes</Modal.Title> */}
+        <Modal.Title>Notes</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <List

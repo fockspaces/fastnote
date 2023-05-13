@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "NODE_ENV=test jest",
     "start": "nodemon app.js",
     "GPT": "nodemon GPTServer.js"
   },

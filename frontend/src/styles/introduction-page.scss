@@ -31,7 +31,6 @@
         background: none;
         border: none;
         cursor: pointer;
-
       }
 
       a:hover,
@@ -42,6 +41,7 @@
   }
 
   .hero {
+    height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,6 +53,8 @@
       text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
     }
     .hero-content {
+      margin-bottom: 80px;
+
       h2 {
         font-size: 2rem;
         font-weight: 700;
@@ -68,6 +70,7 @@
     }
 
     img {
+      margin-bottom: 80px;
       max-width: 40%;
     }
   }
