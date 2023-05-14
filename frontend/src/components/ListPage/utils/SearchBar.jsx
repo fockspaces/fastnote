@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Form, FormControl } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 
-function SearchBar({ setKeyword, setTagging }) {
+function SearchBar({ setKeyword, setTagging, placeholder }) {
   const [search, setSearch] = useState("");
 
   const searchText = () => {
@@ -27,7 +27,7 @@ function SearchBar({ setKeyword, setTagging }) {
         <div className="search-input-container">
           <FormControl
             type="text"
-            placeholder="Search for notes..."
+            placeholder={placeholder ? placeholder : "Search for notes..."}
             className="mr-sm-2 search-input"
             value={search}
             onChange={(e) => setSearch(e.target.value)}

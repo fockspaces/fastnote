@@ -4,7 +4,7 @@ import ListContainer from "../components/ListPage/Document/ListContainer";
 
 function ListPage() {
   return (
-    <div className="list-page p-4 flex flex-col gap-4">
+    <div className="list-page p-4 flex flex-col ">
       <ListContainer query={"is_trash=false"} />
     </div>
   );

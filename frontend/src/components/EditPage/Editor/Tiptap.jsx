@@ -80,6 +80,18 @@ const Tiptap = ({ note, setContent }) => {
       const fromPos = $from.start();
       const toPos = $to.end();
       const textNode = $from.parent.textContent;
+      console.log(textNode.length );
+      // If no text is selected
+      if (textNode.length === 0) {
+        // Insert space and select it
+        const tr = editor.state.tr;
+        tr.insertText(" ", fromPos, toPos);
+        tr.setSelection(
+          selection.constructor.create(tr.doc, fromPos, fromPos + 1)
+        );
+        editor.view.dispatch(tr);
+        return;
+      }
 
       const startOffset = textNode.slice(0, $from.parentOffset).search(regex);
       const endOffset = textNode.slice($from.parentOffset).search(regex);

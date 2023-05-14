@@ -6,6 +6,7 @@ import TagModal from "./TagModal";
 import { updateTags } from "../../api/documents/updateTag";
 import TagsSelectionModal from "./TagsSelectionModal";
 import TagsDeletionModal from "./TagsDeletionModal";
+import SearchBar from "../ListPage/utils/SearchBar";
 
 const TagList = () => {
   const [tags, setTags] = useState([]);
@@ -14,6 +15,11 @@ const TagList = () => {
   const [showTagsSelectionModal, setShowTagsSelectionModal] = useState(false);
   const [showTagsDeleteModal, setShowTagsDeleteModal] = useState(false);
   const [modalKey, setModalKey] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+console.log(searchTerm);
+  const handleSearchTerm = (keyword) => {
+    setSearchTerm(keyword.slice(9));
+  };
 
   const handleUpdate = async (newTagName, selectedTags) => {
     console.log({ newTagName, selectedTags });
@@ -72,9 +78,11 @@ const TagList = () => {
 
     return groupedTags;
   };
-
   const renderTags = () => {
-    const groupedTags = groupTagsByPrefix(tags);
+    const filteredTags = tags.filter((tag) =>
+      new RegExp(searchTerm, "i").test(tag)
+    );
+    const groupedTags = groupTagsByPrefix(filteredTags);
 
     // Sort the prefixes (keys) alphabetically
     const sortedPrefixes = Object.keys(groupedTags).sort();
@@ -82,7 +90,7 @@ const TagList = () => {
       <div className="tags-container">
         {sortedPrefixes.map((prefix) => (
           <div key={prefix} className="tags-group">
-            <h3>{prefix}</h3>
+            <h2>{prefix}</h2>
             <ul>
               {groupedTags[prefix].map((tag) => (
                 <li
@@ -104,6 +112,8 @@ const TagList = () => {
   return (
     <div className="tags-list-page">
       <h1>Tags</h1>
+      <div className="tags-actions">
+      <SearchBar setKeyword={handleSearchTerm} setTagging={() => {}} placeholder={"search for tags..."} />
       <Button
         className="merge-tags-btn"
         variant="outline-dark mb-3 mr-3"
@@ -124,6 +134,7 @@ const TagList = () => {
       >
         Remove Tags
       </Button>
+    </div>
       <TagsSelectionModal
         showModal={showTagsSelectionModal}
         setShowModal={setShowTagsSelectionModal}

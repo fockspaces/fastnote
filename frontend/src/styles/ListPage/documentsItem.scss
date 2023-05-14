@@ -17,17 +17,21 @@
   .card {
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.1); // Add box-shadow here
     height: auto; // Allow the card to grow with the content
+    border-radius: 15px;
 
     .card-body {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      padding: 1rem;
 
       height: 100%;
 
       .card-title {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 1rem;
         .title-text {
           display: -webkit-box;
           -webkit-line-clamp: 2; // Set the number of lines you want to display
@@ -38,6 +42,7 @@
         }
 
         .document-date {
+          margin-top: 8px;
           font-size: 0.7em;
           color: #6c757d;
         }
@@ -76,7 +81,6 @@
 .favorite-icon {
   padding: 0.25rem;
   margin-right: 0.45rem;
-  font-size: 1.5rem; // Change the value to your desired size
 
   .bookmark-icon {
     position: absolute;
