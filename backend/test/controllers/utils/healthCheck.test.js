@@ -1,4 +1,4 @@
-import { healthCheck, lambdaHealthCheck } from "../../controllers/healthCheck";
+import { healthCheck, lambdaHealthCheck } from "../../../controllers/healthCheck";
 import httpMocks from "node-mocks-http";
 
 describe("Health Check Controller", () => {

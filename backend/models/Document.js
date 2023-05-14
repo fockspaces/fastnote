@@ -8,7 +8,7 @@ const documentSchema = new mongoose.Schema(
     is_favorite: { type: Boolean, default: false },
     is_trash: { type: Boolean, default: false },
     paragraphs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Paragraph" }],
-    tags: [{ type: String, default: ["default tag"] }],
+    tags: [{ type: String }],
   },
   { timestamps: true }
 );

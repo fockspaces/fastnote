@@ -9,6 +9,7 @@ import { healthCheck, lambdaHealthCheck } from "./controllers/healthCheck.js";
 import { createRateLimiter } from "./middleware/RateLimit.js";
 import { connectDB } from "./utils/database.js";
 import { corsOptions } from "./configs/Configs.js";
+import http from "http";
 
 dotenv.config();
 const app = express();
@@ -33,8 +34,11 @@ app.use(
 );
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, async () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, async () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
 
 export default app;
