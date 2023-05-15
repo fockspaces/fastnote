@@ -13,7 +13,7 @@ export const isObjectId = (id) => {
 export const isDocumentOwner = async (req_user, document_id) => {
   const user = await fetchUser(req_user);
   const document = await findDoc(document_id, true);
-  if (!document) throw Error("Document Not Found");
+  if (!document) return null;
 
   return user._id.equals(document.userId);
 };

@@ -6,6 +6,7 @@ import cache from "../../utils/cache.js";
 export const deleteDoc = async (document_id) => {
   // find Document by document_id
   const document = await findDoc(document_id);
+
   if (!document) return null;
 
   // delete related paragraphs

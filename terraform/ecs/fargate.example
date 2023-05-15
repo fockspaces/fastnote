@@ -1,0 +1,221 @@
+provider "aws" {
+  region = "ap-northeast-1"
+}
+
+data "aws_region" "current" {}
+
+locals {
+  app_name = "fastnote"
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 3.0"
+
+  name                 = local.app_name
+  cidr                 = "10.0.0.0/16"
+  azs                  = ["ap-northeast-1a", "ap-northeast-1c"]
+  private_subnets      = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets       = ["10.0.101.0/24", "10.0.102.0/24"]
+  enable_nat_gateway   = false
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
+}
+
+// ***************** ECS *****************
+resource "aws_ecs_cluster" "this" {
+  name = local.app_name
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  name = "/ecs/${local.app_name}"
+}
+
+
+resource "aws_ecs_task_definition" "this" {
+  family                   = local.app_name
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+
+  container_definitions = jsonencode([
+    {
+      name  = "fastnote"
+      image = "fockspace/fastnote:latest"
+
+      essential = true
+
+      environment = [
+        { name = "MONGODB_URI", value = "mongodb+srv://fockspace:a86gj3xu4c94@fastnote.juapdko.mongodb.net/fastnote" },
+        { name = "PORT", value = "8000" },
+        { name = "GOOGLE_CLIENT_ID", value = "312697816593-nk0co5aaq9asom6aoducevumu3q8p81n.apps.googleusercontent.com" },
+        { name = "JWT_SECRET", value = "fockspace_secret" },
+        { name = "AWS_BUCKET_NAME", value = "fastnote" },
+        { name = "AWS_BUCKET_REGION", value = "ap-northeast-1" },
+        { name = "AWS_ACCESS_KEY", value = "AKIA42N3F5E6LQV26DF5" },
+        { name = "AWS_SECRET_ACCESS_KEY", value = "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" },
+        { name = "GPT_ACCESS_KEY", value = "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" }
+      ]
+
+      portMappings = [
+        {
+          containerPort = 8000
+          hostPort      = 8000
+          protocol      = "tcp"
+        }
+      ]
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.this.name
+          "awslogs-region"        = data.aws_region.current.name
+          "awslogs-stream-prefix" = "ecs"
+        }
+      }
+
+    }
+  ])
+
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "ARM64"
+  }
+
+}
+
+resource "aws_security_group" "allow_outbound" {
+  name        = "allow_outbound"
+  description = "Allow outbound traffic and inbound traffic on ports 80 and 443"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8000 // Update this line
+    to_port     = 8000 // Update this line
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+
+resource "aws_ecs_service" "this" {
+  name            = local.app_name
+  cluster         = aws_ecs_cluster.this.id
+  task_definition = aws_ecs_task_definition.this.arn
+  launch_type     = "FARGATE"
+
+  desired_count = 1
+
+  network_configuration {
+    subnets          = module.vpc.public_subnets
+    security_groups  = [aws_security_group.allow_outbound.id]
+    assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.this.arn
+    container_name   = "fastnote"
+    container_port   = 8000
+  }
+}
+
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name = "ecsTaskExecutionRole"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  role       = aws_iam_role.ecs_task_execution_role.name
+}
+
+// ***************** ALB *****************
+resource "aws_lb" "this" {
+  name               = "${local.app_name}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.allow_outbound.id]
+  subnets            = module.vpc.public_subnets
+}
+
+resource "aws_lb_target_group" "this" {
+  name        = "fastnote-target-group"
+  port        = 8000 // Update this line
+  protocol    = "HTTP"
+  vpc_id      = module.vpc.vpc_id
+  target_type = "ip" // Add this line
+
+
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/api" # Update this to the correct health check path for your application
+    timeout             = 5
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
+}
+
+
+
+resource "aws_lb_listener" "this" {
+  load_balancer_arn = aws_lb.this.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.this.arn
+  }
+}
+
+
+
+resource "aws_route53_record" "www" {
+  name    = "www.${var.domain_name}"
+  type    = "CNAME"
+  zone_id = var.hosted_zone_id
+  ttl     = 300
+  records = [aws_lb.this.dns_name]
+}
+

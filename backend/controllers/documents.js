@@ -68,10 +68,14 @@ export const deleteDocument = async (req, res) => {
 
   // auth the user
   const isOwner = await isDocumentOwner(req.user, document_id);
+  if (isOwner === null)
+    return res.status(404).json({ error: "Document not found" });
+
   if (!isOwner)
     return res.status(403).json({ error: "forbidden (not the owner)" });
 
   const document = await deleteDoc(document_id);
+  console.log({ document });
   if (!document) return res.status(404).json({ error: "Document not found" });
 
   return res
