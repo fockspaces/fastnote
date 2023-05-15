@@ -4,7 +4,7 @@
 
 🔗 Website URL: https://www.fastnote.space/ 
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/9aa2eb3d-7d8a-4c9b-97b9-81a0c7b49fdf" alt="image" width="90%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/9aa2eb3d-7d8a-4c9b-97b9-81a0c7b49fdf" alt="image" width="100%" height="auto" />
 
 ## Table of Contents
 
