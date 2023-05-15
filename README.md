@@ -4,32 +4,53 @@
 
 🔗 Website URL: https://www.fastnote.space/ 
 
-![image](https://github.com/fockspaces/fastnote/assets/63909491/9aa2eb3d-7d8a-4c9b-97b9-81a0c7b49fdf)
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/9aa2eb3d-7d8a-4c9b-97b9-81a0c7b49fdf" alt="image" width="90%" height="auto" />
 
 ## Table of Contents
 
 ## Main Features
 
-## Backend Technique
+## Technique
 ### Infrastructure
-### Language
+- Docker
+- Terraform
+### Environment
+- Node.js / Express.js
 ### Database
-### Cloud Services
+- MongoDB Atlas
+- ElastiCache (Redis)
 ### Test
-
+- Jest, SuperTest
 ### Third Party Library
-### Others
-
-
-
-## Frontend Technique
+- OpenAI
+- Tiptap
+### Frontend
 - React (Hook)
 - Sass
 
-## Architecture
-![image](https://github.com/fockspaces/fastnote/assets/63909491/9946b399-1d52-46e7-aebd-731b4d1988f6)
 
+## Cloud Services (AWS)
+### Server
+- Elastic Load Balancer
+- Elastic Container Service (ECS)
+- Elastic Compute Cloud (EC2)
+- Fargate
+### Storage
+- Simple Storage Service (S3) 
+- CloudFront (CDN)
+### Message Broker
+- Simple Queue Service (SQS)
+- Lambda
+### DNS
+- Route 53
+
+## Architecture
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/9946b399-1d52-46e7-aebd-731b4d1988f6" alt="image" width="80%" height="auto" />
 
 ## API Doc
 
+## Testing
+
 ## Contact
+🧑🏻‍💻 Feng Ming, Chang
+✉️ a86gj3sp4@gmail.com
