@@ -7,6 +7,7 @@ import cache from "../../utils/cache.js";
 export const fetchUser = async (user) => {
   const cacheKey = `user:${user.email}`;
   const cachedUser = await cache.get(cacheKey);
+  console.log(cachedUser);
   if (cachedUser) {
     return new User(cachedUser);
   }

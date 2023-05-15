@@ -41,6 +41,7 @@ export const updateDocument = async (req, res) => {
   try {
     // auth the user
     const isOwner = await isDocumentOwner(req.user, document_id);
+    console.log({ isOwner });
     if (!isOwner)
       return res.status(403).json({ error: "forbidden (not the owner)" });
 

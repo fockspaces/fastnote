@@ -6,6 +6,7 @@ import { JWT_options } from "../../../configs/Configs.js";
 import Document from "../../../models/Document.js";
 import mongoose from "mongoose";
 import app from "../../../app.js";
+import Paragraph from "../../../models/Paragraph.js";
 
 let token;
 let testUser;
@@ -105,7 +106,11 @@ describe("POST /api/documents", () => {
 });
 
 afterAll(async () => {
-  // Clean up the database
-  await mongoose.connection.dropDatabase();
-  mongoose.connection.close();
+  // Remove all documents and collections individually
+  await User.deleteMany();
+  await Document.deleteMany();
+  await Paragraph.deleteMany();
+
+  // Close the database connection
+  await mongoose.connection.close();
 });
