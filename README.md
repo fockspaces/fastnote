@@ -10,6 +10,8 @@
 
 ## Main Features
 
+## Setup (Self-Hosting)
+
 ## Technique
 ### Infrastructure
 - Docker
