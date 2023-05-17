@@ -47,7 +47,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
-    background-color: #ffffff;
 
     .see-more-btn {
       cursor: pointer;
@@ -56,9 +55,12 @@
       left: 50%;
       transform: translateX(-50%);
       background: #fff;
-      padding: 10px 20px;
       z-index: 1;
       animation: scale 2s infinite;
+      border: 2px solid #333; // Added a border
+      border-radius: 50%; // Added a border radius
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); // Added a drop shadow for extra visibility
+      background-color: #000;
 
       &:hover {
         text-decoration: none;
@@ -251,9 +253,9 @@
 @keyframes scale {
   0%,
   100% {
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) scale(0.8);
   }
   50% {
-    transform: translateX(-50%) scale(1.1);
+    transform: translateX(-50%) scale(0.9);
   }
 }

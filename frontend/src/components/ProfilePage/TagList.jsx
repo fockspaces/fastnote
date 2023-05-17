@@ -111,7 +111,6 @@ console.log(searchTerm);
 
   return (
     <div className="tags-list-page">
-      <h1>Tags</h1>
       <div className="tags-actions">
       <SearchBar setKeyword={handleSearchTerm} setTagging={() => {}} placeholder={"search for tags..."} />
       <Button

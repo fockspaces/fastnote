@@ -14,6 +14,7 @@
   min-width: 200px;
   flex-shrink: 0; // Prevent left-sidebar from shrinking
   border-right: 5px solid #e0e0e0; // Added a light border
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.1); // Add shadow to give depth
 }
 
 .right-side-list {

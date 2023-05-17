@@ -126,7 +126,7 @@ const IntroductionPage = () => {
           onClick={handleAnchorClick}
           href="#features"
         >
-          <MdExpandMore size={50} />
+          <MdExpandMore size={50} color="white"/>
         </div>
         <img src={src.cover} alt="Note-taking app" />
       </section>

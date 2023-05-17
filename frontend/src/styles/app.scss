@@ -9,7 +9,6 @@ input {
   text-overflow: ellipsis;
 }
 
-
 .App {
   display: flex;
   height: 100vh;
@@ -19,7 +18,7 @@ input {
     margin-left: 70px;
     width: 100%;
     overflow-x: hidden; /* Add this line */
-    
+
     .homepage {
       height: 100vh;
     }
