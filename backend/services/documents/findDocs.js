@@ -66,10 +66,37 @@ const buildSearchPipeline = (keyword) => {
     {
       $search: {
         index: "default",
-        text: {
-          query: keyword,
-          path: "description",
+        compound: {
+          should: [
+            {
+              text: {
+                query: keyword,
+                path: "description",
+              },
+            },
+            {
+              autocomplete: {
+                query: keyword,
+                path: "tags",
+              },
+            },
+          ],
         },
+      },
+    },
+    {
+      $match: {
+        $or: [
+          {
+            description: {
+              $regex: `.*${keyword}.*`,
+              $options: "i",
+            },
+          },
+          {
+            tags: keyword,
+          },
+        ],
       },
     },
     // paragraphs search
@@ -79,10 +106,18 @@ const buildSearchPipeline = (keyword) => {
         pipeline: [
           {
             $search: {
-              index: "paragraph",
-              text: {
+              index: "token",
+              autocomplete: {
+                path: "plainText",
                 query: keyword,
-                path: "content",
+              },
+            },
+          },
+          {
+            $match: {
+              plainText: {
+                $regex: `.*${keyword}.*`,
+                $options: "i",
               },
             },
           },

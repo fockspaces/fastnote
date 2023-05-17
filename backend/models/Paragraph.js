@@ -9,6 +9,7 @@ const paragraphSchema = new mongoose.Schema(
     },
     title: { type: String, default: "paragraph" },
     content: { type: String },
+    plainText: { type: String },
     isUpdated: { type: Boolean, default: true },
   },
   { timestamps: true }

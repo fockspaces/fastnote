@@ -44,7 +44,7 @@ const updateParagraphsIsUpdated = async (updatedParagraphs, isUpdated) => {
 };
 
 // --------------------------------------------------------------------------
-const stripHTMLTags = (html) => {
+export const stripHTMLTags = (html) => {
   const dom = new JSDOM(html);
   return dom.window.document.body.textContent;
 };

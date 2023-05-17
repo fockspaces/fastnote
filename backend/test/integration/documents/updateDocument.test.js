@@ -57,52 +57,52 @@ beforeAll(async () => {
 });
 
 describe("POST /api/documents/:document_id", () => {
-  //   test("should return 200 and update the document when all required fields are provided", async () => {
-  //     const updatedData = {
-  //       event: "update_paragraph",
-  //       updateData: {
-  //         paragraph_id: testParagraph._id,
-  //         title: "updated_title",
-  //         content: "updated_content",
-  //       },
-  //     };
+  test("should return 200 and update the document when all required fields are provided", async () => {
+    const updatedData = {
+      event: "update_paragraph",
+      updateData: {
+        paragraph_id: testParagraph._id,
+        title: "updated_title",
+        content: "updated_content",
+      },
+    };
 
-  //     const response = await request(app)
-  //       .post(`/api/documents/${testDocument._id}`)
-  //       .set("Authorization", `Bearer ${token}`)
-  //       .send(updatedData);
-  //     expect(response.statusCode).toBe(200);
-  //     expect(response.body.message).toEqual("Updated successfully");
-  //     // Add more assertions for the updated document or paragraph
-  //   });
+    const response = await request(app)
+      .post(`/api/documents/${testDocument._id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedData);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.message).toEqual("Updated successfully");
+    // Add more assertions for the updated document or paragraph
+  });
 
-  //   test("should return 403 when a user tries to update a document they do not own", async () => {
-  //     const anotherUser = new User({
-  //       username: "anotheruser",
-  //       email: "anotheruser@example.com",
-  //       name: "Another User",
-  //     });
-  //     await anotherUser.save();
+  test("should return 403 when a user tries to update a document they do not own", async () => {
+    const anotherUser = new User({
+      username: "anotheruser",
+      email: "anotheruser@example.com",
+      name: "Another User",
+    });
+    await anotherUser.save();
 
-  //     const anotherToken = sign(anotherUser.toObject(), JWT_options);
+    const anotherToken = sign(anotherUser.toObject(), JWT_options);
 
-  //     const updatedData = {
-  //       event: "update_paragraph",
-  //       updateData: {
-  //         paragraph_id: testParagraph._id,
-  //         title: "updated_title",
-  //         content: "updated_content",
-  //       },
-  //     };
+    const updatedData = {
+      event: "update_paragraph",
+      updateData: {
+        paragraph_id: testParagraph._id,
+        title: "updated_title",
+        content: "updated_content",
+      },
+    };
 
-  //     const response = await request(app)
-  //       .post(`/api/documents/${testDocument._id}`)
-  //       .set("Authorization", `Bearer ${anotherToken}`)
-  //       .send(updatedData);
+    const response = await request(app)
+      .post(`/api/documents/${testDocument._id}`)
+      .set("Authorization", `Bearer ${anotherToken}`)
+      .send(updatedData);
 
-  //     expect(response.statusCode).toBe(403);
-  //     // Add more assertions for the error message or other properties as needed
-  //   });
+    expect(response.statusCode).toBe(403);
+    // Add more assertions for the error message or other properties as needed
+  });
 
   test("should return 401/403 when no JWT token is provided", async () => {
     const updatedData = {
@@ -124,11 +124,8 @@ describe("POST /api/documents/:document_id", () => {
 });
 
 afterAll(async () => {
-  // Remove all documents and collections individually
   await User.deleteMany();
   await Document.deleteMany();
   await Paragraph.deleteMany();
-
-  // Close the database connection
   await mongoose.connection.close();
 });

@@ -1,6 +1,7 @@
 import Paragraph from "../../models/Paragraph.js";
 import Document from "../../models/Document.js";
 import cache from "../../utils/cache.js";
+import { stripHTMLTags } from "./summarizeDoc.js";
 
 // --------------------------------------------------------------------------
 // @params: event <String>, updateData <Object>,
@@ -49,9 +50,11 @@ const updatePartials = async (updateData, document_id) => {
 
 // --------------------------------------------------------------------------
 const updatePargraph = async (updateData, paragraph_id) => {
+  const plainText = stripHTMLTags(updateData.content);
+
   const newParagraph = await Paragraph.findByIdAndUpdate(
     paragraph_id,
-    updateData,
+    { ...updateData, plainText },
     {
       new: true,
     }
