@@ -1,6 +1,6 @@
 // setup.js
 import http from "http";
-import app from "../app.js";
+import app from "../../app.js";
 
 export default async () => {
   console.log("setup starting");
