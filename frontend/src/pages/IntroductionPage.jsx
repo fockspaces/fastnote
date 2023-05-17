@@ -78,6 +78,20 @@ const IntroductionPage = () => {
           <a href="#tech-skills" onClick={handleAnchorClick}>
             Tech Skills
           </a>
+          <a
+            href="https://github.com/fockspaces/fastnote"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGithub size={24} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/chang-feng-ming-650ba9167/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin size={24} />
+          </a>
           {!user && (
             <Button
               variant="outline-dark"

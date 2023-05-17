@@ -25,7 +25,7 @@ function List({
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchDocuments("?is_trash=false" + keyword);
+      const result = await fetchDocuments("is_trash=false" + keyword);
       setCurrentNotes(result.map((doc) => doc.paragraphs[0]));
     };
     fetchData();

@@ -36,7 +36,6 @@ beforeAll(async () => {
     tags: ["test", "document"],
   });
   await testDocument.save();
-  console.log({ testDocument, testUser });
 
   // Create test paragraph
   testParagraph = new Paragraph({
@@ -53,7 +52,6 @@ beforeAll(async () => {
 
   // Generate token for test user
   token = sign(testUser.toObject(), JWT_options);
-  console.log(verify(token));
 });
 
 describe("POST /api/documents/:document_id", () => {
@@ -127,5 +125,5 @@ afterAll(async () => {
   await User.deleteMany();
   await Document.deleteMany();
   await Paragraph.deleteMany();
-  await mongoose.connection.close();
+return  await mongoose.connection.close();
 });

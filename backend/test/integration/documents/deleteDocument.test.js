@@ -105,5 +105,5 @@ afterAll(async () => {
   await Paragraph.deleteMany();
 
   // Close the database connection
-  await mongoose.connection.close();
+  return await mongoose.connection.close();
 });

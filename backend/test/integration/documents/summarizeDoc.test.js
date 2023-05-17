@@ -42,8 +42,9 @@ beforeAll(async () => {
   testParagraph = new Paragraph({
     document_id: testDocument._id, // Add the document_id field
     title: "Test Paragraph",
-    content: "This is a test paragraph",
-    isUpdated: false,
+    content:
+      "This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100This is a test paragraph that content length over 100",
+    isUpdated: true,
   });
   await testParagraph.save();
 
@@ -60,19 +61,37 @@ describe("POST /documents/:document_id/summary", () => {
     const response = await request(app)
       .post(`/api/documents/${testDocument._id}/summary`)
       .set("Authorization", `Bearer ${token}`);
-
+    console.log(response.body.message);
     expect(response.statusCode).toBe(200);
     expect(response.body.message).toEqual("summary process finished");
     expect(response.body.result).toBe(true);
   });
 
-  // test("should return 400 when content length is less than 100", async () => {
-  //   // You need to set up a test case where the document's content length is less than 100
-  // });
+  test("should return 400 when content length is less than 100", async () => {
+    // Create test paragraph with content length less than 100
+    const shortParagraph = new Paragraph({
+      document_id: testDocument._id,
+      title: "Short Paragraph",
+      content: "Short content",
+      isUpdated: false,
+    });
+    await shortParagraph.save();
+
+    // Add the short paragraph to the test document
+    testDocument.paragraphs.push(shortParagraph);
+    await testDocument.save();
+
+    const response = await request(app)
+      .post(`/api/documents/${testDocument._id}/summary`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toEqual("content length is less than 100");
+  });
 });
 
 afterAll(async () => {
   await User.deleteMany();
   await Document.deleteMany();
-  await mongoose.connection.close();
+  return await mongoose.connection.close();
 });
