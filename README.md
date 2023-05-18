@@ -1,6 +1,5 @@
 # Fastnote
---- 
-📓 Fastnote is an note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
+📓 Fastnote is a serverless note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
 
 🔗 Website URL: https://www.fastnote.space/ 
 
@@ -9,8 +8,11 @@
 ## Table of Contents
 
 ## Main Features
+- **Full-Text-Search**: Leveraged MongoDB Atlas's indexing capability to enable efficient full-text search functionality, allowing users to quickly find related notes they have written.
+- **Asynchronous Processing**: Integrated AWS SQS and Lambda functions with OpenAI to perform independent summarization tasks, reducing server load and enhancing response efficiency.
+- **Scalable Design**: Integrated ELB and ECS to facilitate auto scale-out capabilities,  handling high-load scenarios by initiating additional containers as needed. 
+- **Infrastructure Management**: Employed Terraform Infrastructure as Code (IaC) for enhancing AWS resources management.
 
-## Setup (Self-Hosting)
 
 ## Technique
 ### Infrastructure
@@ -23,6 +25,10 @@
 - ElastiCache (Redis)
 ### Test
 - Jest, SuperTest
+
+### CI / CD
+- GitHub Actions
+
 ### Third Party Library
 - OpenAI
 - Tiptap
@@ -49,7 +55,13 @@
 ## Architecture
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/9946b399-1d52-46e7-aebd-731b4d1988f6" alt="image" width="80%" height="auto" />
 
+## Database Table Schema
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="65%" height="auto" />
+
+
+
 ## API Doc
+
 
 ## Testing
 
