@@ -14,7 +14,7 @@
     - [Environment](#environment)
     - [Database](#database)
     - [Test](#test)
-    - [CI/CD](#ci-cd)
+    - [CI/CD](#ci--cd)
     - [Third Party Library](#third-party-library)
     - [Frontend](#frontend)
 - [Cloud Services (AWS)](#cloud-services-aws)
