@@ -1,11 +1,31 @@
 # Fastnote
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/d6841cb8-46aa-4803-9053-00c97c6fe521" alt="image" width="35%" height="auto" />
+
+
 📓 Fastnote is a serverless note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
 
 🔗 Website URL: https://www.fastnote.space/ 
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/9aa2eb3d-7d8a-4c9b-97b9-81a0c7b49fdf" alt="image" width="100%" height="auto" />
-
 ## Table of Contents
+- [Main Features](#main-features)
+- [Technique](#technique)
+    - [Infrastructure](#infrastructure)
+    - [Environment](#environment)
+    - [Database](#database)
+    - [Test](#test)
+    - [CI/CD](#ci-cd)
+    - [Third Party Library](#third-party-library)
+    - [Frontend](#frontend)
+- [Cloud Services (AWS)](#cloud-services-aws)
+    - [Server](#server)
+    - [Storage](#storage)
+    - [Message Broker](#message-broker)
+    - [DNS](#dns)
+- [Architecture](#architecture)
+- [Database Table Schema](#database-table-schema)
+- [API Doc](#api-doc)
+- [Testing](#testing)
+- [Contact](#contact)
 
 ## Main Features
 - **Full-Text-Search**: Leveraged MongoDB Atlas's indexing capability to enable efficient full-text search functionality, allowing users to quickly find related notes they have written.
