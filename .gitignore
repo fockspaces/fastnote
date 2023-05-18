@@ -10,8 +10,6 @@ coverage/
 # Infrastructure directories
 infrastructure/
 
-# Public directories
-public/
 
 # Specific files
 test.js
