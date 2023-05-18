@@ -51,6 +51,8 @@ jobs:
           context: ./backend
           push: true
           tags: fockspace/fastnote:latest
+          platforms: linux/arm64
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
