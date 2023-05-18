@@ -16,6 +16,7 @@ import {
   SiAwslambda,
   SiAmazonecs,
 } from "react-icons/si"; // Icons for AWS Services
+import LoginPage from "./LoginPage";
 
 const initNote = localStorage.getItem("note");
 const IntroductionPage = () => {
@@ -66,6 +67,9 @@ const IntroductionPage = () => {
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
+
+  if (!user)
+    return <LoginPage googleLogin={googleLogin} setShowModal={setShowModal} />;
 
   return (
     <div className="introduction-page">
@@ -126,7 +130,7 @@ const IntroductionPage = () => {
           onClick={handleAnchorClick}
           href="#features"
         >
-          <MdExpandMore size={50} color="white"/>
+          <MdExpandMore size={50} color="white" />
         </div>
         <img src={src.cover} alt="Note-taking app" />
       </section>

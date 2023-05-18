@@ -1,0 +1,52 @@
+.login-page {
+  background: url("../../public/img/homepage.jpeg") no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  margin-left: -70px;
+  position: absolute;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); // 80% brightness
+  }
+
+  .content {
+    margin-left: 25px;
+    position: relative;
+    text-align: center;
+    top: 25%;
+
+    .title {
+      font-size: 7em; // Increased font-size to make title bigger
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 2em; // Slightly increased font-size of subtitle for better visibility
+      color: #fff;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 80px 20%;
+
+      .nav-button,
+      .cta-btn {
+        font-size: 1.5em;
+        padding: 5px 35px;
+        border-radius: 40px;
+      }
+    }
+  }
+}
