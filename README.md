@@ -75,7 +75,7 @@
 - Route 53
 
 ## Architecture
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/9946b399-1d52-46e7-aebd-731b4d1988f6" alt="image" width="80%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/9946b399-1d52-46e7-aebd-731b4d1988f6" alt="image" width="65%" height="auto" />
 
 ## Database Table Schema
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="65%" height="auto" />
