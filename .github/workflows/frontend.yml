@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - release
-    # paths:
-    #   - 'frontend/**'
+    paths:
+      - 'frontend/**'
   pull_request:
     branches:
       - release
-    # paths:
-    #   - 'frontend/**'
+    paths:
+      - 'frontend/**'
 
 jobs:
   build:
