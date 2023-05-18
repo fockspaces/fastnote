@@ -1,6 +1,7 @@
 # Fastnote
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/d6841cb8-46aa-4803-9053-00c97c6fe521" alt="image" width="35%" height="auto" />
-
+<p align="center">
+  <img src="https://github.com/fockspaces/fastnote/assets/63909491/d6841cb8-46aa-4803-9053-00c97c6fe521" alt="Fastnote" width="35%" height="auto" />
+</p>
 
 📓 Fastnote is a serverless note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
 
@@ -27,11 +28,12 @@
 - [Testing](#testing)
 - [Contact](#contact)
 
+
 ## Main Features
-- **Full-Text-Search**: Leveraged MongoDB Atlas's indexing capability to enable efficient full-text search functionality, allowing users to quickly find related notes they have written.
-- **Asynchronous Processing**: Integrated AWS SQS and Lambda functions with OpenAI to perform independent summarization tasks, reducing server load and enhancing response efficiency.
-- **Scalable Design**: Integrated ELB and ECS to facilitate auto scale-out capabilities,  handling high-load scenarios by initiating additional containers as needed. 
-- **Infrastructure Management**: Employed Terraform Infrastructure as Code (IaC) for enhancing AWS resources management.
+- **Full-Text-Search**: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
+- **Asynchronous Processing**: Perform independent summarization tasks with lambda functions
+- **Scalable Design**: Handle high-load scenarios by initiating additional containers as needed. 
+- **Infrastructure Management**: Employed Terraform for resources management.
 
 
 ## Technique
