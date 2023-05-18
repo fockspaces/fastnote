@@ -45,12 +45,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./backend
-          push: true
-          tags: fockspace/fastnote:latest
+      - name: Build Docker image using Docker Compose
+        run: |
+          docker-compose build
+
+      - name: Push Docker image
+        run: docker push fockspace/fastnote:latest
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
