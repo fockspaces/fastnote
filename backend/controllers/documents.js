@@ -94,7 +94,7 @@ export const summarizeDocument = async (req, res) => {
 
   return res.status(200).json({ message: "summary process finished", result });
 };
-// make a test
+
 // -----------------------------------------------------
 export const getAllTags = async (req, res) => {
   const userId = req.user._id;
