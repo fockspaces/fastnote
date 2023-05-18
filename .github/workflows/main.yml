@@ -1,6 +1,12 @@
 name: CI/CD Pipeline
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
 
 jobs:
   test:
@@ -52,7 +58,6 @@ jobs:
           push: true
           tags: fockspace/fastnote:latest
           platforms: linux/arm64
-
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
