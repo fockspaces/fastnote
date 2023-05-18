@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
     "start": "nodemon app.js",
     "GPT": "nodemon GPTServer.js"
   },
