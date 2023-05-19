@@ -28,11 +28,11 @@
 
 
 ## Architecture
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="65%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="100%" height="auto" />
 
 
 ## Database Table Schema
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="65%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="100%" height="auto" />
 
 
 
@@ -41,7 +41,7 @@
 ## CI / CD
 The deployment of frontend and backend is separately managed
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="80%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="100%" height="auto" />
 
 ## Workflow
 In the backend, the CI/CD process involves running integrated tests using Jest and SuperTest. Upon success, a Docker image is created and pushed to a Docker registry. The new Docker image triggers an update to the AWS ECS services.
