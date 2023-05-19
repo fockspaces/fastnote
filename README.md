@@ -75,6 +75,13 @@
 
 
 ## Testing
+To execute the tests and generate the test results, use the following command:
+```shell
+npm run test -- --coverage
+```
+After running the command, the test results will be displayed in the console, and a coverage report will be generated. You can find the coverage report in the /backend/coverage directory of the repository.
+
+![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
 
 ## Contact
 🧑🏻‍💻 Feng Ming, Chang
