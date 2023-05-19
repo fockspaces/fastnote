@@ -73,6 +73,8 @@ function Menu({ menuOpen, setMenuOpen }) {
     };
   }, [menuOpen, menuRef]);
 
+  if (!user) return null;
+
   return (
     <div className="menu-wrapper">
       <nav ref={menuRef} className={`menu ${menuOpen ? "" : "collapsed"}`}>

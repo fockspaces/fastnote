@@ -9,21 +9,6 @@
     "start": "nodemon app.js",
     "GPT": "nodemon GPTServer.js"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "controllers/**/*.js",
-      "routes/**/*.js",
-      "models/**/*.js",
-      "services/**/*.js",
-      "utils/**/*.js",
-      "!**/node_modules/**",
-      "!**/test/**"
-    ],
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ]
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",

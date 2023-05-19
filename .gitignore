@@ -4,8 +4,8 @@
 # Dependency directories
 node_modules/
 
-# Coverage directories
-coverage/
+# # Coverage directories
+# coverage/
 
 # Infrastructure directories
 infrastructure/
