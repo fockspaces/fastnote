@@ -19,10 +19,12 @@
 
 .right-side-list {
   flex-grow: 1;
+  width: 60vw;
   height: 90vh;
   overflow: hidden; // disable horizontal scrolling
   overflow-y: auto; // Enable vertical scrolling when the content exceeds the height
   padding: 0px 20px;
+
 }
 
 .search-bar {
