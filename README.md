@@ -5,7 +5,7 @@
 
 📓 Fastnote is a serverless note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
 
-🔗 Website URL: https://www.fastnote.space/ 
+🔗 Website URL: https://www.fastnote.space
 
 ## Table of Contents
 - [Main Features](#main-features)
