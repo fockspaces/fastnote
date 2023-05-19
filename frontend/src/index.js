@@ -5,6 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+if (process.env.NODE_ENV !== "development") {
+  console.log = function () {};
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
