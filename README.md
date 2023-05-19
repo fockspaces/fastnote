@@ -75,6 +75,16 @@
 ## API Doc
 
 
+## CI / CD
+The deployment of frontend and backend is separately managed using GitHub Actions 
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="80%" height="auto" />
+
+### Workflow
+In the backend, the CI/CD process involves running integrated tests using Jest and SuperTest. Upon success, a Docker image is created and pushed to a Docker registry. The new Docker image triggers an update to the AWS ECS services.
+
+On the frontend, the React app is built, and the build folder is uploaded directly to AWS S3 for deployment and .
+
+
 ## Testing
 To execute the tests and generate the test results, use the following command:
 ```shell
@@ -83,6 +93,10 @@ npm run test -- --coverage
 You can find the coverage report in the <code>/backend/coverage</code> directory of the repository.
 
 ![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
+
+
+
+
 
 ## Contact
 🧑🏻‍💻 Feng Ming, Chang
