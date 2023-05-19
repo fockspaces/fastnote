@@ -79,6 +79,16 @@ function Menu({ menuOpen, setMenuOpen }) {
     <div className="menu-wrapper">
       <nav ref={menuRef} className={`menu ${menuOpen ? "" : "collapsed"}`}>
         <ul>
+          <li>
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip id="new-tooltip">Home</Tooltip>}
+            >
+              <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
+                <FaHome color={getIconColor("/")} />
+              </Link>
+            </OverlayTrigger>
+          </li>
           <li onClick={user ? handleCreate : null}>
             <OverlayTrigger
               placement="right"
@@ -138,16 +148,6 @@ function Menu({ menuOpen, setMenuOpen }) {
                 className={`nav-link ${!user ? "disabled" : ""}`}
               >
                 <FaHashtag color={getIconColor("/tags")} />
-              </Link>
-            </OverlayTrigger>
-          </li>
-          <li>
-            <OverlayTrigger
-              placement="right"
-              overlay={<Tooltip id="new-tooltip">Home</Tooltip>}
-            >
-              <Link to="/" className={`nav-link ${!user ? "disabled" : ""}`}>
-                <FaHome color={getIconColor("/")} />
               </Link>
             </OverlayTrigger>
           </li>
