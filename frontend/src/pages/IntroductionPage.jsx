@@ -68,8 +68,8 @@ const IntroductionPage = () => {
     onError: (errorResponse) => console.log(errorResponse),
   });
 
-  if (!user)
-    return <LoginPage googleLogin={googleLogin} setShowModal={setShowModal} />;
+  // if (!user)
+  //   return <LoginPage googleLogin={googleLogin} setShowModal={setShowModal} />;
 
   return (
     <div className="introduction-page">
