@@ -25,6 +25,47 @@
 - **Infrastructure Management**: Employed Terraform for resources management.
 
 
+
+
+## Architecture
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="65%" height="auto" />
+
+
+## Database Table Schema
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="65%" height="auto" />
+
+
+
+
+
+## CI / CD
+The deployment of frontend and backend is separately managed
+
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="80%" height="auto" />
+
+## Workflow
+In the backend, the CI/CD process involves running integrated tests using Jest and SuperTest. Upon success, a Docker image is created and pushed to a Docker registry. The new Docker image triggers an update to the AWS ECS services.
+
+On the frontend, the React app is built, and the build folder is uploaded directly to AWS S3 for deployment and clear CloudFront cache.
+
+
+## Testing
+To execute the tests and generate the test results, use the following command:
+```shell
+npm run test -- --coverage
+```
+You can find the coverage report in the <code>/backend/coverage</code> directory of the repository.
+
+![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
+
+## Tools
+- GitHub Actions: Automates the workflow from code push to deployment.
+- Jest and SuperTest: Utilized for integrated testing in the backend API.
+- Docker: Containerization technology employed for ensuring consistent, reproducible environments for the backend, facilitating deployment on AWS ECS.
+- Terraform: This Infrastructure as Code (IaC) tool is used for managing and provisioning AWS services resources, enhancing scalability, and infrastructure consistency.
+
+## API Doc
+
 ## Technique
 ### Infrastructure
 - Docker
@@ -62,39 +103,6 @@
 - Lambda
 ### DNS
 - Route 53
-
-## Architecture
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="65%" height="auto" />
-
-
-## Database Table Schema
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="65%" height="auto" />
-
-
-
-## API Doc
-
-
-## CI / CD
-The deployment of frontend and backend is separately managed using GitHub Actions 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="80%" height="auto" />
-
-### Workflow
-In the backend, the CI/CD process involves running integrated tests using Jest and SuperTest. Upon success, a Docker image is created and pushed to a Docker registry. The new Docker image triggers an update to the AWS ECS services.
-
-On the frontend, the React app is built, and the build folder is uploaded directly to AWS S3 for deployment and .
-
-
-## Testing
-To execute the tests and generate the test results, use the following command:
-```shell
-npm run test -- --coverage
-```
-You can find the coverage report in the <code>/backend/coverage</code> directory of the repository.
-
-![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
-
-
 
 
 
