@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import TagsBar from "../../ListPage/utils/TagsBar";
 import { updateDoc } from "../../../api/documents/updateDocument";
+import { AiFillTag } from "react-icons/ai";
 
 const InfoModal = ({ document, showModal, toggleModal }) => {
   const [tagging, setTagging] = useState(document.tags);
@@ -22,16 +23,14 @@ const InfoModal = ({ document, showModal, toggleModal }) => {
   return (
     <Modal show={showModal} onHide={toggleModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Document Info</Modal.Title>
+        <Modal.Title>Edit Tags</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-          <p className="edit-tags">Edit Tags:</p>
+          <p className="edit-tags">
+            Create or Remove <AiFillTag />
+          </p>
           <TagsBar tagging={tagging} setTagging={setTagging} />
-        </div>
-        <div className="date-info">
-          <p>Created At: {new Date(document.createdAt).toLocaleString()}</p>
-          <p>Updated At: {new Date(document.updatedAt).toLocaleString()}</p>
         </div>
       </Modal.Body>
       <Modal.Footer>

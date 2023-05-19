@@ -1,8 +1,8 @@
 import { CgMenuBoxed } from "react-icons/cg";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoBarcodeOutline } from "react-icons/io5";
-import { FiInfo } from "react-icons/fi";
-import { FaTrash } from "react-icons/fa";
+import { AiOutlineTags } from "react-icons/ai";
+import { FiTrash } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import SummarizeModal from "../../List/utils/SummarizeModal";
 import { deleteDocument } from "../../../../api/documents/deleteDocument";
 import { updateDoc } from "../../../../api/documents/updateDocument";
+import ConfirmModal from "../../../ListPage/utils/ConfirmModal";
 
 const Return = () => {
   const navigate = useNavigate();
@@ -100,32 +101,51 @@ const Info = ({ setShowInfoModal }) => {
           setShowInfoModal(true);
         }}
       >
-        <FiInfo size={40} />
+        <AiOutlineTags size={40} />
       </Button>
     </OverlayTrigger>
   );
 };
 
-const Trash = ({ document_id }) => {
+const Trash = ({ document }) => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const body = document.is_trash
+    ? "delete this note?"
+    : "move the note to trash bin?";
+  const message = {
+    title: "Confirm Remove",
+    body: "Are you sure you want to " + body,
+    confirm: "Remove",
+  };
 
   const handleDelete = async () => {
-    await updateDoc({ is_trash: true, document_id });
-    navigate("/documents");
+    if (document.is_trash) await deleteDocument(document._id);
+    else await updateDoc({ is_trash: true, document_id: document._id });
+    navigate(-1);
   };
   return (
     <OverlayTrigger
       placement="right"
       overlay={<Tooltip id="menu-tooltip">{"Remove"}</Tooltip>}
     >
-      <Button
-        className="menu-button"
-        variant=""
-        size="md"
-        onClick={handleDelete}
-      >
-        <FaTrash size={40} />
-      </Button>
+      <div>
+        <Button
+          className="menu-button"
+          variant=""
+          size="md"
+          onClick={() => setShowModal(true)}
+        >
+          <FiTrash size={40} />
+        </Button>
+        <ConfirmModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          handleConfirmDelete={handleDelete}
+          message={message}
+        />
+      </div>
     </OverlayTrigger>
   );
 };
@@ -137,7 +157,7 @@ const MenuButtons = ({ setShowModal, setShowInfoModal, document }) => {
       <Menu setShowModal={setShowModal} />
       <Info setShowInfoModal={setShowInfoModal} />
       <Summarize />
-      <Trash document_id={document._id} />
+      <Trash document={document} />
     </div>
   );
 };

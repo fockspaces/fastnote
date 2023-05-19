@@ -51,7 +51,7 @@ function Menu({ menuOpen, setMenuOpen }) {
     const result = await createDocument({});
 
     await createNote(result.document._id);
-    navigate(`/document/${result.document._id}`);
+    window.location.href = `/document/${result.document._id}`;
   };
 
   // create new note
