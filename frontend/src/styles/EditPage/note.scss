@@ -4,10 +4,10 @@
 
   .container {
     height: 100%;
-    width: 100%;
+    width: 100vw;
     overflow-y: auto;
     overflow-x: auto;
-    padding-left: 50px; /* Add left padding to prevent overlap */
+    padding-left: 80px; /* Add left padding to prevent overlap */
   }
 
   .floating-buttons {
