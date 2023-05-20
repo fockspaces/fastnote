@@ -11,7 +11,7 @@
 - [Main Features](#main-features)
 - [Architecture](#architecture)
 - [Database Table Schema](#database-table-schema)
-- [CI / CD](#ci-cd)
+- [CI / CD](#ci--cd)
 - [API Documentation](#api-documentation)
 - [Technique](#technique)
 - [Cloud Services (AWS)](#cloud-services-aws)
