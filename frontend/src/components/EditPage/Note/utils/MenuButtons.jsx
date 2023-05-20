@@ -91,7 +91,7 @@ const Info = ({ setShowInfoModal }) => {
   return (
     <OverlayTrigger
       placement="right"
-      overlay={<Tooltip id="menu-tooltip">{"Info"}</Tooltip>}
+      overlay={<Tooltip id="menu-tooltip">{"Tag"}</Tooltip>}
     >
       <Button
         className="menu-button"
