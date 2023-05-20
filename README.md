@@ -3,9 +3,19 @@
   <img src="https://github.com/fockspaces/fastnote/assets/63909491/d6841cb8-46aa-4803-9053-00c97c6fe521" alt="Fastnote" width="50%" height="auto"/>
 </p>
 
+<p align="center">  
+  <img alt="AWS Services" src="https://img.shields.io/badge/AWS-Services-FF9900?logo=amazonaws"/>  
+  <a href="https://github.com/fockspaces/fastnote/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a>
+  <img alt="backend workflow" src="https://github.com/fockspaces/fastnote/actions/workflows/backend.yml/badge.svg"/>
+  <a href="https://app.swaggerhub.com/apis-docs/fastnote/fast-note_api/1.0.0"><img alt="Swagger API" src="https://img.shields.io/badge/Swagger-API-brightgreen?logo=swagger"/></a>
+  <img alt="Terraform" src="https://img.shields.io/badge/Terraform-v1.0.0-623CE4.svg?logo=terraform"/>
+</p>
+
+
+
 📓 Fastnote is a serverless note-taking app with MERN stacks, aiming at efficient idea management, offering features such as search functionality, auto-generation of summaries, and tagging with openAI.
 
-🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">https://www.fastnote.space</a>
+🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">www.fastnote.space</a>
 
 ## Table of Contents
 - [Main Features](#main-features)
