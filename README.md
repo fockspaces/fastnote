@@ -9,13 +9,15 @@
 
 ## Table of Contents
 - [Main Features](#main-features)
-- [Technique](#technique)
-- [Cloud Services (AWS)](#cloud-services-aws)
 - [Architecture](#architecture)
 - [Database Table Schema](#database-table-schema)
-- [API Doc](#api-doc)
-- [Testing](#testing)
+- [CI / CD](#ci-cd)
+- [API Documentation](#api-documentation)
+- [Technique](#technique)
+- [Cloud Services (AWS)](#cloud-services-aws)
 - [Contact](#contact)
+
+
 
 
 ## Main Features
@@ -41,13 +43,13 @@ The deployment process for both the frontend and backend components is managed s
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="100%" height="auto" />
 
-## Workflow
+### Workflow
 - **Backend Process**: Includes conducting integrated tests using Jest and SuperTest. If the tests pass successfully, a Docker image is generated and pushed to a Docker registry, triggering an update in the AWS ECS services.
 
 - **Frontend Process**: The React app is built and the resulting build folder is directly uploaded to AWS S3 for deployment. This is followed by clearing the cache in CloudFront.
 
 
-## Testing
+### Testing
 To execute the tests and generate the test results, use the following command:
 ```shell
 npm run test -- --coverage
@@ -56,7 +58,7 @@ You can find the coverage report in the <code>/backend/coverage</code> directory
 
 ![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
 
-## Tools
+### Tools
 - GitHub Actions: Automates the workflow from code push to deployment.
 - Jest and SuperTest: Utilizes for integrated testing in the backend API.
 - Docker: Ensures consistent, reproducible environments for AWS ECS.
@@ -68,6 +70,7 @@ The API documentation is supported by Swagger
 🔗 https://app.swaggerhub.com/apis-docs/fastnote/fast-note_api/1.0.0
 
 ## Technique
+Technologies and tools utilized in the project.
 ### Infrastructure
 - Docker
 - Terraform
