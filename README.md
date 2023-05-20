@@ -21,10 +21,10 @@
 
 
 ## Main Features
-- **Full-Text-Search**: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
-- **Asynchronous Processing**: Perform independent summarization tasks with lambda functions
-- **Scalable Design**: Handle high-load scenarios by initiating additional containers as needed. 
-- **Infrastructure Management**: Employed Terraform for resources management.
+- Full-Text-Search: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
+- Asynchronous Processing: Perform independent summarization tasks with lambda functions
+- Scalable Design: Handle high-load scenarios by initiating additional containers as needed. 
+- Infrastructure Management: Employed Terraform for resources management.
 
 
 
@@ -34,6 +34,8 @@
 
 
 ## Database Table Schema
+The database table schema is defined using Mongoose schema.
+
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="100%" height="auto" />
 
 
@@ -44,9 +46,9 @@ The deployment process for both the frontend and backend components is managed s
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="100%" height="auto" />
 
 ### Workflow
-- **Backend Process**: Includes conducting integrated tests using Jest and SuperTest. If the tests pass successfully, a Docker image is generated and pushed to a Docker registry, triggering an update in the AWS ECS services.
+- Backend Process: If the tests pass successfully, a Docker image is pushed to a Docker Hub, triggering an update in the AWS ECS services.
 
-- **Frontend Process**: The React app is built and the resulting build folder is directly uploaded to AWS S3 for deployment. This is followed by clearing the cache in CloudFront.
+- Frontend Process: The React app is built and directly uploaded to AWS S3 for deployment.
 
 
 ### Testing
