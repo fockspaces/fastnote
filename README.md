@@ -17,6 +17,8 @@
 
 🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">www.fastnote.space</a>
 
+📖 How to use (Demo): 
+
 ## Table of Contents
 - [Main Features](#main-features)
 - [Architecture](#architecture)

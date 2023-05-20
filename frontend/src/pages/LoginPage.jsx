@@ -5,6 +5,8 @@ import ConfirmModal from "../components/ListPage/utils/ConfirmModal";
 import { login } from "../api/login";
 import { useGoogleLogin } from "@react-oauth/google";
 import { authGoogle } from "../api/authGoogle";
+import { FcGoogle } from "react-icons/fc";
+import { IoPeopleSharp } from "react-icons/io5";
 
 const LoginPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +36,7 @@ const LoginPage = () => {
         <p className="subtitle">Keep it fast, simple and useful</p>
         <div className="buttons">
           <Button variant="dark" className="nav-button" onClick={googleLogin}>
-            SIGN IN
+            SIGN IN <FcGoogle className="mb-1" />
           </Button>
           <Button
             variant="dark"
@@ -43,7 +45,7 @@ const LoginPage = () => {
               setShowModal(true);
             }}
           >
-            GUEST
+            GUEST <IoPeopleSharp className="mb-1" />
           </Button>
         </div>
       </div>
