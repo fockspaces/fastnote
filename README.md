@@ -9,20 +9,22 @@
 
 ## Table of Contents
 - [Main Features](#main-features)
-- [Technique](#technique)
-- [Cloud Services (AWS)](#cloud-services-aws)
 - [Architecture](#architecture)
 - [Database Table Schema](#database-table-schema)
-- [API Doc](#api-doc)
-- [Testing](#testing)
+- [CI / CD](#ci--cd)
+- [API Documentation](#api-documentation)
+- [Technique](#technique)
+- [Cloud Services (AWS)](#cloud-services-aws)
 - [Contact](#contact)
 
 
+
+
 ## Main Features
-- **Full-Text-Search**: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
-- **Asynchronous Processing**: Perform independent summarization tasks with lambda functions
-- **Scalable Design**: Handle high-load scenarios by initiating additional containers as needed. 
-- **Infrastructure Management**: Employed Terraform for resources management.
+- Full-Text-Search: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
+- Asynchronous Processing: Perform independent summarization tasks with lambda functions
+- Scalable Design: Handle high-load scenarios by initiating additional containers as needed. 
+- Infrastructure Management: Employed Terraform for resources management.
 
 
 
@@ -32,24 +34,24 @@
 
 
 ## Database Table Schema
+The database table schema is defined using Mongoose schema.
+
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="100%" height="auto" />
 
 
 
-
-
 ## CI / CD
-The deployment of frontend and backend is separately managed
+The deployment process for both the frontend and backend components is managed separately.
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/0b35231b-96d0-41b9-a3ec-6347dd721871" alt="image" width="100%" height="auto" />
 
-## Workflow
-In the backend, the CI/CD process involves running integrated tests using Jest and SuperTest. Upon success, a Docker image is created and pushed to a Docker registry. The new Docker image triggers an update to the AWS ECS services.
+### Workflow
+- Backend Process: If the tests pass successfully, a Docker image is pushed to a Docker Hub, triggering an update in the AWS ECS services.
 
-On the frontend, the React app is built, and the build folder is uploaded directly to AWS S3 for deployment and clear CloudFront cache.
+- Frontend Process: The React app is built and directly uploaded to AWS S3 for deployment.
 
 
-## Testing
+### Testing
 To execute the tests and generate the test results, use the following command:
 ```shell
 npm run test -- --coverage
@@ -58,15 +60,19 @@ You can find the coverage report in the <code>/backend/coverage</code> directory
 
 ![image](https://github.com/fockspaces/fastnote/assets/63909491/a4a45eef-eacd-4ca5-a877-5bead4be5777)
 
-## Tools
+### Tools
 - GitHub Actions: Automates the workflow from code push to deployment.
-- Jest and SuperTest: Utilized for integrated testing in the backend API.
-- Docker: Containerization technology employed for ensuring consistent, reproducible environments for the backend, facilitating deployment on AWS ECS.
-- Terraform: This Infrastructure as Code (IaC) tool is used for managing and provisioning AWS services resources, enhancing scalability, and infrastructure consistency.
+- Jest and SuperTest: Utilizes for integrated testing in the backend API.
+- Docker: Ensures consistent, reproducible environments for AWS ECS.
+- Terraform: Manages and provisions AWS services resources, enhancing scalability and consistency.
 
-## API Doc
+## API Documentation
+The API documentation is supported by Swagger
+
+🔗 https://app.swaggerhub.com/apis-docs/fastnote/fast-note_api/1.0.0
 
 ## Technique
+Technologies and tools utilized in the project.
 ### Infrastructure
 - Docker
 - Terraform

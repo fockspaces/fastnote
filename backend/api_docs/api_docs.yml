@@ -1,0 +1,739 @@
+openapi: 3.0.0
+info:
+  title: FastNote API
+  description: Retrieve a specific page of all documents.
+  version: 1.0.0
+servers:
+  - url: https://api.fastnote.space/api
+paths:
+  /documents:
+    get:
+      summary: Retrieve a specific page of all documents.
+      parameters:
+        - name: Authorization
+          in: header
+          description: JWT token for user authentication
+          required: true
+          schema:
+            type: string
+        - name: paging
+          in: query
+          description: Page number for requesting the next page
+          required: false
+          schema:
+            type: string
+        - name: keyword
+          in: query
+          description: Keyword for full-text search across documents
+          required: false
+          schema:
+            type: string
+        - name: tagging
+          in: query
+          description: Tag(s) to filter the documents
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: is_trash
+          in: query
+          description: If true, retrieves documents from the trash; if false, excludes trashed documents
+          required: false
+          schema:
+            type: boolean
+        - name: is_favorite
+          in: query
+          description: If true, retrieves only favorite documents; if false, excludes favorite documents
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Document"
+              examples:
+                example1:
+                  value:
+                    "data":
+                      [
+                        {
+                          "_id": "645905cec7e90f84c40ecfff",
+                          "userId": "64329e5fe0b78d6f8cb1b7ac",
+                          "is_favorite": false,
+                          "is_trash": false,
+                          "tags":
+                            [
+                              "Redis Cluster",
+                              "Sharding",
+                              "Replicas",
+                              "RDB",
+                              "AOF",
+                              "Redis Enterprise Cloud",
+                              "AWS ElastiCache",
+                              "Redis Cluster Specification",
+                              "Distributed System",
+                            ],
+                          "createdAt": "2023-05-08T14:23:10.780Z",
+                          "updatedAt": "2023-05-13T04:30:49.582Z",
+                          "__v": 0,
+                          "description": "Redis Cluster 提供 sharding 和 replicas，並提供 RDB 和 AOF 備份...",
+                          "title": "Redis 和 Redis Cluster 概念筆記",
+                          "paragraphs":
+                            [
+                              {
+                                "_id": "645905cfc7e90f84c40ed003",
+                                "document_id": "645905cec7e90f84c40ecfff",
+                                "title": "Redis Cluster 概念筆記",
+                                "isUpdated": true,
+                                "createdAt": "2023-05-08T14:23:11.113Z",
+                                "updatedAt": "2023-05-13T04:30:49.571Z",
+                                "__v": 0,
+                              },
+                            ],
+                        },
+                      ]
+        "400":
+          description: Invalid paging value
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              examples:
+                badRequest:
+                  value:
+                    "error": "Please provide a valid paging"
+    post:
+      summary: Create a new document
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the new document
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of tags for the new document
+                description:
+                  type: string
+                  description: (Optional) Description for the new document
+            examples:
+              requestExample:
+                value:
+                  "title": "Title example"
+                  "tags": ["tag1", "tag2", "tag3"]
+                  "description": "This is an example"
+      responses:
+        "200":
+          description: Document created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+              examples:
+                example1:
+                  value:
+                    "documentId": "123456789"
+                    "title": "Title example"
+                    "tags": ["tag1", "tag2", "tag3"]
+                    "description": "12321321"
+                    "creationDate": "2023-05-20T14:23:11.113Z"
+  /documents/tags:
+    get:
+      summary: Fetch all unique tags used in a user's documents
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      responses:
+        "200":
+          description: A list of unique tags used in the user's documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                example1:
+                  value:
+                    "tags": ["tag1", "tag2", "tag3", "tag4"]
+    patch:
+      summary: Update Tag Name
+      description: Update the name of a tag used in the user's documents.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of existing tags to be updated
+                newTagName:
+                  type: string
+                  description: The new name to replace the existing tag
+            examples:
+              example1:
+                value:
+                  tags: ["tag1", "tag2"]
+                  newTagName: "newTag"
+      responses:
+        "200":
+          description: Tag name updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                example1:
+                  value:
+                    message: "Tag name updated successfully"
+        "400":
+          description: Bad request, typically when a required field is missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                example1:
+                  value:
+                    message: "tags is required."
+  /documents/{document_id}:
+    get:
+      summary: Retrieve details of a specific document
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the document to retrieve
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      responses:
+        "200":
+          description: Details of the requested document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+              examples:
+                documentDetails:
+                  value:
+                    data:
+                      _id: "6459020dc7e90f84c40eceac"
+                      userId: "64329e5fe0b78d6f8cb1b7ac"
+                      is_favorite: true
+                      is_trash: false
+                      paragraphs:
+                        [
+                          {
+                            _id: "6459020dc7e90f84c40eceb0",
+                            document_id: "6459020dc7e90f84c40eceac",
+                            title: "[Terraform] 基礎入門筆記",
+                            content: "<h1><strong>[Terraform] 基礎入門筆記</strong></h1><p>Terraform 是一套近年來非常好用的...",
+                            isUpdated: true,
+                            createdAt: "2023-05-08T14:07:09.569Z",
+                            updatedAt: "2023-05-13T04:30:45.712Z",
+                            __v: 0,
+                          },
+                        ]
+                      tags:
+                        [
+                          "Cross-Platform",
+                          "Version Control",
+                          "Automation",
+                          "Cloud Architecture",
+                          "Environment Consistency",
+                          "DevOps",
+                          "HCL.",
+                        ]
+                      createdAt: "2023-05-08T14:07:09.218Z"
+                      updatedAt: "2023-05-13T04:30:45.722Z"
+                      __v: 0
+                      description: "Terraform 是一個可以跨平台、支援版本控制、自動化偵測雲端架構、確保環境一致性，以及使用 HCL 語言的 DevOps 管理工具。"
+
+        "404":
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              examples:
+                documentNotFound:
+                  value:
+                    error: "Document not found"
+    post:
+      summary: Modify an existing document, including its paragraphs
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the document to update
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: "Event type describing the update operation. Possible values: update_paragraph, insert_paragraph, delete_paragraph. If no event is provided, the document's fields will be updated."
+                updateData:
+                  type: object
+                  description: An object containing the fields to be updated. The structure will vary depending on the event.
+            example:
+              event: update_paragraph
+              updateData:
+                title: example_title
+                content: example_content
+                paragraph_id: 64363c9bb908ad2e49193716
+      responses:
+        "200":
+          description: Successful operation, document or paragraph updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                message: Document or paragraph updated successfully
+                data:
+                  # Example data for document update
+                  document_id: 6427f38c48a29d17e8d18948
+                  event: update_paragraph
+                  updateData:
+                    title: example_title
+                    content: example_content
+                    paragraph_id: 64363c9bb908ad2e49193716
+        "403":
+          description: Forbidden, typically when the user is not the owner of the document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: You are not authorized to modify this document
+        "404":
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Document with ID 6427f38c48a29d17e8d18948 not found
+    delete:
+      summary: Delete Document
+      description: Delete a specific document along with its related paragraphs.
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the document to delete
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      responses:
+        "200":
+          description: Document deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  document:
+                    $ref: "#/components/schemas/Document"
+              example:
+                message: Successfully deleted the document
+                document:
+                  _id: 642924b4a8a8254114d637b2
+                  title: Document Title
+                  userId: "123456789"
+                  createdAt: "2023-04-11T10:30:41.867Z"
+                  updatedAt: "2023-04-11T12:58:35.430Z"
+                  __v: 0
+        "403":
+          description: Forbidden, typically when the user is not the owner of the document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: You are not authorized to delete this document
+        "404":
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Document with ID 642924b4a8a8254114d637b2 not found
+  /documents/{document_id}/summary:
+    post:
+      summary: Summarize Document
+      description: Generate tags and description for a specific document.
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the document to summarize
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      responses:
+        "200":
+          description: Summary process finished successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  result:
+                    type: boolean
+              example:
+                message: Summary process finished
+                result: true
+        "400":
+          description: Bad Request, typically when the content length is less than 100
+          content:
+            application/json:
+              schema:
+                type: object
+              properties:
+                message:
+                  type: string
+              example:
+                message: Content length is less than 100
+  /images:
+    post:
+      summary: Upload Image
+      description: Upload one or multiple images.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: JWT token for user authentication
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: One or more images to upload
+              example:
+                images:
+                  - [binary-data]
+      responses:
+        "200":
+          description: Image(s) uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  images:
+                    type: array
+                    items:
+                      type: string
+              example:
+                message: Image upload successfully
+                images:
+                  - 1681622329564-0_zKRz1UgqpOZ4bvuA.png
+  /users/signin:
+    get:
+      summary: User Sign In API
+      description: Allows users to sign in via Google and retrieve an access token.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Google access token preceded by "Bearer "
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: JWT access token for user authentication
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      picture:
+                        type: string
+              example:
+                access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6joiYXJ0aHVIjoxNjEzNTY3MzA0fQ.6EPCOfBGynidAfpVqlvbHGWHCJ5LZLtKvPaQ
+                user:
+                  id: 11245642
+                  name: Pei
+                  email: pei@appworks.tw
+                  picture: https://schoolvoyage.ga/images/123498.png
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Invalid token
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Unauthorized request
+  /users/guests:
+    get:
+      summary: Guest Login
+      description: Allows guests to create a session and retrieve an access token.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: JWT access token for guest authentication
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+              example:
+                access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6joiYXJ0aHVIjoxNjEzNTY3MzA0fQ.6EPCOfBGynidAfpVqlvbHGWHCJ5LZLtKvPaQ
+                user:
+                  id: 12345678
+                  name: Guest 192.0.2.0-123e4567-e89b-12d3-a456-426614174000
+                  email: 192.0.2.0-123e4567-e89b-12d3-a456-426614174000@guest.com
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        _id:
+          type: string
+        userId:
+          type: string
+        is_favorite:
+          type: boolean
+        is_trash:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        __v:
+          type: integer
+        description:
+          type: string
+        title:
+          type: string
+        paragraphs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Paragraph"
+      example:
+        _id: "6458cdb5661eb6dc627411d1"
+        userId: "64329e5fe0b78d6f8cb1b7ac"
+        is_favorite: false
+        is_trash: false
+        paragraphs:
+          - "6458cdb5661eb6dc627411d5"
+        tags:
+          - "JavaScript"
+          - "Library"
+          - "Facebook"
+        createdAt: "2023-05-08T10:23:49.250Z"
+        updatedAt: "2023-05-17T12:30:24.909Z"
+        __v: 0
+        description: "React 是一個由 Facebook 開發的開源 JavaScript Library，可以讓開發者更容易快速地建立前端應用程式，而在評估使用它之前，一定要先檢視自己的需求."
+    Paragraph:
+      type: object
+      properties:
+        _id:
+          type: string
+        document_id:
+          type: string
+        title:
+          type: string
+        isUpdated:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        __v:
+          type: integer
+      example:
+        _id: "64599d3eb6dc4b6aea6819c2"
+        document_id: "64599d3eb6dc4b6aea6819be"
+        title: "[ReactDoc] React Hooks 起步走"
+        isUpdated: true
+        createdAt: "2023-05-09T01:09:18.879Z"
+        updatedAt: "2023-05-16T17:14:39.061Z"
+        __v: 0
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        picture:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      example:
+        _id: "645e0c0d8280b475752727d9"
+        email: "59.120.11.125-85471714-1597-4368-b637-e323ab8cf3bd@guest.com"
+        name: "Guest 59.120.11.125-85471714-1597-4368-b637-e323ab8cf3bd"
+        createdAt: "2023-05-12T09:51:09.750Z"
+        updatedAt: "2023-05-12T09:51:09.750Z"
+        __v: 0
