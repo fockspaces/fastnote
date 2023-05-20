@@ -21,7 +21,7 @@ Once you have finished writing your note, click the 'Summarize' button. This wil
 <img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/raw/develop/Documentation/assets/summarize.gif">
 
 
-### 4. All done
-Now you have summary and tags for the note you just wrote.
+### 4. All Done
+At this point, you now have a comprehensive summary and associated tags for the note you've just written. You are all set!
 
 <img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/8abc10b4-fa7c-4157-a16f-ac3e4c30ff12">

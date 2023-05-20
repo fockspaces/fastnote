@@ -16,7 +16,7 @@
 
 🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">www.fastnote.space</a>
 
-📖 How to use: <a href="https://github.com/fockspaces/fastnote/blob/develop/Documentation/Tutorial.md" target="_blank">Tutorial</a>
+📖 How to use: <a href="https://github.com/fockspaces/fastnote/blob/main/Documentation/Tutorial.md" target="_blank">Tutorial</a>
 
 ## Table of Contents
 
