@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 if (process.env.NODE_ENV !== "development") {
   console.log = function () {};
+  console.error = function () {};
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

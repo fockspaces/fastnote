@@ -48,7 +48,7 @@ The database table schema is defined using Mongoose schema.
 
 ## CI / CD
 
-The deployment process for both the frontend and backend components is managed separately.
+The deployment process for both frontend and backend components is managed separately.
 
 <img alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/44377ac5-61ef-428f-9043-510c472a2e96">
 
@@ -56,7 +56,7 @@ The deployment process for both the frontend and backend components is managed s
 
 - Backend Process: If the tests pass successfully, a Docker image is pushed to a Docker Hub, triggering an update in the AWS ECS services.
 
-- Frontend Process: The React app is built and directly uploaded to AWS S3 for deployment.
+- Frontend Process: Each commit triggers a build of the React application. Static files are directly uploaded to AWS S3 for web hosting.
 
 ### Testing
 

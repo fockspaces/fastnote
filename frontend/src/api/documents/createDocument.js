@@ -10,7 +10,7 @@ export const createDocument = async (document) => {
   });
 
   if (!response.ok) {
-    throw new Error("Could not create document");
+    return null;
   }
 
   const data = await response.json();
