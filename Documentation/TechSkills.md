@@ -1,5 +1,9 @@
 # Under The Hood
 
+This section provides insights into the mechanisms powering our application, focusing on the two key factors: **Summarization Strategy** and **Asynchronous Task Processing**.
+
+---
+
 ## Table of Contents
 
 [Summarization Strategy](#summarization-strategy)
@@ -80,7 +84,7 @@ However, it's still tricky to determine which part is the dominant one. Each pie
 
 ## Asynchronous Task Processing
 
-In this project, the approach to processing asynchronous tasks for article summarization leans on Amazon SQS and Lambda.
+Through the integration of Lambda and SQS, we can eliminate the waiting time for responses and ensure data integrity during periods of high traffic.
 
 ### 1. Choosing Amazon SQS: The Advantages
 
