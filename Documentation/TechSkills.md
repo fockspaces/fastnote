@@ -1,12 +1,22 @@
 # Under The Hood
 
-## 🚧 Summarization Approach
+## 📔 Summarization Strategy
 
-This section dives into the strategies employed for generating precise prompts, integral for content summarization and tag creation.
+This section explains our method for creating clear and short prompts, which are important for summarizing content and creating tags.
 
-### Prompt Optimization
+### Fine-tuning Prompt
 
-Our optimization strategy focus on creating a comprehensive prompt that guides the summarization process, as illustrated below:
+Our approach focuses on creating a detailed prompt that guides the summarization process.
+
+At first, we used a simple prompt asking GPT to summarize:
+
+> Make a summary of the following content for me: ${content}
+
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/bdba9324-ba37-4411-b03e-33e91897ec51" alt="image" width="80%" height="auto" />
+
+We found that the summary was incomplete and not very clear.
+
+So, we changed the prompt to:
 
 > First, identify the language of the text provided below:
 > ${content}
@@ -22,73 +32,63 @@ Our optimization strategy focus on creating a comprehensive prompt that guides t
 >
 > Summary:
 
-Our strategy follows these core principles:
+Our approach is based on these main principles:
 
-<!-- You might want to explain a little bit more about why you chose the 'step-by-step' and 'split complex tasks into simpler tasks' approach. What advantages does it bring to the summarization process? -->
+- Thinking step by step.
+- Breaking complex tasks into simpler by subtasks.
+- Sticking to specific output formats.
 
-1. Thinking Step-by-step.
-2. Breaking down big tasks into simpler subtasks.
-3. Sticking to specific output formats.
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/425e0ca7-4b96-4875-a649-65d110562c7e" alt="image" width="80%" height="auto" />
+
+Great, now we get a clear understanding of the note content.
 
 For more insights, please refer to the <a href="https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md">OpenAI Cookbook</a>
 
-### Addressing Extended Text Length
+### Managing Long Texts
 
-To handle the challenge of lengthy text, I employ a parallel processing strategy:
+When dealing with large amounts of note content, the summarization process might take longer. This is because we have to divide the content into several parts to stay within the maximum token limit of GPT-3.
 
+If we split the content into 3 parts, we might have to wait for a GPT-3 response three times. This process could exhaust the server and cause delays for the client waiting for a response.
+
+To address this issue of long texts, I use a parallel processing approach:
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/c81f0ed8-e7b4-4b47-8b1f-48c6925c14c6" alt="image" width="80%" height="auto" />
 
+By breaking the note's content into many pieces, we can get responses from the GPT-3 model concurrently. This approach ensures consistent processing time regardless of the length of the note's content.
 
-<!-- Consider explaining the challenges of handling long text in more detail. Why is long text a problem for GPT-3 or for your application? -->
+However, it's still tricky to determine which part is the dominant one. Each piece of the summary might have a different significance in the overall context. If a user adds new content that falls into a new piece, it might take up too much proportion (weight) in the summarization process.
 
-By dividing the note's content into numerous chunks, we can concurrently fetch responses from the GPT-3 model. This approach ensures consistent processing time regardless of the length of the note's content.
+## 🚧 Asynchrounous Task Processing
 
-<!-- It could be helpful to provide a concrete example of how you break down complex tasks into simpler subtasks. -->
+The processing of asynchronous tasks for article summarization in this project relies on Amazon SQS and Lambda. My choice go towards SQS for the following reasons:
 
-<!-- If there are any limitations or known issues with your current approach to summarization, it would be good to acknowledge them and discuss any potential improvements or future plans you have to address these limitations. -->
+- Reliability: In contrast to self-hosted RabbitMQ, which requires backup plans on server failure. SQS (maintained by AWS) guarantees the queuing of new jobs as long as our Express server remains active.
 
-## 🚧 Message Broker
+- Scalability: Considering the infrequent need for article summarization by users, there's generally less computational load. At most part of the processing time is spent awaiting GPT-3 responses, using Lambda to manage these responses is a highly effective strategy.
 
-This section provides insights into the choice of employing AWS Simple Queue Service (SQS) with Lambda for message brokering.
+- Cost-effectiveness: SQS grants 1 million free requests per month. Compared to RabbitMQ's minimum setup cost on Tokyo ECS (around 8.9 USD/month for 0.25v CPU + 0.5v Memory), SQS becomes a cost-effective choice if monthly requests stay under 1 million.
 
-### Why SQS and not RabbitMQ for Message Queuing?
+### Scalability with AWS Lambda
 
-For the execution of asynchronous summarization of articles, my choice fell on SQS due to the following advantages it offers:
-
-- Reliability: In contrast to self-hosted RabbitMQ, which requires contingency plans on server failure. SQS (maintained by AWS) guarantees the queuing of new jobs as long as our Express server alive.
-
-- Scalability: The expected user behavior suggests infrequent article summarizations, resulting in lower computational demands. A significant portion of processing time is dedicated to awaiting responses from GPT-3. Hence, utilize Lambda for managing GPT responses is an effective approach.
-
-<!-- You could further elaborate on why you chose AWS Lambda for managing GPT responses in the "Scalability" section. -->
-
-- Cost-effectiveness: SQS grants 1 million free requests per month. Compared to RabbitMQ's minimum setup cost on Tokyo ECS (around 8.9 USD/month for 0.25v CPU + 0.5v Memory), SQS is a budget-friendly choice, essentially free if monthly requests stay below 1 million.
-
-### Task Processing
-
-A detailed overview of the implementation and management of asynchronous tasks with different job stages.
+Lambda's auto-scaling capability is an powerful advantage, as it manages and scales out concurrent requests without the need to maintain an infrastructure.
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/57708be4-ed63-43a2-a830-cb0ff8bafea5" alt="image" width="80%" height="auto" />
 
-The job processing is divided into two distinct stages to prevent data loss:
+The following steps in our application ensure scalability:
 
 - Stage 1: GPT Fetching
 
-  At this stage, the content of a note is sent to the OpenAI API to generate the summary and associated tags.
+  When a task arrives in SQS, it triggers a Lambda function to process the content, retrieve a summary and tags from GPT, and then store these back in SQS.
 
-- stage 2: Database Update
+- Stage 2: Database Update
 
-  Updated data is then sent to the Express server for the database update.
+  Subsequently, SQS triggers another Lambda function that interacts with the Express server to update the database.
 
-With separating the job into two stages, the data remains in the SQS queue and will be retried when express server or database network failure.
+Furthermore, an error handling mechanism is in place. If a Lambda process encounters failure, SQS re-initiates the Lambda process after a predetermined timeout.
 
-<!-- In the "Task Processing" section, consider discussing how the system handles retry attempts if there's a network failure. -->
+If failures continue, the task is sent to a Dead-Letter Queue (DLQ), an entity serving as a backup storage for messages that cannot be processed correctly, ensuring that no data is lost, even during network failures.
 
-<!-- Consider detailing more about how SQS handles data during network failures, which contributes to its reliability. -->
-
-<!-- visibility_timeout_seconds : 用來控制lambda重複看到queue message的時間 -->
-
-<!-- 
+<!--
 ## 🚧 Search
 
 Diving into the process of choosing the appropriate tokenizer and analyzer for MongoDB Atlas to optimize search efficiency.
