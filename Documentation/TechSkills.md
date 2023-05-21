@@ -1,13 +1,8 @@
 # Under The Hood
 
-## 🚧 Summarization
+## 🚧 Summarization Approach
 
-This section delves into the strategies employed for generating precise prompts, integral for content summarization and tag creation.
-
-<!-- 1. How are you creating accurate and comprehensive prompts for summarizing content?
-
-- Prompt evolution (ref GPT cookbook)
-- Can you provide an example of how a typical prompt looks like? -->
+This section dives into the strategies employed for generating precise prompts, integral for content summarization and tag creation.
 
 ### Prompt Optimization
 
@@ -39,7 +34,11 @@ For more insights, please refer to the <a href="https://github.com/openai/openai
 
 ### Addressing Extended Text Length
 
-To handle the challenge of lengthy text, we employ a parallel processing strategy:
+To handle the challenge of lengthy text, I employ a parallel processing strategy:
+
+
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/c81f0ed8-e7b4-4b47-8b1f-48c6925c14c6" alt="image" width="80%" height="auto" />
+
 
 <!-- Consider explaining the challenges of handling long text in more detail. Why is long text a problem for GPT-3 or for your application? -->
 
@@ -51,33 +50,54 @@ By dividing the note's content into numerous chunks, we can concurrently fetch r
 
 ## 🚧 Message Broker
 
-### SQS & Lambda
+This section provides insights into the choice of employing AWS Simple Queue Service (SQS) with Lambda for message brokering.
 
-Insight into the decision to utilize AWS SQS with Lambda for message brokering over self-hosted RabbitMQ server.
+### Why SQS and not RabbitMQ for Message Queuing?
 
-<!-- 1. Could you elaborate on your decision to use AWS SQS with Lambda for message brokering over a self-hosted RabbitMQ server?
+For the execution of asynchronous summarization of articles, my choice fell on SQS due to the following advantages it offers:
 
-2. What advantages did this choice offer in terms of performance, scalability, and maintenance?
-3. Were there any notable challenges or issues you encountered with this setup? -->
+- Reliability: In contrast to self-hosted RabbitMQ, which requires contingency plans on server failure. SQS (maintained by AWS) guarantees the queuing of new jobs as long as our Express server alive.
 
-### Job Processing
+- Scalability: The expected user behavior suggests infrequent article summarizations, resulting in lower computational demands. A significant portion of processing time is dedicated to awaiting responses from GPT-3. Hence, utilize Lambda for managing GPT responses is an effective approach.
+
+<!-- You could further elaborate on why you chose AWS Lambda for managing GPT responses in the "Scalability" section. -->
+
+- Cost-effectiveness: SQS grants 1 million free requests per month. Compared to RabbitMQ's minimum setup cost on Tokyo ECS (around 8.9 USD/month for 0.25v CPU + 0.5v Memory), SQS is a budget-friendly choice, essentially free if monthly requests stay below 1 million.
+
+### Task Processing
 
 A detailed overview of the implementation and management of asynchronous tasks with different job stages.
 
-<!-- 1. How have you implemented the asynchronous tasks in your project?
-2. What does the lifecycle of a typical job look like from initiation to completion?
-3. What were the challenges in managing different job stages?
-4. What solutions or workarounds did you find for those challenges? -->
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/57708be4-ed63-43a2-a830-cb0ff8bafea5" alt="image" width="80%" height="auto" />
 
+The job processing is divided into two distinct stages to prevent data loss:
+
+- Stage 1: GPT Fetching
+
+  At this stage, the content of a note is sent to the OpenAI API to generate the summary and associated tags.
+
+- stage 2: Database Update
+
+  Updated data is then sent to the Express server for the database update.
+
+With separating the job into two stages, the data remains in the SQS queue and will be retried when express server or database network failure.
+
+<!-- In the "Task Processing" section, consider discussing how the system handles retry attempts if there's a network failure. -->
+
+<!-- Consider detailing more about how SQS handles data during network failures, which contributes to its reliability. -->
+
+<!-- visibility_timeout_seconds : 用來控制lambda重複看到queue message的時間 -->
+
+<!-- 
 ## 🚧 Search
 
 Diving into the process of choosing the appropriate tokenizer and analyzer for MongoDB Atlas to optimize search efficiency.
 
 1. How did you determine the most suitable tokenizer and analyzer for MongoDB Atlas in your project?
 2. Could you explain how the chosen tokenizer and analyzer improve the search functionality?
-3. Have you considered any other options before settling on your current choices? If so, why did you prefer the current selection?
+3. Have you considered any other options before settling on your current choices? If so, why did you prefer the current selection? -->
 
-## 🚧 Infrastructure
+<!-- ## 🚧 Infrastructure
 
 ### Elastic Container Service (ECS)
 
@@ -96,6 +116,4 @@ Discussion on the rationale behind using ECS instead of traditional EC2 for serv
 
 3. Were there any challenges or drawbacks with this decision?
 
-- debugging (hard to check the log message)
-
-### Terraform (IaC Tool)
+- debugging (hard to check the log message) -->
