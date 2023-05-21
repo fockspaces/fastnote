@@ -5,10 +5,11 @@
 1. [Summarization Strategy](#summarization-strategy)
    - [Fine-tuning Prompt](#fine-tuning-prompt)
    - [Managing Long Texts](#managing-long-texts)
-2. [Asynchrounous Task Processing](#asynchrounous-task-processing)
+2. [Asynchronous Task Processing](#asynchronous-task-processing)
+   - [Choosing Amazon SQS: The Advantages](#choosing-amazon-sqs-the-advantages)
    - [Scalability with AWS Lambda](#scalability-with-aws-lambda)
 
-## 📔 Summarization Strategy
+## Summarization Strategy
 
 This section explains our method for creating clear and short prompts, which are important for summarizing content and creating tags.
 
@@ -66,7 +67,7 @@ By breaking the note's content into many pieces, we can get responses from the G
 
 However, it's still tricky to determine which part is the dominant one. Each piece of the summary might have a different significance in the overall context. If a user adds new content that falls into a new piece, it might take up too much proportion (weight) in the summarization process.
 
-## 📙 Asynchrounous Task Processing
+## Asynchronous Task Processing
 
 In this project, the approach to processing asynchronous tasks for article summarization leans on Amazon SQS and Lambda.
 
