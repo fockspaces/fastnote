@@ -21,6 +21,7 @@
 ## Table of Contents
 
 - [Main Features](#main-features)
+- [Under The Hood](#under-the-hood)
 - [Architecture](#architecture)
 - [Database Table Schema](#database-table-schema)
 - [CI / CD](#ci--cd)
@@ -35,6 +36,12 @@
 - Asynchronous Processing: Perform independent summarization tasks with lambda functions
 - Scalable Design: Handle high-load scenarios by initiating additional containers as needed.
 - Infrastructure Management: Employed Terraform for resources management.
+
+## Under The Hood 
+<a href="https://github.com/fockspaces/fastnote/blob/main/Documentation/TechSkills.md" target="_blank">📓 See Details</a>
+
+In this section, we'll take a closer look at the technical aspects of the project and how various technologies and skills were employed to achieve specific goals.
+
 
 ## Architecture
 

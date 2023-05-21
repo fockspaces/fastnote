@@ -1,4 +1,4 @@
-## Basic Tutorial 
+# Basic Tutorial 
 ### 1. Select Your Login Method
 Choose to either sign in with your Google account or enter as a guest. 
 
