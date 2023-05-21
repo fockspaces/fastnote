@@ -1,5 +1,13 @@
 # Under The Hood
 
+## Table of Contents
+
+1. [Summarization Strategy](#summarization-strategy)
+   - [Fine-tuning Prompt](#fine-tuning-prompt)
+   - [Managing Long Texts](#managing-long-texts)
+2. [Asynchrounous Task Processing](#asynchrounous-task-processing)
+   - [Scalability with AWS Lambda](#scalability-with-aws-lambda)
+
 ## 📔 Summarization Strategy
 
 This section explains our method for creating clear and short prompts, which are important for summarizing content and creating tags.
@@ -58,9 +66,13 @@ By breaking the note's content into many pieces, we can get responses from the G
 
 However, it's still tricky to determine which part is the dominant one. Each piece of the summary might have a different significance in the overall context. If a user adds new content that falls into a new piece, it might take up too much proportion (weight) in the summarization process.
 
-## 🚧 Asynchrounous Task Processing
+## 📙 Asynchrounous Task Processing
 
-The processing of asynchronous tasks for article summarization in this project relies on Amazon SQS and Lambda. My choice go towards SQS for the following reasons:
+In this project, the approach to processing asynchronous tasks for article summarization leans on Amazon SQS and Lambda.
+
+### Choosing Amazon SQS: The Advantages
+
+The selection of Amazon SQS as our message queuing service was driven by several key factors:
 
 - Reliability: In contrast to self-hosted RabbitMQ, which requires backup plans on server failure. SQS (maintained by AWS) guarantees the queuing of new jobs as long as our Express server remains active.
 
@@ -70,11 +82,11 @@ The processing of asynchronous tasks for article summarization in this project r
 
 ### Scalability with AWS Lambda
 
-Lambda's auto-scaling capability is an powerful advantage, as it manages and scales out concurrent requests without the need to maintain an infrastructure.
+The auto-scaling capabilities of AWS Lambda offer a significant advantage by handling and scaling concurrent requests without the necessity for infrastructure maintenance.
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/57708be4-ed63-43a2-a830-cb0ff8bafea5" alt="image" width="80%" height="auto" />
 
-The following steps in our application ensure scalability:
+Our application employs the following steps to maintain scalability:
 
 - Stage 1: GPT Fetching
 
@@ -84,36 +96,6 @@ The following steps in our application ensure scalability:
 
   Subsequently, SQS triggers another Lambda function that interacts with the Express server to update the database.
 
-Furthermore, an error handling mechanism is in place. If a Lambda process encounters failure, SQS re-initiates the Lambda process after a predetermined timeout.
+Additionally, we have implemented an error-handling mechanism. If a Lambda process fails, SQS restarts the Lambda process after a preset timeout.
 
-If failures continue, the task is sent to a Dead-Letter Queue (DLQ), an entity serving as a backup storage for messages that cannot be processed correctly, ensuring that no data is lost, even during network failures.
-
-<!--
-## 🚧 Search
-
-Diving into the process of choosing the appropriate tokenizer and analyzer for MongoDB Atlas to optimize search efficiency.
-
-1. How did you determine the most suitable tokenizer and analyzer for MongoDB Atlas in your project?
-2. Could you explain how the chosen tokenizer and analyzer improve the search functionality?
-3. Have you considered any other options before settling on your current choices? If so, why did you prefer the current selection? -->
-
-<!-- ## 🚧 Infrastructure
-
-### Elastic Container Service (ECS)
-
-Discussion on the rationale behind using ECS instead of traditional EC2 for server management.
-
-1. Could you explain why you chose to use ECS instead of EC2 for server management in your project?
-
-- Server Loading (no need for real-time
-  operation)
-- Easy to manage resource
-
-2. What benefits did this choice provide for your project's scalability and reliability?
-
-- containerization
-  no need to care about the environment of instance setting
-
-3. Were there any challenges or drawbacks with this decision?
-
-- debugging (hard to check the log message) -->
+If failures continue, the task is sent to a Dead-Letter Queue (DLQ), a repository designed for messages that could not be correctly processed. This ensures that no data is lost, even during network failures.
