@@ -36,7 +36,7 @@ This initial attempt produced results that looked like this:
 
 We found that the summary was incomplete and not very clear.
 
-So, we changed the prompt to:
+So, we changed the prompt into:
 
 > First, identify the language of the text provided below:
 > ${content}
@@ -92,17 +92,17 @@ The selection of Amazon SQS as our message queuing service was driven by several
 
 - Reliability: In contrast to self-hosted RabbitMQ, which requires backup plans on server failure. SQS (maintained by AWS) guarantees the queuing of new jobs as long as our Express server remains active.
 
-- Scalability: Considering the infrequent need for article summarization by users, there's generally less computational load. At most part of the processing time is spent awaiting GPT-3 responses, using Lambda to manage these responses is a highly effective strategy.
+- Efficiency: Considering the infrequent need for article summarization by users, there's generally less computational load. At most part of the processing time is spent awaiting GPT-3 responses, using SQS with Lambda to manage these responses is a highly efficient strategy.
 
 - Cost-effectiveness: SQS grants 1 million free requests per month. Compared to RabbitMQ's minimum setup cost on Tokyo ECS (around 8.9 USD/month for 0.25v CPU + 0.5v Memory), SQS becomes a cost-effective choice if monthly requests stay under 1 million.
 
-### 2. Scalability with AWS Lambda
+### 2. Ensuring Data Integrity with AWS Lambda
 
-The auto-scaling capabilities of AWS Lambda offer a significant advantage by handling and scaling concurrent requests without the necessity for infrastructure maintenance.
+To prevent data loss, we use AWS Lambda's capability to handle a high volume of simultaneous requests without requiring additional infrastructure management.
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/57708be4-ed63-43a2-a830-cb0ff8bafea5" alt="image" width="80%" height="auto" />
 
-Our application employs the following steps to maintain scalability:
+Here's how our application ensures data integrity:
 
 - Stage 1: GPT Fetching
 
