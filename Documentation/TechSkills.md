@@ -2,24 +2,31 @@
 
 ## Table of Contents
 
-1. [Summarization Strategy](#summarization-strategy)
-   - [Fine-tuning Prompt](#fine-tuning-prompt)
-   - [Managing Long Texts](#managing-long-texts)
-2. [Asynchronous Task Processing](#asynchronous-task-processing)
-   - [Choosing Amazon SQS: The Advantages](#choosing-amazon-sqs-the-advantages)
-   - [Scalability with AWS Lambda](#scalability-with-aws-lambda)
+[Summarization Strategy](#summarization-strategy)
+
+- [1. Fine-tuning Prompt](#1-fine-tuning-prompt)
+- [2. Managing Long Texts](#2-managing-long-texts)
+
+[Asynchronous Task Processing](#asynchronous-task-processing)
+
+- [1. Choosing Amazon SQS: The Advantages](#1-choosing-amazon-sqs-the-advantages)
+- [2. Scalability with AWS Lambda](#2-scalability-with-aws-lambda)
+
+---
 
 ## Summarization Strategy
 
 This section explains our method for creating clear and short prompts, which are important for summarizing content and creating tags.
 
-### Fine-tuning Prompt
+### 1. Fine-tuning Prompt
 
 Our approach focuses on creating a detailed prompt that guides the summarization process.
 
 At first, we used a simple prompt asking GPT to summarize:
 
 > Make a summary of the following content for me: ${content}
+
+This initial attempt produced results that looked like this:
 
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/bdba9324-ba37-4411-b03e-33e91897ec51" alt="image" width="80%" height="auto" />
 
@@ -47,13 +54,15 @@ Our approach is based on these main principles:
 - Breaking complex tasks into simpler by subtasks.
 - Sticking to specific output formats.
 
+The results with this refined prompt appear as follows:
+
 <img src="https://github.com/fockspaces/fastnote/assets/63909491/425e0ca7-4b96-4875-a649-65d110562c7e" alt="image" width="80%" height="auto" />
 
 Great, now we get a clear understanding of the note content.
 
 For more insights, please refer to the <a href="https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md">OpenAI Cookbook</a>
 
-### Managing Long Texts
+### 2. Managing Long Texts
 
 When dealing with large amounts of note content, the summarization process might take longer. This is because we have to divide the content into several parts to stay within the maximum token limit of GPT-3.
 
@@ -67,11 +76,13 @@ By breaking the note's content into many pieces, we can get responses from the G
 
 However, it's still tricky to determine which part is the dominant one. Each piece of the summary might have a different significance in the overall context. If a user adds new content that falls into a new piece, it might take up too much proportion (weight) in the summarization process.
 
+---
+
 ## Asynchronous Task Processing
 
 In this project, the approach to processing asynchronous tasks for article summarization leans on Amazon SQS and Lambda.
 
-### Choosing Amazon SQS: The Advantages
+### 1. Choosing Amazon SQS: The Advantages
 
 The selection of Amazon SQS as our message queuing service was driven by several key factors:
 
@@ -81,7 +92,7 @@ The selection of Amazon SQS as our message queuing service was driven by several
 
 - Cost-effectiveness: SQS grants 1 million free requests per month. Compared to RabbitMQ's minimum setup cost on Tokyo ECS (around 8.9 USD/month for 0.25v CPU + 0.5v Memory), SQS becomes a cost-effective choice if monthly requests stay under 1 million.
 
-### Scalability with AWS Lambda
+### 2. Scalability with AWS Lambda
 
 The auto-scaling capabilities of AWS Lambda offer a significant advantage by handling and scaling concurrent requests without the necessity for infrastructure maintenance.
 

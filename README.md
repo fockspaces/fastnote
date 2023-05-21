@@ -21,14 +21,13 @@
 📓 Under the Hood:
 <a href="https://github.com/fockspaces/fastnote/blob/main/Documentation/TechSkills.md" target="_blank"> Details</a>
 
-
 _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the technical aspects of the project and how various technologies and skills were employed to achieve specific goals._
 
+---
 
 ## Table of Contents
 
 - [Main Features](#main-features)
-- [Under The Hood](#under-the-hood)
 - [Architecture](#architecture)
 - [Database Table Schema](#database-table-schema)
 - [CI / CD](#ci--cd)
@@ -37,6 +36,8 @@ _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the 
 - [Cloud Services (AWS)](#cloud-services-aws)
 - [Contact](#contact)
 
+---
+
 ## Main Features
 
 - Full-Text-Search: Efficient full-text search functionality, allowing users to quickly find related notes they have written.
@@ -44,15 +45,21 @@ _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the 
 - Scalable Design: Handle high-load scenarios by initiating additional containers as needed.
 - Infrastructure Management: Employed Terraform for resources management.
 
+---
+
 ## Architecture
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="100%" height="auto" />
+## <img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="100%" height="auto" />
+
+---
 
 ## Database Table Schema
 
 The database table schema is defined using Mongoose schema.
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="100%" height="auto" />
+## <img src="https://github.com/fockspaces/fastnote/assets/63909491/4435ddcc-1f0a-4c9e-880f-2c6f022e77b8" alt="image" width="100%" height="auto" />
+
+---
 
 ## CI / CD
 
@@ -85,11 +92,15 @@ You can find the coverage report in the <code>/backend/coverage</code> directory
 - Docker: Ensures consistent, reproducible environments for AWS ECS.
 - Terraform: Manages and provisions AWS services resources, enhancing scalability and consistency.
 
+---
+
 ## API Documentation
 
 The API documentation is supported by Swagger
 
 🔗 https://app.swaggerhub.com/apis-docs/fastnote/fast-note_api/1.0.0
+
+---
 
 ## Technique
 
@@ -149,6 +160,8 @@ Technologies and tools utilized in the project.
 ### DNS
 
 - Route 53
+
+---
 
 ## Contact
 
