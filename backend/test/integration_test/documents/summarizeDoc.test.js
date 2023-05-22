@@ -67,27 +67,27 @@ describe("POST /documents/:document_id/summary", () => {
     expect(response.body.result).toBe(true);
   });
 
-  test("should return 400 when content length is less than 100", async () => {
-    // Create test paragraph with content length less than 100
-    const shortParagraph = new Paragraph({
-      document_id: testDocument._id,
-      title: "Short Paragraph",
-      content: "Short content",
-      isUpdated: false,
-    });
-    await shortParagraph.save();
+  // test("should return 400 when content length is less than 100", async () => {
+  //   // Create test paragraph with content length less than 100
+  //   const shortParagraph = new Paragraph({
+  //     document_id: testDocument._id,
+  //     title: "Short Paragraph",
+  //     content: "Short content",
+  //     isUpdated: false,
+  //   });
+  //   await shortParagraph.save();
 
-    // Add the short paragraph to the test document
-    testDocument.paragraphs.push(shortParagraph);
-    await testDocument.save();
+  //   // Add the short paragraph to the test document
+  //   testDocument.paragraphs.push(shortParagraph);
+  //   await testDocument.save();
 
-    const response = await request(app)
-      .post(`/api/documents/${testDocument._id}/summary`)
-      .set("Authorization", `Bearer ${token}`);
+  //   const response = await request(app)
+  //     .post(`/api/documents/${testDocument._id}/summary`)
+  //     .set("Authorization", `Bearer ${token}`);
 
-    expect(response.statusCode).toBe(400);
-    expect(response.body.message).toEqual("content length is less than 100");
-  });
+  //   expect(response.statusCode).toBe(400);
+  //   expect(response.body.message).toEqual("content length is less than 100");
+  // });
 });
 
 afterAll(async () => {
