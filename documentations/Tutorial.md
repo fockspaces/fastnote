@@ -12,13 +12,13 @@ Upon successful login, you will be redirected to the home page.
 
 Click the "New Note" button located on the left side menu to create your note.
 
-<img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/blob/develop/Documentation/assets/new_note.gif">
+<img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/blob/main/documentations/assets/new_note.gif">
 
 
 ### 3. Generate a Summary
 Once you have finished writing your note, click the 'Summarize' button. This will generate the summary of your note.
 
-<img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/raw/develop/Documentation/assets/summarize.gif">
+<img width="70%" alt="image" src="https://github.com/fockspaces/fastnote/raw/main/documentations/assets/summarize.gif">
 
 
 ### 4. All Done

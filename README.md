@@ -16,10 +16,10 @@
 
 🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">www.fastnote.space</a>
 
-📖 How to Use: <a href="https://github.com/fockspaces/fastnote/blob/main/documentation/Tutorial.md" target="_blank">Tutorial</a>
+📖 How to Use: <a href="https://github.com/fockspaces/fastnote/blob/main/documentations/Tutorial.md" target="_blank">Tutorial</a>
 
 📓 Under the Hood:
-<a href="https://github.com/fockspaces/fastnote/blob/main/documentation/TechSkills.md" target="_blank"> Details</a>
+<a href="https://github.com/fockspaces/fastnote/blob/main/documentations/TechSkills.md" target="_blank"> Details</a>
 
 _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the technical aspects of the project and how various technologies and skills were employed to achieve specific goals._
 
