@@ -6,15 +6,15 @@ This section provides insights into the mechanisms powering our application, foc
 
 ## Table of Contents
 
-[Summarization Strategy](#summarization-strategy)
+- [Summarization Strategy](#summarization-strategy)
 
-- [Fine-tuning Prompt](#1-fine-tuning-prompt)
-- [Managing Long Texts](#2-managing-long-texts)
+  - [Fine-tuning Prompt](#1-fine-tuning-prompt)
+  - [Managing Long Texts](#2-managing-long-texts)
 
-[Asynchronous Task Processing](#asynchronous-task-processing)
+- [Asynchronous Task Processing](#asynchronous-task-processing)
 
-- [Choosing Amazon SQS: The Advantages](#1-choosing-amazon-sqs-the-advantages)
-- [Ensuring Data Integrity with AWS Lambda](#2-ensuring-data-integrity-with-aws-lambda)
+  - [Choosing Amazon SQS: The Advantages](#1-choosing-amazon-sqs-the-advantages)
+  - [Ensuring Data Integrity with AWS Lambda](#2-ensuring-data-integrity-with-aws-lambda)
 
 ---
 
