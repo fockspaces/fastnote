@@ -28,7 +28,7 @@ Our approach focuses on creating a detailed prompt that guides the summarization
 
 At first, we used a simple prompt asking GPT to summarize:
 
-<img width="90%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/4b3a3fa5-01e8-479d-8107-9b87e554e461">
+<img width="80%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/4b3a3fa5-01e8-479d-8107-9b87e554e461">
 
 This initial attempt produced results that looked like this:
 
@@ -38,10 +38,10 @@ We found that the summary was incomplete and not very clear.
 
 So, we changed the prompt into:
 
-<img width="90%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/29e22dea-76fd-44b3-ab61-778806138c60">
+<img width="80%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/29e22dea-76fd-44b3-ab61-778806138c60">
 
-Our approach is based on these main principles:
 
+> Our approach is based on these main principles:
 > 1. Thinking step by step.
 > 2. Breaking complex tasks into simpler by subtasks.
 > 3. Sticking to specific output formats.
@@ -88,7 +88,7 @@ The selection of Amazon SQS as our message queuing service was driven by several
 
 To prevent data loss, we use AWS Lambda's capability to handle a high volume of simultaneous requests without requiring additional infrastructure management.
 
-<img src="https://github.com/fockspaces/fastnote/assets/63909491/57708be4-ed63-43a2-a830-cb0ff8bafea5" alt="image" width="80%" height="auto" />
+<img src="https://github.com/fockspaces/fastnote/assets/63909491/3f7627eb-3c88-4eb6-bf40-119bb087d371" alt="image" width="80%" height="auto" />
 
 Here's how our application ensures data integrity:
 

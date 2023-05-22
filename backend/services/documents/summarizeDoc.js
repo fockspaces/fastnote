@@ -14,8 +14,7 @@ export const summarizeDoc = async (document_id, access_token) => {
     const content = updatedParagraphs
       .map((paragraph) => stripHTMLTags(paragraph.content))
       .join(" ");
-    // if content is too short, don't do summarize.
-    if (content.length < 100) return false;
+      
     const tags = document.tags;
 
     // store job {document_id, content, access_token} into SQS
