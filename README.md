@@ -16,6 +16,8 @@
 
 🔗 Website URL: <a href="https://www.fastnote.space" target="_blank">www.fastnote.space</a>
 
+> ⚠️ Please be aware that in guest mode, your data will be lost upon logging out.
+
 📖 How to Use: <a href="https://github.com/fockspaces/fastnote/blob/main/documentations/Tutorial.md" target="_blank">Tutorial</a>
 
 📓 Under the Hood:
@@ -49,11 +51,11 @@ _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the 
 
 ## Architecture
 
-## <img src="https://github.com/fockspaces/fastnote/assets/63909491/87417a0d-2d21-45ae-ba29-87100fbe2d45" alt="image" width="100%" height="auto" />
+## <img src="https://github.com/fockspaces/fastnote/assets/63909491/595c9cb7-5b79-4c8c-b195-1980efe1e0f8" alt="image" width="100%" height="auto" />
 
 ---
 
-## Database Table Schema
+## MongoDB Database Schema
 
 The database table schema is defined using Mongoose schema.
 
@@ -71,15 +73,11 @@ The deployment process for both frontend and backend components is managed separ
 
 - Backend Process: If the tests pass successfully, a Docker image is pushed to a Docker Hub, triggering an update in the AWS ECS services.
 
-- Frontend Process: Each commit triggers a build of the React application. Static files are directly uploaded to AWS S3 for web hosting.
+- Frontend Process: Every commit initiates a build process for the React application. The resulting static files are uploaded directly to AWS S3 for web hosting, followed by an invalidation of the CloudFront cache.
 
 ### Testing
 
-To execute the tests and generate the test results, use the following command:
-
-```shell
-npm run test -- --coverage
-```
+Our project utilizes integration testing, focusing primarily on typical use-cases and critical paths.
 
 You can find the coverage report in the <code>/backend/coverage</code> directory of the repository.
 

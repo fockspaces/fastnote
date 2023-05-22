@@ -28,7 +28,7 @@ Our approach focuses on creating a detailed prompt that guides the summarization
 
 At first, we used a simple prompt asking GPT to summarize:
 
-> Make a summary of the following content for me: ${content}
+<img width="90%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/4b3a3fa5-01e8-479d-8107-9b87e554e461">
 
 This initial attempt produced results that looked like this:
 
@@ -38,25 +38,13 @@ We found that the summary was incomplete and not very clear.
 
 So, we changed the prompt into:
 
-> First, identify the language of the text provided below:
-> ${content}
->
-> Once you've identified the language, follow these steps to generate a one-sentence summary in the original language:
->
-> 1.  Carefully read the text, focusing on the main ideas and themes of each restaurant mentioned.
-> 2.  Break down the text into smaller, manageable parts, and analyze each part in detail.
-> 3.  Consider the relevance of each part to the overall context, and identify the key points for each restaurant.
-> 4.  Combine the key points for each restaurant separately, ensuring the information is clear and not mixed.
-> 5.  Create a concise summary that accurately captures the essence of the content, mentioning both restaurants.
-> 6.  Ensure that the summary is grammatically correct, forms a complete sentence, and is in the original language of the text.
->
-> Summary:
+<img width="90%" alt="image" src="https://github.com/fockspaces/fastnote/assets/63909491/29e22dea-76fd-44b3-ab61-778806138c60">
 
 Our approach is based on these main principles:
 
-- Thinking step by step.
-- Breaking complex tasks into simpler by subtasks.
-- Sticking to specific output formats.
+> 1. Thinking step by step.
+> 2. Breaking complex tasks into simpler by subtasks.
+> 3. Sticking to specific output formats.
 
 The results with this refined prompt appear as follows:
 
