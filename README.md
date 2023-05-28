@@ -31,7 +31,7 @@ _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the 
 
 - [Main Features](#main-features)
 - [Architecture](#architecture)
-- [Database Table Schema](#database-table-schema)
+- [MongoDB Database Schema](#mongodb-database-schema)
 - [CI / CD](#ci--cd)
 - [API Documentation](#api-documentation)
 - [Technique](#technique)
