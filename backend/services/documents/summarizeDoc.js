@@ -8,13 +8,13 @@ export const summarizeDoc = async (document_id, access_token) => {
   try {
     const document = await findDoc(document_id);
     // preparing parameters
-    const updatedParagraphs = document.paragraphs.filter(
-      (paragraph) => paragraph.isUpdated
-    );
-    const content = updatedParagraphs
+    // const updatedParagraphs = document.paragraphs.filter(
+    //   (paragraph) => paragraph.isUpdated
+    // );
+    const content = document.paragraphs
       .map((paragraph) => stripHTMLTags(paragraph.content))
       .join(" ");
-      
+
     const tags = document.tags;
 
     // store job {document_id, content, access_token} into SQS
