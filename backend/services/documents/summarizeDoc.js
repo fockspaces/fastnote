@@ -8,10 +8,10 @@ export const summarizeDoc = async (document_id, access_token) => {
   try {
     const document = await findDoc(document_id);
     // preparing parameters
-    // const updatedParagraphs = document.paragraphs.filter(
-    //   (paragraph) => paragraph.isUpdated
-    // );
-    const content = document.paragraphs
+    const updatedParagraphs = document.paragraphs.filter(
+      (paragraph) => paragraph.isUpdated
+    );
+    const content = updatedParagraphs
       .map((paragraph) => stripHTMLTags(paragraph.content))
       .join(" ");
 
