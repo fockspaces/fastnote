@@ -51,7 +51,9 @@ _**Note:** In the '**Under the Hood**' section, we'll take a closer look at the 
 
 ## Architecture
 
-## <img src="https://github.com/fockspaces/fastnote/assets/63909491/595c9cb7-5b79-4c8c-b195-1980efe1e0f8" alt="image" width="100%" height="auto" />
+## <img src="https://github.com/fockspaces/fastnote/assets/63909491/176a43bc-2c22-40e0-9657-3f5e4dc6e4a0" alt="image" width="100%" height="auto" />
+
+
 
 ---
 
